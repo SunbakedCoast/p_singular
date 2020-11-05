@@ -8,7 +8,7 @@ class PlayButton extends StatelessWidget {
     var _screenSize = MediaQuery.of(context).size;
     return Consumer<AnimationController>(builder: (context, animation, _) {
       return Positioned(
-        top: topMargin(context) + 480,
+        top: topMargin(context) + 455,
         right: 10,
         child: SizedBox(
           width: _screenSize.width * (1 + animation.value) / 4,

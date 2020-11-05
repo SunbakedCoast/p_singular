@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
+    print("screenHeight is: ${_screenSize.height} & screenWidth is: ${_screenSize.width}");
     return ListView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),

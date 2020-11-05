@@ -8,7 +8,7 @@ class ResIcon extends StatelessWidget {
     return Consumer<AnimationController>(
       builder: (context, animation, child) {
         return Positioned(
-          top: topMargin(context) + 490,
+          top: topMargin(context) + 465,
           left: 10 * (1 + animation.value),
           child: Opacity(opacity: animation.value, child: child),
         );

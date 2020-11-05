@@ -8,7 +8,7 @@ class TitleLabel extends StatelessWidget{
     return Consumer<AnimationController>(
       builder: (context, animation, child){
         return Positioned(
-          top: topMargin(context) +  210 + (1 - animation.value) * (mainSquareSize(context) - 45),
+          top: topMargin(context) +  140 + (1 - animation.value) * (mainSquareSize(context) + 20),
           left: 10,
           child: child,
         );
