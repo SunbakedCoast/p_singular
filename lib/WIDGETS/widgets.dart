@@ -1,0 +1,12 @@
+export 'package:p_singular/WIDGETS/LISTS/widget_horizontal_list_categories.dart';
+export 'package:p_singular/WIDGETS/LISTS/widget_horizontal_list.dart';
+export 'package:p_singular/WIDGETS/LISTS/widget_vertical_list_wide.dart';
+export 'package:p_singular/WIDGETS/STACK/widget_title.dart';
+export 'package:p_singular/WIDGETS/STACK/widget_arrow_up.dart';
+export 'package:p_singular/WIDGETS/STACK/widget_dark_gradient.dart';
+export 'package:p_singular/WIDGETS/STACK/widget_body.dart';
+export 'package:p_singular/WIDGETS/STACK/widget_image_main.dart';
+export 'package:p_singular/WIDGETS/STACK/widget_play_button.dart';
+export 'package:p_singular/WIDGETS/STACK/widget_res_icon.dart';
+export 'package:p_singular/WIDGETS/STACK/widget_back_arrow.dart';
+export 'package:p_singular/WIDGETS/STACK/widget_players.dart';
