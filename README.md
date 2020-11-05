@@ -1,6 +1,6 @@
 # p_singular
 
-A new Flutter project.
+Singular:user-interface 0.0.1 
 
 ## Getting Started
 
