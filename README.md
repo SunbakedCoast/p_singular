@@ -1,6 +1,6 @@
 # p_singular
 
-A new Flutter project.
+Welcome to Singular
 
 ## Getting Started
 
