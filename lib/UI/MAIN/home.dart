@@ -72,7 +72,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ];
           },
           body: TabBarView(
-            children: [HomeTab(), MostPlayedTab()],
+            children: [HomeProvider(), MostPlayedTab()],
             controller: _tabController,
           ),
         ),

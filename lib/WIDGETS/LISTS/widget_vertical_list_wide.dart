@@ -1,18 +1,23 @@
 import 'package:animations/animations.dart';
+import 'package:p_singular/BLOCS/BLOCS_HOME/home.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class VerticalListWide extends StatelessWidget {
   final String section;
-  final String itemName;
-  final String likes;
+  final int itemLength;
+  final DataLoaded state;
+  var games;
 
-  VerticalListWide(
-      {@required this.section, @required this.itemName, @required this.likes});
+  VerticalListWide({@required this.section,
+  @required this.itemLength,
+  @required this.state,
+  @required this.games});
 
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+    games = state.games;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
@@ -27,18 +32,18 @@ class VerticalListWide extends StatelessWidget {
                     fontWeight: FontWeight.bold))),
         Container(
           child: ListView.builder(
-              itemCount: 10,
+              itemCount: itemLength,
               shrinkWrap: true,
               physics: ScrollPhysics(),
               scrollDirection: Axis.vertical,
               itemBuilder: (BuildContext context, int index) =>
-                  _item(context, itemName, _screenSize)),
+                  _item(context, games[index].name,games[index].image ,_screenSize)),
         )
       ],
     );
   }
 
-  Widget _item(BuildContext context, String itemName, Size screenSize) {
+  Widget _item(BuildContext context, String itemName, String imgurl,Size screenSize) {
     return Container(
       margin: const EdgeInsets.all(5),
       padding: const EdgeInsets.all(5),
@@ -67,7 +72,10 @@ class VerticalListWide extends StatelessWidget {
                           height: 140,
                           width: screenSize.width,
                           decoration: BoxDecoration(
-                              color: Colors.grey,
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(imgurl)
+                              ),
                               borderRadius: BorderRadius.only(
                                   topRight: Radius.circular(15),
                                   topLeft: Radius.circular(5),

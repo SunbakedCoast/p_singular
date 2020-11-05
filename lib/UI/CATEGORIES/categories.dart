@@ -42,6 +42,7 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
           width: _screenSize.width,
           decoration: BoxDecoration(
             gradient: LinearGradient(
+
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [Color(widget.gradientOne), Color(widget.gradientTwo)]),
