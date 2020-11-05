@@ -17,8 +17,8 @@ class DetailsBody extends StatelessWidget {
         );
       },
       child: Text(
-          'Night City is an American Megacity in the Free State of North California, controlled by corporations'
-          'and unassailed by the laws of both country and state. It sees conflict from rampant'
+          'Night City is an American Megacity in the Free State of North California, controlled by corporations.'
+          ' and unassailed by the laws of both country and state. It sees conflict from rampant'
           'gang wars and its rulling entitties contending for deominance. The city is reliant on'
           'robotics for everyday aspects like waste collection, maintenance and public transportation.'
           'its visual identity is derived from the four eras it underwent-austere Entropism, colorful'
