@@ -4,6 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class DetailsBody extends StatelessWidget {
+  final body;
+
+  DetailsBody({@required this.body});
   Widget build(BuildContext context) {
     return Consumer<AnimationController>(
       builder: (context, animation, child) {
@@ -17,12 +20,7 @@ class DetailsBody extends StatelessWidget {
         );
       },
       child: Text(
-          'Night City is an American Megacity in the Free State of North California, controlled by corporations.'
-          ' and unassailed by the laws of both country and state. It sees conflict from rampant'
-          'gang wars and its rulling entitties contending for deominance. The city is reliant on'
-          'robotics for everyday aspects like waste collection, maintenance and public transportation.'
-          'its visual identity is derived from the four eras it underwent-austere Entropism, colorful'
-          'Kitsch, imposing Neo-Militarism, and opulent Neo-Kitsch.',
+         body,
           style: GoogleFonts.montserrat(
               color: Colors.white,
               wordSpacing: 5,

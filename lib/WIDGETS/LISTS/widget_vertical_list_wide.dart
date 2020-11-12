@@ -9,9 +9,8 @@ class VerticalListWide extends StatelessWidget {
   final DataLoaded state;
   var games;
 
-  VerticalListWide({@required this.section,
-  @required this.state,
-  @required this.games});
+  VerticalListWide(
+      {@required this.section, @required this.state, @required this.games});
 
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
@@ -34,14 +33,33 @@ class VerticalListWide extends StatelessWidget {
               shrinkWrap: true,
               physics: ScrollPhysics(),
               scrollDirection: Axis.vertical,
-              itemBuilder: (BuildContext context, int index) =>
-                  _item(context, games[index].name,games[index].image ,_screenSize)),
+              itemBuilder: (BuildContext context, int index) => _item(
+                  context: context,
+                  image: games[index].image,
+                  name: games[index].name,
+                  description: games[index].description,
+                  isFourK: games[index].isFourK,
+                  isMultiplayer: games[index].isMultiplayer,
+                  players: games[index].players,
+                  genre: games[index].genre,
+                  isFeatured: games[index].isFeatured,
+                  screenSize: _screenSize)),
         )
       ],
     );
   }
 
-  Widget _item(BuildContext context, String itemName, String imgurl,Size screenSize) {
+  Widget _item(
+      {BuildContext context, 
+      String image,
+      String name,
+      String description,
+      bool isFourK,
+      bool isMultiplayer,
+      int players,
+      String genre,
+      bool isFeatured,  
+      Size screenSize}) {
     return Container(
       margin: const EdgeInsets.all(5),
       padding: const EdgeInsets.all(5),
@@ -71,9 +89,8 @@ class VerticalListWide extends StatelessWidget {
                           width: screenSize.width,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(imgurl)
-                              ),
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(image)),
                               borderRadius: BorderRadius.only(
                                   topRight: Radius.circular(15),
                                   topLeft: Radius.circular(5),
@@ -93,12 +110,19 @@ class VerticalListWide extends StatelessWidget {
                         bottomRight: Radius.circular(5),
                         bottomLeft: Radius.circular(15))),
                 openBuilder: (_, closeContainer) {
-                  return Details();
+                  return Details(image: image,
+                  name: name,
+                  description: description,
+                  isFourK: isFourK,
+                  isMultiplayer: isMultiplayer,
+                  players: players,
+                  genre: genre,
+                  isFeatured: isFeatured,);
                 }),
           ),
           Flexible(
             child: Text(
-              itemName,
+              name,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
               style: Theme.of(context).textTheme.subtitle2,

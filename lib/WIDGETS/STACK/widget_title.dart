@@ -3,23 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class TitleLabel extends StatelessWidget{
-  Widget build(BuildContext context){
+class TitleLabel extends StatelessWidget {
+  final name;
+
+  TitleLabel({@required this.name});
+  Widget build(BuildContext context) {
     return Consumer<AnimationController>(
-      builder: (context, animation, child){
+      builder: (context, animation, child) {
         return Positioned(
-          top: topMargin(context) +  210 + (1 - animation.value) * (mainSquareSize(context) - 45),
+          top: topMargin(context) +
+              210 +
+              (1 - animation.value) * (mainSquareSize(context) - 45),
           left: 10,
           child: child,
         );
       },
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Text('Cyberpunk: 2077', style: GoogleFonts.lora(
-          color: Colors.white,
-          fontSize: 18,
-          fontWeight: FontWeight.bold
-        )),
+        child: Text(name,
+            style: GoogleFonts.lora(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold)),
       ),
     );
     /* return Container(

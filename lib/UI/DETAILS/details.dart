@@ -7,6 +7,24 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Details extends StatefulWidget {
+  final String image;
+  final String name;
+  final String description;
+  final bool isFourK;
+  final bool isMultiplayer;
+  final int players;
+  final String genre;
+  final bool isFeatured;
+
+  Details(
+      {@required this.image,
+      @required this.name,
+      @required this.description,
+      @required this.isFourK,
+      @required this.isMultiplayer,
+      @required this.players,
+      @required this.genre,
+      @required this.isFeatured});
   _DetailsState createState() => _DetailsState();
 }
 
@@ -65,15 +83,15 @@ class _DetailsState extends State<Details> with TickerProviderStateMixin {
               child: Container(
                 child: Stack(
                   children: [
-                    MainImage(),
+                    MainImage(image: widget.image,),
                     GradientDark(),
                     ArrowUp(arrowAnimationOffset: _arrowAnimationOffset),
-                    TitleLabel(),
-                    DetailsBody(),
+                    TitleLabel(name: widget.name),
+                    DetailsBody(body: widget.description),
                     PlayButton(),
                     ResIcon(),
                     BackArrow(),
-                    PlayersWidget()
+                    PlayersWidget(players: widget.players)
                   ],
                 ),
               ),

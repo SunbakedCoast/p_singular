@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MainImage extends StatelessWidget {
+  final String image;
+
+  MainImage({@required this.image});
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Consumer<AnimationController>(
@@ -21,7 +24,7 @@ class MainImage extends StatelessWidget {
                 image: DecorationImage(
               fit: BoxFit.cover,
               image: NetworkImage(
-                  'https://cdn-l-cyberpunk.cdprojektred.com/wallpapers/1080x1920/CP77-KV-en.jpg'),
+                 image),
             )),
           ),
         );

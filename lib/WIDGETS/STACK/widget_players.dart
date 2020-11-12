@@ -3,6 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class PlayersWidget extends StatelessWidget {
+  final int players;
+
+  PlayersWidget({@required this.players});
   Widget build(BuildContext context) {
     return Consumer<AnimationController>(
       builder: (context, animation, child) {
@@ -26,7 +29,7 @@ class PlayersWidget extends StatelessWidget {
               size: 18,
               color: Colors.white,
             ),
-            Text('0',
+            Text(players.toString(),
                 style: GoogleFonts.montserrat(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).accentColor,

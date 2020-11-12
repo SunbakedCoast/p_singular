@@ -77,7 +77,7 @@ class HorizontalCategories extends StatelessWidget {
           closedShape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           openBuilder: (_, closeContainer) {
-            return CategoriesSlider(
+            return Categories(
                 category: category,
                 gradientOne: gradientOne,
                 gradientTwo: gradientTwo);

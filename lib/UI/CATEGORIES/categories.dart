@@ -6,15 +6,58 @@ import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CategoriesSlider extends StatefulWidget {
+class Categories extends StatelessWidget {
   final String category;
   final int gradientOne;
   final int gradientTwo;
 
-  CategoriesSlider(
+  Categories(
       {@required this.category,
       @required this.gradientOne,
       @required this.gradientTwo});
+  Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
+    return RepositoryProvider<GamesRepository>(
+        create: (context) => GameAPI(),
+        child: BlocProvider<CategoriesBloc>(
+          create: (context) {
+            final gamesRepository =
+                RepositoryProvider.of<GamesRepository>(context);
+            return CategoriesBloc(gamesRepository)..add(LoadCategories());
+          },
+          child: SafeArea(
+            child: Scaffold(
+              body: Container(
+                  height: _screenSize.height,
+                  width: _screenSize.width,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [Color(gradientOne), Color(gradientTwo)])),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.all(20),
+                        child: Text(category,
+                            style: Theme.of(context).textTheme.headline1),
+                      ),
+                      CategoriesSlider(category: category)
+                    ],
+                  )),
+            ),
+          ),
+        ));
+  }
+}
+
+class CategoriesSlider extends StatefulWidget {
+  final String category;
+
+  CategoriesSlider({@required this.category});
   _CategoriesSliderState createState() => _CategoriesSliderState();
 }
 
@@ -37,93 +80,66 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
   }
 
   Widget build(BuildContext context) {
-    var _screenSize = MediaQuery.of(context).size;
-    return RepositoryProvider<GamesRepository>(
-      create: (context) => GameAPI(),
-      child: BlocProvider<CategoriesBloc>(
-        create: (context) {
-          final gamesRepository =
-              RepositoryProvider.of<GamesRepository>(context);
-          return CategoriesBloc(gamesRepository)..add(LoadCategories());
-        },
-        child: BlocBuilder<CategoriesBloc, CategoriesState>(
-            builder: (context, state) {
-          if (state is CategoriesLoaded) {
-            final _games = state.games;
-            final _gamesCount =
-                _games.where((game) => game.genre == widget.category).toList();
-            print('${widget.category} COUNT: $_gamesCount');
-            return SafeArea(
-              child: Scaffold(
-                body: Container(
-                  height: _screenSize.height,
-                  width: _screenSize.width,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(widget.gradientOne),
-                          Color(widget.gradientTwo)
-                        ]),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(20),
-                        child: Text(widget.category,
-                            style: Theme.of(context).textTheme.headline1),
-                      ),
-                      //pageview
-                      Container(
-                        child: Expanded(
-                          child: Container(
-                              child: PageView.builder(
-                                  physics: BouncingScrollPhysics(),
-                                  controller: _pageController,
-                                  itemCount: _gamesCount.length,
-                                  itemBuilder: (context, currentIdx) {
-                                    // if (3 >= currentIdx) {
-                                    bool active = currentIdx == currentPage;
-                                    return _animatedContainer(
-                                        active: active,
-                                        name: _gamesCount[currentIdx].name,
-                                        image: _gamesCount[currentIdx].image);
-                                    //}
-                                  })),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            );
-          }
-          if (state is CategoriesLoading) {
-            return _progressIndicator();
-          }
-        }),
-      ),
-    );
+    return BlocBuilder<CategoriesBloc, CategoriesState>(
+        builder: (context, state) {
+      if (state is CategoriesLoaded) {
+        final _gameState = state.games;
+        final _games =
+            _gameState.where((game) => game.genre == widget.category).toList();
+        print('${widget.category} COUNT: ${_games.length}');
+        return Container(
+          child: Expanded(
+            child: Container(
+                child: PageView.builder(
+                    physics: BouncingScrollPhysics(),
+                    controller: _pageController,
+                    itemCount: _games.length,
+                    itemBuilder: (context, currentIdx) {
+                      // if (3 >= currentIdx) {
+                      bool active = currentIdx == currentPage;
+                      return _animatedContainer(
+                          active: active,
+                          image: _games[currentIdx].image,
+                          name: _games[currentIdx].name,
+                          description: _games[currentIdx].description,
+                          isFourK: _games[currentIdx].isFourK,
+                          isMultiplayer: _games[currentIdx].isMultiplayer,
+                          players: _games[currentIdx].players,
+                          genre: _games[currentIdx].genre,
+                          isFeatured: _games[currentIdx].isFeatured
+                          );
+                    })),
+          ),
+        );
+      }
+      if (state is CategoriesLoading) {
+        return _progressIndicator();
+      }
+    });
   }
 
   Widget _progressIndicator() {
-    return Stack(
-        children: [
-          Center(
-            child: CircularProgressIndicator(),
-          )
-        ],
+    return Center(
+      child: CircularProgressIndicator(),
     );
   }
 
+  /* Widget _fetchError(String error) {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  } */
+
   _animatedContainer({
     bool active,
-    String name,
     String image,
+    String name,
+    String description,
+    bool isFourK,
+    bool isMultiplayer,
+    int players,
+    String genre,
+    bool isFeatured,
   }) {
     final double blur = active ? 10 : 5;
     final double offset = active ? 6 : 0;
@@ -206,7 +222,7 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                                           color: Colors.white, size: 18),
                                       Container(
                                         margin: const EdgeInsets.only(left: 5),
-                                        child: Text('0',
+                                        child: Text(players.toString(),
                                             style: GoogleFonts.montserrat(
                                               fontWeight: FontWeight.bold,
                                               color:
@@ -234,7 +250,14 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                   bottomRight: Radius.circular(5),
                   bottomLeft: Radius.circular(15))),
           openBuilder: (_, closeContainer) {
-            return Details();
+            return Details(image: image,
+            name: name,
+            description: description,
+            isFourK: isFourK,
+            isMultiplayer: isMultiplayer,
+            players: players,
+            genre: genre,
+            isFeatured: isFeatured);
           }),
     );
   }

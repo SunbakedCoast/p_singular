@@ -42,13 +42,29 @@ class HorizontalList extends StatelessWidget {
                     physics: BouncingScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) => _item(
                           context: context,
-                          itemName: games[index].name,
-                          imgurl: games[index].image))))
+                          image: games[index].image,
+                          name: games[index].name,
+                          description: games[index].description,
+                          isFourK: games[index].isFourK,
+                          isMultiplayer: games[index].isMultiplayer,
+                          players: games[index].players,
+                          genre: games[index].genre,
+                          isFeatured: games[index].isFeatured
+                          ))))
       ],
     );
   }
 
-  Widget _item({BuildContext context, String itemName, String imgurl}) {
+  Widget _item({BuildContext context,
+   String image,
+   String name,
+   String description,
+   bool isFourK,
+   bool isMultiplayer,
+   int players,
+   String genre,
+   bool isFeatured
+   }) {
     return Container(
       width: 120,
       margin: const EdgeInsets.all(5),
@@ -66,7 +82,7 @@ class HorizontalList extends StatelessWidget {
                     width: 100,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            fit: BoxFit.cover, image: NetworkImage(imgurl))),
+                            fit: BoxFit.cover, image: NetworkImage(image))),
                   );
                 },
                 closedElevation: 5,
@@ -77,12 +93,19 @@ class HorizontalList extends StatelessWidget {
                         bottomRight: Radius.circular(5),
                         bottomLeft: Radius.circular(15))),
                 openBuilder: (_, closeContainer) {
-                  return Details();
+                  return Details(image: image,
+                  name: name,
+                  description: description,
+                  isFourK: isFourK,
+                  isMultiplayer: isMultiplayer,
+                  players: players,
+                  genre: genre,
+                  isFeatured: isFeatured,);
                 }),
           ),
           Flexible(
             child: Text(
-              itemName,
+              name,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
               style: Theme.of(context).textTheme.subtitle1,
