@@ -6,12 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class VerticalListWide extends StatelessWidget {
   final String section;
-  final int itemLength;
   final DataLoaded state;
   var games;
 
   VerticalListWide({@required this.section,
-  @required this.itemLength,
   @required this.state,
   @required this.games});
 
@@ -32,7 +30,7 @@ class VerticalListWide extends StatelessWidget {
                     fontWeight: FontWeight.bold))),
         Container(
           child: ListView.builder(
-              itemCount: itemLength,
+              itemCount: games.length,
               shrinkWrap: true,
               physics: ScrollPhysics(),
               scrollDirection: Axis.vertical,

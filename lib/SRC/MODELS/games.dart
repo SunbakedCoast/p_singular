@@ -10,6 +10,7 @@ class Games extends Equatable {
   final bool isMultiplayer;
   final int players;
   final String genre;
+  final bool isFeatured;
 
   Games(
       {@required this.image,
@@ -18,7 +19,8 @@ class Games extends Equatable {
       @required this.isFourK,
       @required this.isMultiplayer,
       @required this.players,
-      @required this.genre});
+      @required this.genre,
+      @required this.isFeatured});
 
   static Games fromEntity(GamesEntity entity) {
     return Games(
@@ -28,11 +30,12 @@ class Games extends Equatable {
         isFourK: entity.isFourK,
         isMultiplayer: entity.isMultiplayer,
         players: entity.players,
-        genre: entity.genre);
+        genre: entity.genre,
+        isFeatured: entity.isFeatured);
   }
 
   @override
   // TODO: implement props
   List<Object> get props =>
-      [image, name, description, isFourK, isMultiplayer, players, genre];
+      [image, name, description, isFourK, isMultiplayer, players, genre, isFeatured];
 }
