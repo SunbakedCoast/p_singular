@@ -2,6 +2,9 @@ import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
+//server https://my-json-server.typicode.com/SunbakedCoast/PlayStationDemo/games
+
 void main() {
   runApp(Artifact());
 }

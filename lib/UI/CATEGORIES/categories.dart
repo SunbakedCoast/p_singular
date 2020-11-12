@@ -1,4 +1,7 @@
 import 'package:animations/animations.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:p_singular/BLOCS/BLOCS_CATEGORIES/categories.dart';
+import 'package:p_singular/SRC/REPOSITORIES/games_repository.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,52 +38,93 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
 
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          height: _screenSize.height,
-          width: _screenSize.width,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(widget.gradientOne), Color(widget.gradientTwo)]),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.all(20),
-                child: Text(widget.category,
-                    style: Theme.of(context).textTheme.headline1),
-              ),
-              //pageview
-              Container(
-                child: Expanded(
-                  child: Container(
-                      child: PageView.builder(
-                          physics: BouncingScrollPhysics(),
-                          controller: _pageController,
-                          itemCount: 4,
-                          itemBuilder: (context, currentIdx) {
-                            // if (3 >= currentIdx) {
-                            bool active = currentIdx == currentPage;
-                            return _animatedContainer(active);
-                            //}
-                          })),
+    return RepositoryProvider<GamesRepository>(
+      create: (context) => GameAPI(),
+      child: BlocProvider<CategoriesBloc>(
+        create: (context) {
+          final gamesRepository =
+              RepositoryProvider.of<GamesRepository>(context);
+          return CategoriesBloc(gamesRepository)..add(LoadCategories());
+        },
+        child: BlocBuilder<CategoriesBloc, CategoriesState>(
+            builder: (context, state) {
+          if (state is CategoriesLoaded) {
+            final _games = state.games;
+            final _gamesCount =
+                _games.where((game) => game.genre == widget.category).toList();
+            print('${widget.category} COUNT: $_gamesCount');
+            return SafeArea(
+              child: Scaffold(
+                body: Container(
+                  height: _screenSize.height,
+                  width: _screenSize.width,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(widget.gradientOne),
+                          Color(widget.gradientTwo)
+                        ]),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.all(20),
+                        child: Text(widget.category,
+                            style: Theme.of(context).textTheme.headline1),
+                      ),
+                      //pageview
+                      Container(
+                        child: Expanded(
+                          child: Container(
+                              child: PageView.builder(
+                                  physics: BouncingScrollPhysics(),
+                                  controller: _pageController,
+                                  itemCount: _gamesCount.length,
+                                  itemBuilder: (context, currentIdx) {
+                                    // if (3 >= currentIdx) {
+                                    bool active = currentIdx == currentPage;
+                                    return _animatedContainer(
+                                        active: active,
+                                        name: _gamesCount[currentIdx].name,
+                                        image: _gamesCount[currentIdx].image);
+                                    //}
+                                  })),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              )
-            ],
-          ),
-        ),
+              ),
+            );
+          }
+          if (state is CategoriesLoading) {
+            return _progressIndicator();
+          }
+        }),
       ),
     );
   }
 
-  _animatedContainer(bool active) {
+  Widget _progressIndicator() {
+    return Stack(
+        children: [
+          Center(
+            child: CircularProgressIndicator(),
+          )
+        ],
+    );
+  }
+
+  _animatedContainer({
+    bool active,
+    String name,
+    String image,
+  }) {
     final double blur = active ? 10 : 5;
     final double offset = active ? 6 : 0;
     final double top = active ? 15 : 100;
@@ -104,9 +148,7 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                       bottomRight: Radius.circular(5),
                       bottomLeft: Radius.circular(15)),
                   image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                          'https://cdn-l-cyberpunk.cdprojektred.com/wallpapers/1080x1920/CP77-KV-en.jpg')),
+                      fit: BoxFit.cover, image: NetworkImage(image)),
                   boxShadow: [
                     BoxShadow(
                         color: Colors.black87,
@@ -143,7 +185,7 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                               children: [
                                 Flexible(
                                   child: Text(
-                                    'Cyberpunk: 2077',
+                                    name,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     style: GoogleFonts.lora(
