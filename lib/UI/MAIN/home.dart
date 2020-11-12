@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:p_singular/BLOCS/BLOCS_SEARCH/search.dart';
 import 'package:p_singular/SRC/MODELS/models.dart';
@@ -130,7 +131,6 @@ class SearchData extends SearchDelegate<Games> {
   @override
   Widget buildResults(BuildContext context) {
     gamesBloc.add(SearchEvent(query));
-
     //TODO ADD BLOCPROVIDER
     return RepositoryProvider<GamesRepository>(
       create: (context) => GameAPI(),
@@ -141,66 +141,121 @@ class SearchData extends SearchDelegate<Games> {
           return SearchBloc(gamesRepository);
         },
         child: BlocBuilder<SearchBloc, SearchState>(
-          cubit: gamesBloc,
-          builder: (context, state) {
-          if (state.isLoading) {
-            print('state is loading');
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (state.hasError) {
-            return Container(
-              child: Center(
-                child: Text('errorTest'),
-              ),
-            );
-          }
-          print('CURRENTSTATE: $state');
-          print('GAMES LENGHT IS EQUAL TO: ${state.games.length}');
-          return GridView.builder(
-              padding: const EdgeInsets.all(10),
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              physics: BouncingScrollPhysics(),
-              itemCount: state.games.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 4.0,
-                mainAxisSpacing: 4.0
-              ),
-              itemBuilder: (context, index) => Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(5),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(state.games[index].image)
+            cubit: gamesBloc,
+            builder: (context, state) {
+              if (state.isLoading) {
+                print('state is loading');
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state.hasError) {
+                return Container(
+                  child: Center(
+                    child: Text('errorTest'),
+                  ),
+                );
+              }
+              print('CURRENTSTATE: $state');
+              print('GAMES LENGHT IS EQUAL TO: ${state.games.length}');
+              return GridView.builder(
+                  padding: const EdgeInsets.all(10),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  physics: BouncingScrollPhysics(),
+                  itemCount: state.games.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0),
+                  itemBuilder: (context, index) => _item(
+                    context: context,
+                    image: state.games[index].image,
+                    name: state.games[index].name,
+                    description: state.games[index].description,
+                    isFourK: state.games[index].isFourK,
+                    isMultiplayer: state.games[index].isMultiplayer,
+                    players: state.games[index].players,
+                    genre: state.games[index].genre,
+                    isFeatured: state.games[index].isFeatured
                   )
-                ),
-              )
-              /*ListTile(
+                  /*ListTile(
                 title: Text(state.games[index].name)
               ) */
-              );
+                  );
               /*ListTile(
                     title: Text(state.games[index].name),
                     leading: Icon(Icons.ac_unit),
-                  )); */ 
+                  )); */
 
-          //print('GAMES LENGHT IS EQUAL TO: ${state.games.length}');
-          /*return ListView.builder(
+              //print('GAMES LENGHT IS EQUAL TO: ${state.games.length}');
+              /*return ListView.builder(
               itemCount: state.games.length,
               itemBuilder: (context, index) => ListTile(
                     title: Text(state.games[index].name),
                   )); */
-        }),
+            }),
       ),
     );
   }
 
   @override
-  Widget buildSuggestions(BuildContext context) => Container();
+  Widget buildSuggestions(BuildContext context) {
+    return Container();
+  }
+
+  Widget _item(
+      {BuildContext context,
+      String image,
+      String name,
+      String description,
+      bool isFourK,
+      bool isMultiplayer,
+      int players,
+      String genre,
+      bool isFeatured}) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(bottom: 5),
+          child: OpenContainer(
+              closedBuilder: (_, openContainer) {
+                return Container(
+                  height: 140,
+                  width: 150,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.cover, image: NetworkImage(image))),
+                );
+              },
+              closedElevation: 5,
+              closedShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
+              openBuilder: (_, closeContainer) {
+                return Details(
+                  image: image,
+                  name: name,
+                  description: description,
+                  isFourK: isFourK,
+                  isMultiplayer: isMultiplayer,
+                  players: players,
+                  genre: genre,
+                  isFeatured: isFeatured,
+                );
+              }),
+        ),
+        Flexible(
+          child: Text(
+            name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            //style: Theme.of(context).textTheme.subtitle1,
+          ),
+        )
+      ],
+    );
+  }
 }

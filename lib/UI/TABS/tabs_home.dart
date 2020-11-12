@@ -41,11 +41,14 @@ class _HomeTab extends StatelessWidget {
           ],
         );
       }
-      return Container(
-        child: Center(
-          child: Text('no data'),
-        ),
-      );
+      print('TABS HOME STATE IS $state');
+      return _progressIndicator();
     });
+  }
+
+  Widget _progressIndicator() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
   }
 }

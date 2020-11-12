@@ -79,7 +79,7 @@ class HorizontalList extends StatelessWidget {
                 closedBuilder: (_, openContainer) {
                   return Container(
                     height: 100,
-                    width: 100,
+                    width: 110,
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             fit: BoxFit.cover, image: NetworkImage(image))),
