@@ -89,7 +89,7 @@ class _DetailsState extends State<Details> with TickerProviderStateMixin {
                     TitleLabel(name: widget.name),
                     DetailsBody(body: widget.description),
                     PlayButton(),
-                    ResIcon(),
+                    //ResIcon(),
                     BackArrow(),
                     PlayersWidget(players: widget.players)
                   ],

@@ -12,7 +12,7 @@ class DetailsBody extends StatelessWidget {
       builder: (context, animation, child) {
         return Positioned(
           top: topMargin(context) +
-              250 +
+              240 +
               (1 - animation.value) * (mainSquareSize(context) - 45),
           right: 20,
           left: 20,
@@ -21,10 +21,10 @@ class DetailsBody extends StatelessWidget {
       },
       child: Text(
          body,
-          style: GoogleFonts.montserrat(
+          style: GoogleFonts.poppins(
               color: Colors.white,
               wordSpacing: 5,
-              fontWeight: FontWeight.normal)),
+              fontWeight: FontWeight.w600)),
     );
   }
 }

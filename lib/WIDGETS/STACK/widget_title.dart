@@ -12,19 +12,29 @@ class TitleLabel extends StatelessWidget {
       builder: (context, animation, child) {
         return Positioned(
           top: topMargin(context) +
-              210 +
-              (1 - animation.value) * (mainSquareSize(context) - 45),
+              170 +
+              (1 - animation.value) * (mainSquareSize(context) - 70),
           left: 10,
           child: child,
         );
       },
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Text(name,
-            style: GoogleFonts.lora(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(name,
+                style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold)),
+                      Text('PC',
+                style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w300)),
+          ],
+        ),
       ),
     );
     /* return Container(

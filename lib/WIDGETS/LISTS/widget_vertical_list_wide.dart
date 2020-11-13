@@ -28,11 +28,15 @@ class VerticalListWide extends StatelessWidget {
                     fontSize: 18,
                     fontWeight: FontWeight.bold))),
         Container(
-          child: ListView.builder(
+          child: GridView.builder(
               itemCount: games.length,
               shrinkWrap: true,
-              physics: ScrollPhysics(),
+              physics: BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 4.0,
+                  mainAxisSpacing: 4.0),
               itemBuilder: (BuildContext context, int index) => _item(
                   context: context,
                   image: games[index].image,
@@ -50,7 +54,7 @@ class VerticalListWide extends StatelessWidget {
   }
 
   Widget _item(
-      {BuildContext context, 
+      {BuildContext context,
       String image,
       String name,
       String description,
@@ -58,12 +62,103 @@ class VerticalListWide extends StatelessWidget {
       bool isMultiplayer,
       int players,
       String genre,
-      bool isFeatured,  
+      bool isFeatured,
       Size screenSize}) {
     return Container(
+      padding: const EdgeInsets.all(3),
+      //margin: const EdgeInsets.only(bottom: 5),
+      child: OpenContainer(
+          closedBuilder: (_, openContainer) {
+            return Container(
+              height: 140,
+              width: 140,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.cover, image: NetworkImage(image))),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    width: screenSize.width * 0.9,
+                    height: 100,
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [Colors.transparent, Colors.black])),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    name,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 9,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  'PC',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 9,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(left: 10, right: 5),
+                          width: 3,
+                          height: 20,
+                          color: Theme.of(context).accentColor,
+                        ),
+                        Text('\$29.00',
+                            style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold))
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+          closedElevation: 5,
+          closedShape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          openBuilder: (_, closeContainer) {
+            return Details(
+              image: image,
+              name: name,
+              description: description,
+              isFourK: isFourK,
+              isMultiplayer: isMultiplayer,
+              players: players,
+              genre: genre,
+              isFeatured: isFeatured,
+            );
+          }),
+    );
+
+    /* return Container(
       margin: const EdgeInsets.all(5),
       padding: const EdgeInsets.all(5),
-      //color: Colors.red,
+      color: Colors.red,
       height: 175,
       width: screenSize.width,
       child: Column(
@@ -110,26 +205,20 @@ class VerticalListWide extends StatelessWidget {
                         bottomRight: Radius.circular(5),
                         bottomLeft: Radius.circular(15))),
                 openBuilder: (_, closeContainer) {
-                  return Details(image: image,
-                  name: name,
-                  description: description,
-                  isFourK: isFourK,
-                  isMultiplayer: isMultiplayer,
-                  players: players,
-                  genre: genre,
-                  isFeatured: isFeatured,);
+                  return Details(
+                    image: image,
+                    name: name,
+                    description: description,
+                    isFourK: isFourK,
+                    isMultiplayer: isMultiplayer,
+                    players: players,
+                    genre: genre,
+                    isFeatured: isFeatured,
+                  );
                 }),
           ),
-          Flexible(
-            child: Text(
-              name,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-              style: Theme.of(context).textTheme.subtitle2,
-            ),
-          )
         ],
       ),
-    );
+    ); */
   }
 }

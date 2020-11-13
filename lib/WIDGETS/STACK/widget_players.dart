@@ -18,22 +18,22 @@ class PlayersWidget extends StatelessWidget {
           ),
         );
       },
-      child: Container(
-        width: 50,
+      child: Expanded(
+        //width: 100,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Icon(
-              Icons.person,
-              size: 18,
-              color: Colors.white,
+            Container(
+              margin: const EdgeInsets.only(left: 10, right: 5),
+              width: 3,
+              height: 20,
+              color: Theme.of(context).accentColor,
             ),
-            Text(players.toString(),
-                style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).accentColor,
-                ))
+            Text('\$29.00',
+                style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold))
           ],
         ),
       ),

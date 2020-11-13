@@ -26,7 +26,7 @@ class Artifact extends StatelessWidget {
                   fontWeight: FontWeight.normal,
                   fontSize: 14,
                   color: Colors.white),
-              headline1: GoogleFonts.montserrat(
+              headline1: GoogleFonts.poppins(
                   fontWeight: FontWeight.w900,
                   fontSize: 48,
                   color: Colors.white))),

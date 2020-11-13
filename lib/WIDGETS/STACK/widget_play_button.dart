@@ -8,18 +8,18 @@ class PlayButton extends StatelessWidget {
     var _screenSize = MediaQuery.of(context).size;
     return Consumer<AnimationController>(builder: (context, animation, _) {
       return Positioned(
-        top: topMargin(context) + 480,
+        top: topMargin(context) + 450,
         right: 10,
         child: SizedBox(
-          width: _screenSize.width * (1 + animation.value) / 4,
+          width: _screenSize.width * (1 + animation.value) / 2.1,
           child: RaisedButton(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             splashColor: Theme.of(context).accentColor,
             onPressed: () {},
             color: Theme.of(context).accentColor,
-            child: Text('PLAY',
-                style: GoogleFonts.montserrat(fontWeight: FontWeight.bold)),
+            child: Text('GET',
+                style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
           ),
         ),
       );
