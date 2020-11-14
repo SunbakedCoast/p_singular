@@ -102,12 +102,15 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                           image: _games[currentIdx].image,
                           name: _games[currentIdx].name,
                           description: _games[currentIdx].description,
-                          isFourK: _games[currentIdx].isFourK,
+                          //isFourK: _games[currentIdx].isFourK,
                           isMultiplayer: _games[currentIdx].isMultiplayer,
-                          players: _games[currentIdx].players,
+                          //players: _games[currentIdx].players,
                           genre: _games[currentIdx].genre,
-                          isFeatured: _games[currentIdx].isFeatured
-                          );
+                          isFeatured: _games[currentIdx].isFeatured,
+                          price: _games[currentIdx].price,
+                          platforms: _games[currentIdx].platforms,
+                          developer: _games[currentIdx].developer,
+                          language: _games[currentIdx].language);
                     })),
           ),
         );
@@ -135,11 +138,15 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
     String image,
     String name,
     String description,
-    bool isFourK,
-    bool isMultiplayer,
-    int players,
+    //bool isFourK,
+    String isMultiplayer,
+    //int players,
     String genre,
     bool isFeatured,
+    int price,
+    List<dynamic> platforms,
+    String developer,
+    String language
   }) {
     final double blur = active ? 10 : 5;
     final double offset = active ? 6 : 0;
@@ -184,8 +191,14 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                       height: 100,
                       width: 200,
                       decoration: BoxDecoration(
-                        color: active
-                            ? Theme.of(context).backgroundColor.withOpacity(0.9)
+                        gradient: active
+                            ? LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                    Colors.transparent,
+                                    Colors.black
+                                  ]) //Theme.of(context).backgroundColor.withOpacity(0.9)
                             : null,
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(20),
@@ -204,34 +217,32 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                                     name,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
-                                    style: GoogleFonts.lora(
+                                    style: GoogleFonts.poppins(
                                         color: Colors.white,
-                                        fontSize: 18,
+                                        fontSize: 14,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 5),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.person,
-                                          color: Colors.white, size: 18),
-                                      Container(
-                                        margin: const EdgeInsets.only(left: 5),
-                                        child: Text(players.toString(),
-                                            style: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.bold,
-                                              color:
-                                                  Theme.of(context).accentColor,
-                                            )),
-                                      )
-                                    ],
-                                  ),
-                                )
+                                Row(
+                                  children: [
+                                    Text(platforms.toString(),
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w300)),
+                                    Container(
+                                      margin: const EdgeInsets.only(
+                                          left: 10, right: 5),
+                                      width: 3,
+                                      height: 20,
+                                      color: Theme.of(context).accentColor,
+                                    ),
+                                    Text('\$${price.toString()}',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 12,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold))
+                                  ],
+                                ),
                               ],
                             )
                           : null,
@@ -250,14 +261,19 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                   bottomRight: Radius.circular(5),
                   bottomLeft: Radius.circular(15))),
           openBuilder: (_, closeContainer) {
-            return Details(image: image,
-            name: name,
-            description: description,
-            isFourK: isFourK,
-            isMultiplayer: isMultiplayer,
-            players: players,
-            genre: genre,
-            isFeatured: isFeatured);
+            return Details(
+                image: image,
+                name: name,
+                description: description,
+                //isFourK: isFourK,
+                isMultiplayer: isMultiplayer,
+                //players: players,
+                genre: genre,
+                isFeatured: isFeatured,
+                price: price,
+                platforms: platforms,
+                developer: developer,
+                language: language,);
           }),
     );
   }

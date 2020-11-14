@@ -5,8 +5,10 @@ import 'package:provider/provider.dart';
 
 class TitleLabel extends StatelessWidget {
   final name;
+  final List<dynamic> platforms;
 
-  TitleLabel({@required this.name});
+  TitleLabel({@required this.name,
+  @required this.platforms});
   Widget build(BuildContext context) {
     return Consumer<AnimationController>(
       builder: (context, animation, child) {
@@ -28,7 +30,7 @@ class TitleLabel extends StatelessWidget {
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold)),
-                      Text('PC',
+            Text(platforms.toString(),
                 style: GoogleFonts.poppins(
                     color: Colors.white,
                     fontSize: 14,

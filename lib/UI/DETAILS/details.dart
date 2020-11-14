@@ -10,21 +10,29 @@ class Details extends StatefulWidget {
   final String image;
   final String name;
   final String description;
-  final bool isFourK;
-  final bool isMultiplayer;
-  final int players;
+  //final bool isFourK;
+  final String isMultiplayer;
+  //final int players;
   final String genre;
   final bool isFeatured;
+  final int price;
+  final List<dynamic> platforms;
+  final String developer;
+  final String language;
 
   Details(
       {@required this.image,
       @required this.name,
       @required this.description,
-      @required this.isFourK,
+      //@required this.isFourK,
       @required this.isMultiplayer,
-      @required this.players,
+      //@required this.players,
       @required this.genre,
-      @required this.isFeatured});
+      @required this.isFeatured,
+      @required this.price,
+      @required this.platforms,
+      @required this.developer,
+      @required this.language});
   _DetailsState createState() => _DetailsState();
 }
 
@@ -83,15 +91,23 @@ class _DetailsState extends State<Details> with TickerProviderStateMixin {
               child: Container(
                 child: Stack(
                   children: [
-                    MainImage(image: widget.image,),
+                    MainImage(
+                      image: widget.image,
+                    ),
                     GradientDark(),
                     ArrowUp(arrowAnimationOffset: _arrowAnimationOffset),
-                    TitleLabel(name: widget.name),
+                    TitleLabel(
+                      name: widget.name,
+                      platforms: widget.platforms
+                    ),
                     DetailsBody(body: widget.description),
                     PlayButton(),
-                    //ResIcon(),
+                    GameDetails(
+                        developer: widget.developer,
+                        language: widget.language,
+                        isMultiplayer: widget.isMultiplayer),
                     BackArrow(),
-                    PlayersWidget(players: widget.players)
+                    PlayersWidget(price: widget.price)
                   ],
                 ),
               ),

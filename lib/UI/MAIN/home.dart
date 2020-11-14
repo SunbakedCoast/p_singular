@@ -173,9 +173,9 @@ class SearchData extends SearchDelegate<Games> {
                     image: state.games[index].image,
                     name: state.games[index].name,
                     description: state.games[index].description,
-                    isFourK: state.games[index].isFourK,
+                    //isFourK: state.games[index].isFourK,
                     isMultiplayer: state.games[index].isMultiplayer,
-                    players: state.games[index].players,
+                    //players: state.games[index].players,
                     genre: state.games[index].genre,
                     isFeatured: state.games[index].isFeatured
                   )
@@ -209,9 +209,9 @@ class SearchData extends SearchDelegate<Games> {
       String image,
       String name,
       String description,
-      bool isFourK,
-      bool isMultiplayer,
-      int players,
+      //bool isFourK,
+      String isMultiplayer,
+      //int players,
       String genre,
       bool isFeatured}) {
     return Column(
@@ -239,9 +239,9 @@ class SearchData extends SearchDelegate<Games> {
                   image: image,
                   name: name,
                   description: description,
-                  isFourK: isFourK,
+                  //isFourK: isFourK,
                   isMultiplayer: isMultiplayer,
-                  players: players,
+                  //players: players,
                   genre: genre,
                   isFeatured: isFeatured,
                 );

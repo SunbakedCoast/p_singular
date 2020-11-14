@@ -38,7 +38,7 @@ class GameAPI extends GamesRepository {
       Iterable list = json.decode(response.body);
       return games = list
           .map((game) => Games.fromEntity(GamesEntity.fromJson(game)))
-          .where((element) => element.name == query)
+          .where((element) => element.tags.contains(query))
           .toList();
     } catch (_) {
       throw Exception('ERROR PARSING RESPONSE BODY');

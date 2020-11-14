@@ -42,12 +42,16 @@ class VerticalListWide extends StatelessWidget {
                   image: games[index].image,
                   name: games[index].name,
                   description: games[index].description,
-                  isFourK: games[index].isFourK,
+                  //isFourK: games[index].isFourK,
                   isMultiplayer: games[index].isMultiplayer,
-                  players: games[index].players,
+                  //players: games[index].players,
                   genre: games[index].genre,
                   isFeatured: games[index].isFeatured,
-                  screenSize: _screenSize)),
+                  screenSize: _screenSize,
+                  price: games[index].price,
+                  platforms: games[index].platforms,
+                  developer: games[index].developer,
+                  language: games[index].language)),
         )
       ],
     );
@@ -58,12 +62,16 @@ class VerticalListWide extends StatelessWidget {
       String image,
       String name,
       String description,
-      bool isFourK,
-      bool isMultiplayer,
-      int players,
+      //bool isFourK,
+      String isMultiplayer,
+      //int players,
       String genre,
       bool isFeatured,
-      Size screenSize}) {
+      Size screenSize,
+      int price,
+      List<dynamic> platforms,
+      String developer,
+      String language}) {
     return Container(
       padding: const EdgeInsets.all(3),
       //margin: const EdgeInsets.only(bottom: 5),
@@ -109,7 +117,7 @@ class VerticalListWide extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  'PC',
+                                  platforms.toString(),
                                   style: GoogleFonts.poppins(
                                     fontSize: 9,
                                     color: Colors.white,
@@ -126,7 +134,7 @@ class VerticalListWide extends StatelessWidget {
                           height: 20,
                           color: Theme.of(context).accentColor,
                         ),
-                        Text('\$29.00',
+                        Text('\$${price.toString()}',
                             style: GoogleFonts.poppins(
                                 fontSize: 12,
                                 color: Colors.white,
@@ -146,11 +154,15 @@ class VerticalListWide extends StatelessWidget {
               image: image,
               name: name,
               description: description,
-              isFourK: isFourK,
+              //isFourK: isFourK,
               isMultiplayer: isMultiplayer,
-              players: players,
+              //players: players,
               genre: genre,
               isFeatured: isFeatured,
+              price: price,
+              platforms: platforms,
+              developer: developer,
+              language: language,
             );
           }),
     );
