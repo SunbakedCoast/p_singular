@@ -3,7 +3,6 @@ import 'package:p_singular/BLOCS/BLOCS_HOME/home.dart';
 import 'package:p_singular/SRC/MODELS/models.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HorizontalList extends StatelessWidget {
   final String section;
@@ -26,10 +25,7 @@ class HorizontalList extends StatelessWidget {
         Container(
             margin: const EdgeInsets.all(10),
             child: Text(section,
-                style: GoogleFonts.lora(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold))),
+                style: Theme.of(context).textTheme.headline2)),
         Container(
             child: AspectRatio(
                 aspectRatio: _screenSize.height / _screenSize.width / 0.90,
@@ -110,19 +106,11 @@ class HorizontalList extends StatelessWidget {
                                   children: [
                                     Text(
                                       name,
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 12,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      style: Theme.of(context).textTheme.headline4
                                     ),
                                     Text(
                                       platforms.join(" "),
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 12,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w300,
-                                      ),
+                                      style: Theme.of(context).textTheme.overline
                                     ),
                                   ],
                                 ),
@@ -135,10 +123,7 @@ class HorizontalList extends StatelessWidget {
                               color: Theme.of(context).accentColor,
                             ),
                             Text('\$${price.toString()}',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold))
+                                style: Theme.of(context).textTheme.headline4)
                           ],
                         ),
                       ),

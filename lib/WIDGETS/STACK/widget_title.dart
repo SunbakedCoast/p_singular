@@ -14,8 +14,8 @@ class TitleLabel extends StatelessWidget {
       builder: (context, animation, child) {
         return Positioned(
           top: topMargin(context) +
-              170 +
-              (1 - animation.value) * (mainSquareSize(context) - 70),
+              120 +
+              (1 - animation.value) * (mainSquareSize(context) - 10),
           left: 10,
           child: child,
         );
@@ -30,7 +30,7 @@ class TitleLabel extends StatelessWidget {
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold)),
-            Text(platforms.toString(),
+            Text(platforms.join(" "),
                 style: GoogleFonts.poppins(
                     color: Colors.white,
                     fontSize: 14,

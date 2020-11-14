@@ -1,4 +1,3 @@
-import 'package:flutter/rendering.dart';
 import 'package:p_singular/SRC/ENTITIES/entities.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';

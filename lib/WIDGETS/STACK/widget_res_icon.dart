@@ -16,7 +16,7 @@ class GameDetails extends StatelessWidget {
     return Consumer<AnimationController>(
       builder: (context, animation, child) {
         return Positioned(
-          top: topMargin(context) + 390,
+          top: mainSquareSize(context) + 170,
           left: 10 * (1 + animation.value) - 30,
           right: 5,
           child: Opacity(opacity: animation.value, child: child),

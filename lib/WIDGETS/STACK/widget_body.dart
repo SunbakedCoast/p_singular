@@ -12,7 +12,7 @@ class DetailsBody extends StatelessWidget {
       builder: (context, animation, child) {
         return Positioned(
           top: topMargin(context) +
-              240 +
+              190 +
               (1 - animation.value) * (mainSquareSize(context) - 45),
           right: 20,
           left: 20,

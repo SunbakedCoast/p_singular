@@ -2,7 +2,6 @@ import 'package:animations/animations.dart';
 import 'package:p_singular/BLOCS/BLOCS_HOME/home.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class VerticalListWide extends StatelessWidget {
   final String section;
@@ -23,10 +22,7 @@ class VerticalListWide extends StatelessWidget {
         Container(
             margin: const EdgeInsets.all(10),
             child: Text(section,
-                style: GoogleFonts.lora(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold))),
+                style: Theme.of(context).textTheme.headline2)),
         Container(
           child: GridView.builder(
               itemCount: games.length,
@@ -109,20 +105,12 @@ class VerticalListWide extends StatelessWidget {
                                     name,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 9,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    style: Theme.of(context).textTheme.headline5
                                   ),
                                 ),
                                 Text(
                                   platforms.join(" "),
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 9,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w300,
-                                  ),
+                                  style: Theme.of(context).textTheme.overline
                                 ),
                               ],
                             ),
@@ -135,10 +123,7 @@ class VerticalListWide extends StatelessWidget {
                           color: Theme.of(context).accentColor,
                         ),
                         Text('\$${price.toString()}',
-                            style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold))
+                            style: Theme.of(context).textTheme.headline4)
                       ],
                     ),
                   ),

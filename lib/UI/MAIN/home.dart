@@ -46,6 +46,26 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         child: SafeArea(
           child: Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
+            floatingActionButton: OpenContainer(
+                closedBuilder: (_, openContainer) {
+                  return FloatingActionButton(
+                    elevation: 0.0,
+                    onPressed: openContainer,
+                    backgroundColor: Theme.of(context).accentColor,
+                    child: Icon(
+                      Icons.shopping_cart,
+                      color: Colors.black,
+                    ),
+                  );
+                },
+                openColor: Theme.of(context).accentColor,
+                closedElevation: 5.0,
+                closedShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100)),
+                closedColor: Theme.of(context).accentColor,
+                openBuilder: (_, closeContainer) {
+                  return MyCart();
+                }),
             body: NestedScrollView(
               controller: _scrollController,
               headerSliverBuilder:

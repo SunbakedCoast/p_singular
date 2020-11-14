@@ -217,12 +217,10 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                                     name,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
+                                    style: Theme.of(context).textTheme.headline3
                                   ),
                                 ),
+                                ///[textTheme]
                                 Row(
                                   children: [
                                     Text(platforms.join(" "),
@@ -237,10 +235,7 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                                       color: Theme.of(context).accentColor,
                                     ),
                                     Text('\$${price.toString()}',
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 12,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold))
+                                        style: Theme.of(context).textTheme.headline4)
                                   ],
                                 ),
                               ],

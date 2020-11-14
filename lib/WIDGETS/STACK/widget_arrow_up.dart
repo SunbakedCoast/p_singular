@@ -13,7 +13,7 @@ class ArrowUp extends StatelessWidget {
         return Positioned(
           top: topMargin(context) -
               30 +
-              (1 - animation.value) * (mainSquareSize(context) + 110),
+              (1 - animation.value) * (mainSquareSize(context) + 120),
           right: 150,
           child:
               Opacity(opacity: math.max(0, 1 - animation.value), child: child),

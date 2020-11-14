@@ -29,7 +29,32 @@ class Artifact extends StatelessWidget {
               headline1: GoogleFonts.poppins(
                   fontWeight: FontWeight.w900,
                   fontSize: 48,
-                  color: Colors.white))),
+                  color: Colors.white),
+              headline2: GoogleFonts.poppins(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Colors.white
+              ),
+              headline3: GoogleFonts.poppins(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+              ),
+              headline4: GoogleFonts.poppins(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+              ),
+              headline5: GoogleFonts.poppins(
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+              ),
+              overline: GoogleFonts.poppins(
+                fontSize: 9,
+                color: Colors.white,
+                fontWeight: FontWeight.w300
+              ))),
     );
   }
 }
