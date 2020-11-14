@@ -130,6 +130,7 @@ class SearchData extends SearchDelegate<Games> {
 
   @override
   Widget buildResults(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     gamesBloc.add(SearchEvent(query));
     //TODO ADD BLOCPROVIDER
     return RepositoryProvider<GamesRepository>(
@@ -169,16 +170,20 @@ class SearchData extends SearchDelegate<Games> {
                       crossAxisSpacing: 4.0,
                       mainAxisSpacing: 4.0),
                   itemBuilder: (context, index) => _item(
-                    context: context,
-                    image: state.games[index].image,
-                    name: state.games[index].name,
-                    description: state.games[index].description,
-                    //isFourK: state.games[index].isFourK,
-                    isMultiplayer: state.games[index].isMultiplayer,
-                    //players: state.games[index].players,
-                    genre: state.games[index].genre,
-                    isFeatured: state.games[index].isFeatured
-                  )
+                      context: context,
+                      screenSize: _screenSize,
+                      image: state.games[index].image,
+                      name: state.games[index].name,
+                      description: state.games[index].description,
+                      //isFourK: state.games[index].isFourK,
+                      isMultiplayer: state.games[index].isMultiplayer,
+                      //players: state.games[index].players,
+                      genre: state.games[index].genre,
+                      isFeatured: state.games[index].isFeatured,
+                      price: state.games[index].price,
+                      platforms: state.games[index].platforms,
+                      developer: state.games[index].developer,
+                      language: state.games[index].language)
                   /*ListTile(
                 title: Text(state.games[index].name)
               ) */
@@ -206,6 +211,7 @@ class SearchData extends SearchDelegate<Games> {
 
   Widget _item(
       {BuildContext context,
+      Size screenSize,
       String image,
       String name,
       String description,
@@ -213,49 +219,108 @@ class SearchData extends SearchDelegate<Games> {
       String isMultiplayer,
       //int players,
       String genre,
-      bool isFeatured}) {
-    return Column(
+      bool isFeatured,
+      int price,
+      List<dynamic> platforms,
+      String developer,
+      String language}) {
+    /* return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
+        Container( 
           margin: const EdgeInsets.only(bottom: 5),
-          child: OpenContainer(
-              closedBuilder: (_, openContainer) {
-                return Container(
-                  height: 140,
-                  width: 150,
+          child: */
+    return OpenContainer(
+        closedBuilder: (_, openContainer) {
+          return Container(
+            height: 140,
+            width: 150,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover, image: NetworkImage(image))),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  width: screenSize.width * 0.9,
+                  height: 100,
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.cover, image: NetworkImage(image))),
-                );
-              },
-              closedElevation: 5,
-              closedShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5)),
-              openBuilder: (_, closeContainer) {
-                return Details(
-                  image: image,
-                  name: name,
-                  description: description,
-                  //isFourK: isFourK,
-                  isMultiplayer: isMultiplayer,
-                  //players: players,
-                  genre: genre,
-                  isFeatured: isFeatured,
-                );
-              }),
-        ),
-        Flexible(
-          child: Text(
-            name,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-            //style: Theme.of(context).textTheme.subtitle1,
-          ),
-        )
-      ],
-    );
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Colors.transparent, Colors.black])),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  name,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 9,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                platforms.join(" "),
+                                style: GoogleFonts.poppins(
+                                  fontSize: 9,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 10, right: 5),
+                        width: 3,
+                        height: 20,
+                        color: Theme.of(context).accentColor,
+                      ),
+                      Text('\$${price.toString()}',
+                          style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold))
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+        closedElevation: 5,
+        closedShape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        openBuilder: (_, closeContainer) {
+          return Details(
+            image: image,
+            name: name,
+            description: description,
+            //isFourK: isFourK,
+            isMultiplayer: isMultiplayer,
+            //players: players,
+            genre: genre,
+            isFeatured: isFeatured,
+            price: price,
+            platforms: platforms,
+            developer: developer,
+            language: language,
+          );
+        });
   }
 }

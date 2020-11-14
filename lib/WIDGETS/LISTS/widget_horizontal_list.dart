@@ -117,7 +117,7 @@ class HorizontalList extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      platforms.toString(),
+                                      platforms.join(" "),
                                       style: GoogleFonts.poppins(
                                         fontSize: 12,
                                         color: Colors.white,

@@ -117,7 +117,7 @@ class VerticalListWide extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  platforms.toString(),
+                                  platforms.join(" "),
                                   style: GoogleFonts.poppins(
                                     fontSize: 9,
                                     color: Colors.white,
@@ -166,71 +166,5 @@ class VerticalListWide extends StatelessWidget {
             );
           }),
     );
-
-    /* return Container(
-      margin: const EdgeInsets.all(5),
-      padding: const EdgeInsets.all(5),
-      color: Colors.red,
-      height: 175,
-      width: screenSize.width,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 5),
-            child: OpenContainer(
-                closedBuilder: (_, openContainer) {
-                  return Container(
-                    //padding: const EdgeInsets.all(5),
-                    height: 140,
-                    width: screenSize.width,
-                    //color: Colors.red,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 140,
-                          width: screenSize.width,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(image)),
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(15),
-                                  topLeft: Radius.circular(5),
-                                  bottomRight: Radius.circular(5),
-                                  bottomLeft: Radius.circular(15))),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                closedElevation: 5,
-                //transitionDuration: Duration(milliseconds: 200),
-                closedShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(15),
-                        topLeft: Radius.circular(5),
-                        bottomRight: Radius.circular(5),
-                        bottomLeft: Radius.circular(15))),
-                openBuilder: (_, closeContainer) {
-                  return Details(
-                    image: image,
-                    name: name,
-                    description: description,
-                    isFourK: isFourK,
-                    isMultiplayer: isMultiplayer,
-                    players: players,
-                    genre: genre,
-                    isFeatured: isFeatured,
-                  );
-                }),
-          ),
-        ],
-      ),
-    ); */
   }
 }

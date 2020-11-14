@@ -225,7 +225,7 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                                 ),
                                 Row(
                                   children: [
-                                    Text(platforms.toString(),
+                                    Text(platforms.join(" "),
                                         style: GoogleFonts.poppins(
                                             color: Colors.white,
                                             fontWeight: FontWeight.w300)),
