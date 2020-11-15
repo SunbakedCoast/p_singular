@@ -62,7 +62,7 @@ class MyCart extends StatelessWidget {
                                     //color: Colors.yellow,
                                     borderRadius: BorderRadius.circular(5)),
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text('Forza Horizon 4',

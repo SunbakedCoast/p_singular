@@ -13,8 +13,7 @@ class PlayButton extends StatelessWidget {
         child: SizedBox(
           width: _screenSize.width * (1 + animation.value) / 2.1,
           child: RaisedButton(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             splashColor: Theme.of(context).accentColor,
             onPressed: () {},
             color: Theme.of(context).accentColor,
