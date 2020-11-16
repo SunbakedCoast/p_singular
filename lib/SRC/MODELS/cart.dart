@@ -13,6 +13,10 @@ class Cart extends Equatable {
     return Cart(image: entity.image, name: entity.name, price: entity.price);
   }
 
+  CartEntity toEntity() {
+    return CartEntity(image, name, price);
+  }
+
   @override
   List<Object> get props => [image, name, price];
 }

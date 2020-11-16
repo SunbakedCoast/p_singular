@@ -11,11 +11,11 @@ class DetailsInitial extends DetailsState {}
 class DetailsLoading extends DetailsState {}
 
 class GetSuccess extends DetailsState {
-  final Games games;
+  final Cart cart;
 
-  GetSuccess({@required this.games});
+  GetSuccess({@required this.cart});
 
-  List<Object> get props => [games];
+  List<Object> get props => [cart];
 }
 
 class GetFailure extends DetailsState {

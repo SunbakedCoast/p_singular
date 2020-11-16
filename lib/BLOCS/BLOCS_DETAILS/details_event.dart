@@ -7,9 +7,9 @@ abstract class DetailsEvent extends Equatable {
 }
 
 class GetButtonPressed extends DetailsEvent {
-  final Games games;
+  final Cart cart;
 
-  GetButtonPressed({@required this.games});
+  GetButtonPressed({@required this.cart});
 
-  List<Object> get props => [games];
+  List<Object> get props => [cart];
 }

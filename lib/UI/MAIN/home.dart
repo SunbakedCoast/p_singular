@@ -64,7 +64,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     borderRadius: BorderRadius.circular(100)),
                 closedColor: Theme.of(context).accentColor,
                 openBuilder: (_, closeContainer) {
-                  return MyCart();
+                  return MyCartProvider();
                 }),
             body: NestedScrollView(
               controller: _scrollController,

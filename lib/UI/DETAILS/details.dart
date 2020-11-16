@@ -76,8 +76,7 @@ class _DetailsState extends State<Details> with TickerProviderStateMixin {
     //blur ? print('TRUE') : print('FALSE');
     _animationController.value > 0.0
         ? print('Animation value ${_animationController.value}')
-        : print(
-            'Animation controller value ${_animationController.value} is lower than 1.0');
+        : print('Animation controller value ${_animationController.value} is lower than 1.0');
 
     ///[OFFSET TRACKING]
     return ListenableProvider.value(

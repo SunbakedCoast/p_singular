@@ -16,6 +16,10 @@ class CartEntity extends Equatable {
     );
   }
 
+  Map<String, Object> toRDB() {
+    return {'image': image, 'name': name, 'price': price};
+  }
+
   @override
   List<Object> get props => [image, name, price];
 }
