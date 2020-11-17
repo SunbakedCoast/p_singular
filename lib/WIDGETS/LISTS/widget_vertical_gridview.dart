@@ -1,18 +1,19 @@
 import 'package:animations/animations.dart';
 import 'package:p_singular/BLOCS/BLOCS_HOME/home.dart';
+import 'package:p_singular/SRC/MODELS/models.dart';
+import 'package:p_singular/UI/VALUES/values.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
 
-class VerticalListWide extends StatelessWidget {
+class GridViewVertical extends StatelessWidget {
   final String section;
   final DataLoaded state;
-  var games;
+  List<Games> games;
 
-  VerticalListWide(
+  GridViewVertical(
       {@required this.section, @required this.state, @required this.games});
 
   Widget build(BuildContext context) {
-    var _screenSize = MediaQuery.of(context).size;
     games = state.games;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -38,12 +39,9 @@ class VerticalListWide extends StatelessWidget {
                   image: games[index].image,
                   name: games[index].name,
                   description: games[index].description,
-                  //isFourK: games[index].isFourK,
                   isMultiplayer: games[index].isMultiplayer,
-                  //players: games[index].players,
                   genre: games[index].genre,
                   isFeatured: games[index].isFeatured,
-                  screenSize: _screenSize,
                   price: games[index].price,
                   platforms: games[index].platforms,
                   developer: games[index].developer,
@@ -58,19 +56,15 @@ class VerticalListWide extends StatelessWidget {
       String image,
       String name,
       String description,
-      //bool isFourK,
       String isMultiplayer,
-      //int players,
       String genre,
       bool isFeatured,
-      Size screenSize,
       int price,
       List<dynamic> platforms,
       String developer,
       String language}) {
     return Container(
       padding: const EdgeInsets.all(3),
-      //margin: const EdgeInsets.only(bottom: 5),
       child: OpenContainer(
           closedBuilder: (_, openContainer) {
             return Container(
@@ -84,7 +78,7 @@ class VerticalListWide extends StatelessWidget {
                 children: [
                   Container(
                     padding: const EdgeInsets.all(10),
-                    width: screenSize.width * 0.9,
+                    width: screenWidth(context) * 0.9,
                     height: 100,
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -135,13 +129,11 @@ class VerticalListWide extends StatelessWidget {
           closedShape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           openBuilder: (_, closeContainer) {
-            return Details(
+            return DetailsProvider(
               image: image,
               name: name,
               description: description,
-              //isFourK: isFourK,
               isMultiplayer: isMultiplayer,
-              //players: players,
               genre: genre,
               isFeatured: isFeatured,
               price: price,

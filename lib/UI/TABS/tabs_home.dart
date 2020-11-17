@@ -19,14 +19,13 @@ class HomeProvider extends StatelessWidget {
   }
 }
 
+
+///[SIMPLIFY _games VARIABLE]
 class _HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
       if (state is DataLoaded) {
-        //final _itemCount = state.games.length;
         final _games = state.games;
-
-        //print('ITEMCOUNT: ${_itemCount.toString()}');
         return ListView(
           scrollDirection: Axis.vertical,
           physics: BouncingScrollPhysics(),
@@ -37,7 +36,7 @@ class _HomeTab extends StatelessWidget {
               state: state,
               games: _games,
             ),
-            VerticalListWide(section: 'All', state: state, games: _games)
+            GridViewVertical(section: 'All', state: state, games: _games)
           ],
         );
       }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:p_singular/SRC/MODELS/models.dart';
@@ -10,7 +11,7 @@ abstract class CartRepository {
 }
 
 class CartRepo extends CartRepository {
-  final _firebaseRDB = FirebaseDatabase.instance.reference().child("Cart");
+  final _cartData = FirebaseFirestore.instance.collection('UserCart');
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   List<Cart> cart;
 
@@ -18,24 +19,18 @@ class CartRepo extends CartRepository {
   Future<void> addToCart(Cart cart) async {
     final _currentUser = _firebaseAuth.currentUser;
     final _uid = _currentUser.uid;
-    return _firebaseRDB.child(_uid).set(cart.toEntity().toRDB());
+    return _cartData.doc(_uid).collection('Cart').add(
+        cart.toEntity().toDocument()); //.set(cart.toEntity().toDocument());
   }
 
   @override
   Future<List<Cart>> loadCart() async {
-    return _firebaseRDB.once().then((snapshot) {
-      List<Cart> map = snapshot.value;
-      /*return map
-          .map((cart) => Cart.fromEntity(CartEntity.fromSnapshot(snapshot)))
-          .toList(); */
-      ///[testcode]
-      final cart = map
-          .map((e) => Cart.fromEntity(CartEntity.fromSnapshot(snapshot)))
+    final _currentUser = _firebaseAuth.currentUser;
+    final _uid = _currentUser.uid;
+    return _cartData.doc(_uid).collection('Cart').get().then((snapshot) {
+      return snapshot.docs
+          .map((doc) => Cart.fromEntity(CartEntity.fromSnapshot(doc)))
           .toList();
-      print(cart);
-      ///[test code]
-      //return Cart.fromEntity(CartEntity.fromSnapshot(snapshot))
-      //return Cart.fromEntity(CartEntity.fromSnapshot(snapshot))
     });
   }
 }

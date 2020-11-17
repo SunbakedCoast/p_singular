@@ -107,7 +107,7 @@ class _SignInFormState extends State<_SignInForm> {
         print('initial state test');
         return Form(
           key: _key,
-          autovalidate: _validate,
+          autovalidateMode: AutovalidateMode.always,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -118,7 +118,7 @@ class _SignInFormState extends State<_SignInForm> {
                   autocorrect: false,
                   keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
-                  style: TextStyle(fontFamily: 'OSLight'),
+                  style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
                     hintText: 'Email',
                     hintStyle: TextStyle(fontFamily: 'OSRegular'),
@@ -138,7 +138,7 @@ class _SignInFormState extends State<_SignInForm> {
                     keyboardType: TextInputType.name,
                     controller: _passwordController,
                     obscureText: true,
-                    style: TextStyle(fontFamily: 'OSLight'),
+                    style: TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       hintText: 'Password',
                       hintStyle: TextStyle(fontFamily: 'OSRegular'),

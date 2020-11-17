@@ -101,7 +101,7 @@ class _SignUpFormState extends State<_SignUpForm> {
         return Center(
           child: Form(
             key: _key,
-            autovalidate: _validate,
+            autovalidateMode: AutovalidateMode.always,
             child: SingleChildScrollView(
               physics: ScrollPhysics(),
               child: Column(
@@ -131,7 +131,6 @@ class _SignUpFormState extends State<_SignUpForm> {
                   Container(
                     margin: const EdgeInsets.only(left: 30, right: 30, top: 10),
                     child: TextFormField(
-                      // autocorrect: false,
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailTextController,
                       style: TextStyle(color: Colors.black),

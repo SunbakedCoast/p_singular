@@ -1,6 +1,6 @@
 export 'package:p_singular/WIDGETS/LISTS/widget_horizontal_list_categories.dart';
 export 'package:p_singular/WIDGETS/LISTS/widget_horizontal_list.dart';
-export 'package:p_singular/WIDGETS/LISTS/widget_vertical_list_wide.dart';
+export 'package:p_singular/WIDGETS/LISTS/widget_vertical_gridview.dart';
 export 'package:p_singular/WIDGETS/STACK/widget_title.dart';
 export 'package:p_singular/WIDGETS/STACK/widget_arrow_up.dart';
 export 'package:p_singular/WIDGETS/STACK/widget_dark_gradient.dart';

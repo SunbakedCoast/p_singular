@@ -1,6 +1,9 @@
 import 'package:animations/animations.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:p_singular/BLOCS/BLOCS_HOME/home.dart';
 import 'package:p_singular/SRC/MODELS/models.dart';
+import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
+import 'package:p_singular/UI/VALUES/values.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +17,6 @@ class HorizontalList extends StatelessWidget {
 
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    //games = state.games;
     games = state.games.where((g) => g.isFeatured == true).toList();
     print('Featured list length: ${games.toString()}');
     return Column(
@@ -24,8 +26,7 @@ class HorizontalList extends StatelessWidget {
       children: [
         Container(
             margin: const EdgeInsets.all(10),
-            child: Text(section,
-                style: Theme.of(context).textTheme.headline2)),
+            child: Text(section, style: Theme.of(context).textTheme.headline2)),
         Container(
             child: AspectRatio(
                 aspectRatio: _screenSize.height / _screenSize.width / 0.90,
@@ -40,16 +41,13 @@ class HorizontalList extends StatelessWidget {
                         image: games[index].image,
                         name: games[index].name,
                         description: games[index].description,
-                        //isFourK: games[index].isFourK,
                         isMultiplayer: games[index].isMultiplayer,
-                        //players: games[index].players,
                         genre: games[index].genre,
                         isFeatured: games[index].isFeatured,
                         price: games[index].price,
                         platforms: games[index].platforms,
                         developer: games[index].developer,
-                        language: games[index].language
-                      ))))
+                        language: games[index].language))))
       ],
     );
   }
@@ -60,9 +58,7 @@ class HorizontalList extends StatelessWidget {
       String image,
       String name,
       String description,
-     // bool isFourK,
       String isMultiplayer,
-      //int players,
       String genre,
       bool isFeatured,
       int price,
@@ -70,7 +66,6 @@ class HorizontalList extends StatelessWidget {
       String developer,
       String language}) {
     return Container(
-      //color: Colors.yellow,
       width: screenSize.width * 0.9,
       height: 100,
       margin: const EdgeInsets.all(5),
@@ -88,7 +83,7 @@ class HorizontalList extends StatelessWidget {
                     children: [
                       Container(
                         padding: const EdgeInsets.all(10),
-                        width: screenSize.width * 0.9,
+                        width: screenWidth(context) * 0.9,
                         height: 100,
                         decoration: BoxDecoration(
                             gradient: LinearGradient(
@@ -104,14 +99,14 @@ class HorizontalList extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      name,
-                                      style: Theme.of(context).textTheme.headline4
-                                    ),
-                                    Text(
-                                      platforms.join(" "),
-                                      style: Theme.of(context).textTheme.overline
-                                    ),
+                                    Text(name,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline4),
+                                    Text(platforms.join(" "),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .overline),
                                   ],
                                 ),
                               ),
@@ -134,71 +129,23 @@ class HorizontalList extends StatelessWidget {
             closedShape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             openBuilder: (_, closeContainer) {
-              return Details(
-                image: image,
-                name: name,
-                description: description,
-                //isFourK: isFourK,
-                isMultiplayer: isMultiplayer,
-                //players: players,
-                genre: genre,
-                isFeatured: isFeatured,
-                price: price,
-                platforms: platforms,
-                developer: developer,
-                language: language,
+              return RepositoryProvider<CartRepository>(
+                create: (context) => CartRepo(),
+                child: DetailsProvider(
+                  image: image,
+                  name: name,
+                  description: description,
+                  isMultiplayer: isMultiplayer,
+                  genre: genre,
+                  isFeatured: isFeatured,
+                  price: price,
+                  platforms: platforms,
+                  developer: developer,
+                  language: language,
+                ),
               );
             }),
       ),
     );
   }
 }
-
-/* 
-Container(
-            width: 120,
-            //color: Colors.blue,
-            margin: const EdgeInsets.all(5),
-            padding: const EdgeInsets.all(5),
-            //color: Colors.blue,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(bottom: 5),
-                  child: OpenContainer(
-                      closedBuilder: (_, openContainer) {
-                        return Container(
-                          //color: Colors.grey,
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(imgurl))),
-                        );
-                      },
-                      closedElevation: 5,
-                      //transitionDuration: Duration(milliseconds: 200),
-                      closedShape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(5),
-                              bottomRight: Radius.circular(5),
-                              bottomLeft: Radius.circular(15))),
-                      openBuilder: (_, closeContainer) {
-                        return Details();
-                      }),
-                ),
-                Flexible(
-                  child: Text(
-                    itemName,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                )
-              ],
-            ),
-          ) */

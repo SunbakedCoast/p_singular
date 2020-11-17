@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:p_singular/BLOCS/BLOCS_SEARCH/search.dart';
 import 'package:p_singular/SRC/MODELS/models.dart';
 import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
+import 'package:p_singular/UI/VALUES/values.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-///TODO ADD ALL [textTheme] to [themeData]
+///TODO ADD ALL [textTheme] to [themeData];
+///K[CHECKED FOR SIMPLIFICATION]
 class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
@@ -75,7 +77,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     backgroundColor: Theme.of(context).backgroundColor,
                     title: Text('Singular',
                         style: GoogleFonts.bitter(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w900,
                         )),
                     pinned: true,
                     floating: true,
@@ -100,7 +102,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     forceElevated: innerBoxScrolled,
                     bottom: TabBar(
                       labelStyle:
-                          GoogleFonts.montserrat(fontWeight: FontWeight.bold),
+                          GoogleFonts.poppins(fontWeight: FontWeight.bold),
                       labelColor: Theme.of(context).accentColor,
                       unselectedLabelColor: Colors.grey,
                       isScrollable: true,
@@ -150,35 +152,26 @@ class SearchData extends SearchDelegate<Games> {
 
   @override
   Widget buildResults(BuildContext context) {
-    var _screenSize = MediaQuery.of(context).size;
     gamesBloc.add(SearchEvent(query));
-    //TODO ADD BLOCPROVIDER
     return RepositoryProvider<GamesRepository>(
       create: (context) => GameAPI(),
       child: BlocProvider<SearchBloc>(
         create: (context) {
-          final gamesRepository =
+          final _gamesRepository =
               RepositoryProvider.of<GamesRepository>(context);
-          return SearchBloc(gamesRepository);
+          return SearchBloc(_gamesRepository);
         },
         child: BlocBuilder<SearchBloc, SearchState>(
             cubit: gamesBloc,
             builder: (context, state) {
-              if (state.isLoading) {
-                print('state is loading');
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (state.hasError) {
-                return Container(
-                  child: Center(
-                    child: Text('errorTest'),
-                  ),
-                );
-              }
+              if (state.isLoading) return _progressIndicator();
+              if (state.hasError) return _error(state.error);
+
+              ///[FOR DEBUGGING PURPOSES ONLY]
               print('CURRENTSTATE: $state');
               print('GAMES LENGHT IS EQUAL TO: ${state.games.length}');
+
+              ///[FOR DEBUGGING PURPOSES ONLY]
               return GridView.builder(
                   padding: const EdgeInsets.all(10),
                   shrinkWrap: true,
@@ -191,34 +184,16 @@ class SearchData extends SearchDelegate<Games> {
                       mainAxisSpacing: 4.0),
                   itemBuilder: (context, index) => _item(
                       context: context,
-                      screenSize: _screenSize,
                       image: state.games[index].image,
                       name: state.games[index].name,
                       description: state.games[index].description,
-                      //isFourK: state.games[index].isFourK,
                       isMultiplayer: state.games[index].isMultiplayer,
-                      //players: state.games[index].players,
                       genre: state.games[index].genre,
                       isFeatured: state.games[index].isFeatured,
                       price: state.games[index].price,
                       platforms: state.games[index].platforms,
                       developer: state.games[index].developer,
-                      language: state.games[index].language)
-                  /*ListTile(
-                title: Text(state.games[index].name)
-              ) */
-                  );
-              /*ListTile(
-                    title: Text(state.games[index].name),
-                    leading: Icon(Icons.ac_unit),
-                  )); */
-
-              //print('GAMES LENGHT IS EQUAL TO: ${state.games.length}');
-              /*return ListView.builder(
-              itemCount: state.games.length,
-              itemBuilder: (context, index) => ListTile(
-                    title: Text(state.games[index].name),
-                  )); */
+                      language: state.games[index].language));
             }),
       ),
     );
@@ -231,27 +206,16 @@ class SearchData extends SearchDelegate<Games> {
 
   Widget _item(
       {BuildContext context,
-      Size screenSize,
       String image,
       String name,
       String description,
-      //bool isFourK,
       String isMultiplayer,
-      //int players,
       String genre,
       bool isFeatured,
       int price,
       List<dynamic> platforms,
       String developer,
       String language}) {
-    /* return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container( 
-          margin: const EdgeInsets.only(bottom: 5),
-          child: */
     return OpenContainer(
         closedBuilder: (_, openContainer) {
           return Container(
@@ -265,7 +229,7 @@ class SearchData extends SearchDelegate<Games> {
               children: [
                 Container(
                   padding: const EdgeInsets.all(10),
-                  width: screenSize.width * 0.9,
+                  width: screenWidth(context) * 0.9,
                   height: 100,
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -327,7 +291,7 @@ class SearchData extends SearchDelegate<Games> {
         closedShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         openBuilder: (_, closeContainer) {
-          return Details(
+          return DetailsProvider(
             image: image,
             name: name,
             description: description,
@@ -343,4 +307,48 @@ class SearchData extends SearchDelegate<Games> {
           );
         });
   }
+
+  Widget _progressIndicator() => Center(
+        child: CircularProgressIndicator(),
+      );
+
+  Widget _error(String error) => Center(
+        child: Text(error),
+      );
 }
+
+/*class ParentProvider extends StatelessWidget {
+  Widget build(BuildContext context) {
+    final _cartRepository = RepositoryProvider.of<CartRepository>(context);
+    final _gamesRepository = RepositoryProvider.of<GamesRepository>(context);
+    final _playerRepository = RepositoryProvider.of<PlayerRepository>(context);
+    return MultiRepositoryProvider(providers: [
+      RepositoryProvider<CartRepository>(
+        create: (context) => CartRepo()),
+      RepositoryProvider<GamesRepository>(
+        create: (context) => GameAPI()),
+      RepositoryProvider<PlayerRepository>(
+        create: (context) => FireStorePlayerRepository())
+    ], 
+    child: MultiBlocProvider(
+      providers: [
+        BlocProvider<CartBloc>(
+          create: (context) => CartBloc(_cartRepository)..add(LoadCartData())),
+        BlocProvider<CategoriesBloc>(
+          create: (context) => CategoriesBloc(_gamesRepository)..add(LoadCategories())
+        ),
+        BlocProvider<DetailsBloc>(
+          create: (context) => DetailsBloc(_cartRepository),
+        ),
+        BlocProvider<HomeBloc>(
+          create: (context) => HomeBloc(_gamesRepository)..add(LoadAllData()),
+        ),
+        BlocProvider<SearchBloc>(
+          create: (context) => SearchBloc(_gamesRepository),
+        ),
+      ],
+    child: Home(),
+    )
+    );
+  }
+} */

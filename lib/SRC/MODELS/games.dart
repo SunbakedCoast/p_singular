@@ -6,9 +6,7 @@ class Games extends Equatable {
   final String image;
   final String name;
   final String description;
-  //final bool isFourK;
   final String isMultiplayer;
-  //final int players;
   final String genre;
   final bool isFeatured;
   final int price;
@@ -21,9 +19,7 @@ class Games extends Equatable {
       {@required this.image,
       @required this.name,
       @required this.description,
-      //@required this.isFourK,
       @required this.isMultiplayer,
-      //@required this.players,
       @required this.genre,
       @required this.isFeatured,
       @required this.price,
@@ -37,9 +33,7 @@ class Games extends Equatable {
         image: entity.image,
         name: entity.name,
         description: entity.description,
-        //isFourK: entity.isFourK,
         isMultiplayer: entity.isMultiplayer,
-        //players: entity.players,
         genre: entity.genre,
         isFeatured: entity.isFeatured,
         price: entity.price,

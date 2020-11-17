@@ -16,9 +16,10 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         super(SignInInitial());
 
   @override
-  Stream<SignInState> mapEventToState(SignInEvent event) {
-    // TODO: implement mapEventToState
-    throw UnimplementedError();
+  Stream<SignInState> mapEventToState(SignInEvent event) async* {
+    if (event is SignInButtonPressed) {
+      yield * _mapSignInButtonPressedtoState(event);
+    }
   }
 
   Stream<SignInState> _mapSignInButtonPressedtoState(

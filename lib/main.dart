@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 //server https://my-json-server.typicode.com/SunbakedCoast/PlayStationDemo/games
-
+///[CHECKED FOR SIMPLIFICATION]
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(RepositoryProvider<AuthenticationService>(
+  runApp( RepositoryProvider<AuthenticationService>(
       create: (context) {
         return FirebaseAuthenticationService();
       },
@@ -35,24 +35,17 @@ class Singular extends StatelessWidget {
           child: Scaffold(body:
               BlocBuilder<AuthenticationBloc, AuthenticationState>(
                   builder: (context, state) {
-            final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
-            if (state is AuthenticationLoading) {
-              print(state.toString());
-              return SplashScreen();
-            }
-            if (state is AuthenticationAuthenticated) {
-              print(state.toString());
-              return Home();
-            }
-            if (state is AuthenticationFailure) {
-              print(state.toString());
-              return Container();
-            } //TODO RETURN AUTHFAILURE
-            if (state is AuthenticationUnauthenticated) {
-              print(state.toString());
+            //final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
+            if (state is AuthenticationLoading) return SplashScreen();
+
+            if (state is AuthenticationAuthenticated) return Home();
+
+            if (state is AuthenticationFailure) return Container();    //TODO RETURN AUTHFAILURE
+        
+            if (state is AuthenticationUnauthenticated)
               return AuthenticationStart();
-            }
-            print(state.toString());
+
+            print('MAIN STATE: ${state.toString()}');
             return Container();
           })),
         ));

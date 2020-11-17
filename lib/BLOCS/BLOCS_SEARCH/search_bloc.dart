@@ -24,8 +24,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       List<Games> games = await _gamesRepository.searchResults(event.query);
       print('GAMES RESULT FROM BLOC: $games');
       yield SearchState.success(games);
-    } catch (_) {
-      yield SearchState.error();
+    } catch (error) {
+      yield SearchState.error(error ?? 'An unknown error has occured');
     }
   }
 }

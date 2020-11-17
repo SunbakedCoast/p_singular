@@ -1,5 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class CartEntity extends Equatable {
   final String image;
@@ -8,15 +8,15 @@ class CartEntity extends Equatable {
 
   CartEntity(this.image, this.name, this.price);
 
-  static CartEntity fromSnapshot(DataSnapshot snapshot) {
+  static CartEntity fromSnapshot(DocumentSnapshot snapshot) {
     return CartEntity(
-      snapshot.value['image'],
-      snapshot.value['name'],
-      snapshot.value['price'],
+      snapshot.data()['image'],
+      snapshot.data()['name'],
+      snapshot.data()['price'],
     );
   }
 
-  Map<String, Object> toRDB() {
+  Map<String, Object> toDocument() {
     return {'image': image, 'name': name, 'price': price};
   }
 
