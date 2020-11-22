@@ -126,8 +126,8 @@ Widget _item({Size screenSize, String image, String name, String price}) {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          height: 70,
-          width: 80,
+          height: 80,
+          width: 70,
           decoration: BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.cover, image: NetworkImage(image)),

@@ -291,7 +291,7 @@ class SearchData extends SearchDelegate<Games> {
         closedShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         openBuilder: (_, closeContainer) {
-          return DetailsProvider(
+          return Details(
             image: image,
             name: name,
             description: description,

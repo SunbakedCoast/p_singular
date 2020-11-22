@@ -131,7 +131,7 @@ class HorizontalList extends StatelessWidget {
             openBuilder: (_, closeContainer) {
               return RepositoryProvider<CartRepository>(
                 create: (context) => CartRepo(),
-                child: DetailsProvider(
+                  child: Details(
                   image: image,
                   name: name,
                   description: description,

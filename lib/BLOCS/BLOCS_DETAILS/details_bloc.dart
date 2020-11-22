@@ -22,7 +22,6 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
       GetButtonPressed event) async* {
     yield DetailsLoading();
     await _cartRepository.addToCart(event.cart);
-    await Future.delayed(Duration(seconds: 2));
     yield GetSuccess(cart: event.cart);
   }
 }

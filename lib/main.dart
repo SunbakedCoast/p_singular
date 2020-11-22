@@ -6,7 +6,9 @@ import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-//server https://my-json-server.typicode.com/SunbakedCoast/PlayStationDemo/games
+///when I wrote this Me and God know how all these works 
+///but now it's only God
+
 ///[CHECKED FOR SIMPLIFICATION]
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

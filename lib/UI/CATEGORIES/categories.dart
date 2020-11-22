@@ -117,8 +117,9 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
         return _progressIndicator();
       }
     }
-    ///TODO [RETURN WIDGET]
-    );
+
+        ///TODO [RETURN WIDGET]
+        );
   }
 
   Widget _progressIndicator() {
@@ -250,17 +251,20 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                   bottomRight: Radius.circular(5),
                   bottomLeft: Radius.circular(15))),
           openBuilder: (_, closeContainer) {
-            return DetailsProvider(
-              image: image,
-              name: name,
-              description: description,
-              isMultiplayer: isMultiplayer,
-              genre: genre,
-              isFeatured: isFeatured,
-              price: price,
-              platforms: platforms,
-              developer: developer,
-              language: language,
+            return RepositoryProvider<CartRepository>(
+              create: (context) => CartRepo(),
+              child: Details(
+                image: image,
+                name: name,
+                description: description,
+                isMultiplayer: isMultiplayer,
+                genre: genre,
+                isFeatured: isFeatured,
+                price: price,
+                platforms: platforms,
+                developer: developer,
+                language: language,
+              ),
             );
           }),
     );

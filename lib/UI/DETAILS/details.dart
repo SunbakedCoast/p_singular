@@ -3,13 +3,14 @@ import 'dart:math' as math;
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:p_singular/BLOCS/BLOCS_DETAILS/details.dart';
+import 'package:p_singular/BLOCS/BLOCS_DETAILSBTN/detailsbtn.dart';
 import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
 import 'package:p_singular/UI/VALUES/values.dart';
 import 'package:p_singular/WIDGETS/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DetailsProvider extends StatelessWidget {
+/* class DetailsProvider extends StatelessWidget {
   final String image;
   final String name;
   final String description;
@@ -35,8 +36,8 @@ class DetailsProvider extends StatelessWidget {
 
   Widget build(BuildContext context) {
     final _cartRepository = RepositoryProvider.of<CartRepository>(context);
-    return BlocProvider<DetailsBloc>(
-      create: (context) => DetailsBloc(_cartRepository),
+    return BlocProvider<DetailsBtnBloc>(
+      create: (context) => DetailsBtnBloc(_cartRepository),
       child: _Details(
         image: image,
         name: name,
@@ -50,10 +51,10 @@ class DetailsProvider extends StatelessWidget {
         language: language,
       ),
     );
-  }
+  } 
 }
-
-class _Details extends StatefulWidget {
+*/
+class Details extends StatefulWidget {
   final String image;
   final String name;
   final String description;
@@ -65,7 +66,7 @@ class _Details extends StatefulWidget {
   final String developer;
   final String language;
 
-  _Details(
+  Details(
       {@required this.image,
       @required this.name,
       @required this.description,
@@ -76,10 +77,10 @@ class _Details extends StatefulWidget {
       @required this.platforms,
       @required this.developer,
       @required this.language});
-  _DetailsState createState() => _DetailsState();
+  DetailsState createState() => DetailsState();
 }
 
-class _DetailsState extends State<_Details> with TickerProviderStateMixin {
+class DetailsState extends State<Details> with TickerProviderStateMixin {
   AnimationController _animationController;
   AnimationController _arrowAnimationController;
 
@@ -119,52 +120,37 @@ class _DetailsState extends State<_Details> with TickerProviderStateMixin {
             'Animation controller value ${_animationController.value} is lower than 1.0');
 
     ///[OFFSET TRACKING]
-    return BlocBuilder<DetailsBloc, DetailsState>(builder: (context, state) {
-      if (state is DetailsInitial) {
-        return ListenableProvider.value(
-          value: _animationController,
-          child: SafeArea(
-            child: Scaffold(
-                backgroundColor: Theme.of(context).backgroundColor,
-                body: GestureDetector(
-                  onVerticalDragUpdate: _dragUpdate,
-                  onVerticalDragEnd: _handleDragEnd,
-                  child: Container(
-                    child: Stack(
-                      children: [
-                        MainImage(
-                          image: widget.image,
-                        ),
-                        GradientDark(),
-                        ArrowUp(arrowAnimationOffset: _arrowAnimationOffset),
-                        TitleLabel(
-                            name: widget.name, platforms: widget.platforms),
-                        DetailsBody(body: widget.description),
-                        Play(
-                          image: widget.image,
-                          name: widget.name,
-                          price: widget.price,
-                          state: state,
-                        ),
-                        GameDetails(
-                            developer: widget.developer,
-                            language: widget.language,
-                            isMultiplayer: widget.isMultiplayer),
-                        BackArrow(),
-                        PlayersWidget(price: widget.price)
-                      ],
-                    ),
-                  ),
-                )),
-          ),
-        );
-      }
-      if (state is DetailsLoading) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-    });
+    return ListenableProvider.value(
+      value: _animationController,
+      child: SafeArea(
+          child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: GestureDetector(
+          onVerticalDragUpdate: _dragUpdate,
+          onVerticalDragEnd: _handleDragEnd,
+          child: Stack(
+                children: [
+                  MainImage(image: widget.image),
+                  GradientDark(),
+                  ArrowUp(arrowAnimationOffset: _arrowAnimationOffset),
+                  TitleLabel(name: widget.name, platforms: widget.platforms),
+                  DetailsBody(body: widget.description),
+                  Play(
+                      image: widget.image,
+                      name: widget.name,
+                      price: widget.price,
+                      ),
+                  GameDetails(
+                      developer: widget.developer,
+                      language: widget.language,
+                      isMultiplayer: widget.isMultiplayer),
+                  BackArrow(),
+                  PlayersWidget(price: widget.price)
+                ],
+              ) ///[HERE]
+        ),
+      )),
+    );
   }
 
   void _dragUpdate(DragUpdateDetails dragUpdateDetails) {
