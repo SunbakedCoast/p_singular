@@ -21,6 +21,7 @@ class MyCartProvider extends StatelessWidget {
 
 class _MyCart extends StatelessWidget {
   Widget build(BuildContext context) {
+    final _cartBloc = BlocProvider.of<CartBloc>(context);
     var _screenSize = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -79,10 +80,12 @@ class _MyCart extends StatelessWidget {
                         physics: BouncingScrollPhysics(),
                         scrollDirection: Axis.vertical,
                         itemBuilder: (context, index) => _item(
+                            context: context,
                             screenSize: _screenSize,
                             name: _cart[index].name,
                             image: _cart[index].image,
-                            price: _cart[index].price.toString())),
+                            price: _cart[index].price.toString(),
+                            cartBloc: _cartBloc)),
                     _priceIndicator(price: _total)
                   ],
                 ),
@@ -115,13 +118,25 @@ Widget _priceIndicator({int price}) {
   );
 }
 
-Widget _item({Size screenSize, String image, String name, String price}) {
+// TODO UPDATE STATE
+Widget _item(
+    {BuildContext context,
+    Size screenSize,
+    String image,
+    String name,
+    String price,
+    CartBloc cartBloc}) {
+  cartBloc = BlocProvider.of<CartBloc>(context);
+
+  removeButtonPressed() {
+    cartBloc.add(RemoveCartData(name: name));
+  }
+
   return Container(
     padding: const EdgeInsets.all(5),
     margin: const EdgeInsets.only(bottom: 5),
     width: screenSize.width,
     height: 100,
-    //color: Colors.red,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -137,35 +152,41 @@ Widget _item({Size screenSize, String image, String name, String price}) {
         //  AspectRatio(
         //   aspectRatio: 2.5 / 1,
         //  child:
-        Container(
-          padding: const EdgeInsets.all(5),
-          margin: const EdgeInsets.only(left: 5, right: 5),
-          decoration: BoxDecoration(
-              //color: Colors.yellow,
-              borderRadius: BorderRadius.circular(5)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(name,
-                  style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold)),
-              Text('\$$price',
-                  style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold)),
-              Text('XBOX',
-                  style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w300))
-            ],
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(5),
+            margin: const EdgeInsets.only(left: 5, right: 5),
+            decoration: BoxDecoration(
+                //color: Colors.yellow,
+                borderRadius: BorderRadius.circular(5)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(name,
+                    style: GoogleFonts.poppins(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold)),
+                Text('\$$price',
+                    style: GoogleFonts.poppins(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold)),
+                Text('XBOX',
+                    style: GoogleFonts.poppins(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300)),
+              ],
+            ),
           ),
         ),
-        //  )
+        IconButton(
+          icon: Icon(Icons.close),
+          splashColor: Theme.of(context).backgroundColor,
+          onPressed: removeButtonPressed
+        )
       ],
     ),
   );
