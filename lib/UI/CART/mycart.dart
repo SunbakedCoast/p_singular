@@ -183,10 +183,10 @@ Widget _item(
           ),
         ),
         IconButton(
-          icon: Icon(Icons.close),
-          splashColor: Theme.of(context).backgroundColor,
-          onPressed: removeButtonPressed
-        )
+            icon: Icon(Icons.close),
+            splashColor: Theme.of(context).backgroundColor,
+            onPressed: removeButtonPressed
+            )
       ],
     ),
   );

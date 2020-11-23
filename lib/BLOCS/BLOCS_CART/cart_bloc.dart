@@ -43,6 +43,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Stream<CartState> _mapRemoveCartData(RemoveCartData event) async* {
+    yield CartLoading();
     await _cartRepository.removeItem(event.name);
+    _streamSubscription?.cancel();
+
+    _streamSubscription = _cartRepository.loadCart().asStream().listen((cart) {
+      add(CartDataUpdated(cart));
+    });
   }
 }
