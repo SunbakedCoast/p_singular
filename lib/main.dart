@@ -55,6 +55,11 @@ class Singular extends StatelessWidget {
 
   ThemeData _themeData() {
     return ThemeData(
+      /*appBarTheme: AppBarTheme(elevation: 0.0, color: Colors.black12),//elevation did work
+          inputDecorationTheme:
+              InputDecorationTheme(border: UnderlineInputBorder()), */
+        primaryColor: Color(0xFF22262F),
+        //hjhjbrightness: Brightness.dark,
         backgroundColor: Color(0xFF22262F),
         accentColor: Color(0xFFF2AA4C),
         textTheme: TextTheme(

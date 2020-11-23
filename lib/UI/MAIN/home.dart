@@ -45,6 +45,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               RepositoryProvider.of<GamesRepository>(context);
           return SearchBloc(gamesRepository);
         },
+        //TODO SWITCH SAFEAREA TO SCAFOOLD
         child: SafeArea(
           child: Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
@@ -96,7 +97,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       IconButton(
                         icon: Icon(Icons.person_outline_outlined),
                         color: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
+                        },
                       )
                     ],
                     forceElevated: innerBoxScrolled,
@@ -142,12 +145,12 @@ class SearchData extends SearchDelegate<Games> {
 
   @override
   Widget buildLeading(BuildContext context) {
-    return IconButton(
+     return IconButton(
         icon: AnimatedIcon(
           icon: AnimatedIcons.menu_arrow,
           progress: transitionAnimation,
         ),
-        onPressed: () {});
+        onPressed: () {}); 
   }
 
   @override
@@ -291,19 +294,22 @@ class SearchData extends SearchDelegate<Games> {
         closedShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         openBuilder: (_, closeContainer) {
-          return Details(
-            image: image,
-            name: name,
-            description: description,
-            //isFourK: isFourK,
-            isMultiplayer: isMultiplayer,
-            //players: players,
-            genre: genre,
-            isFeatured: isFeatured,
-            price: price,
-            platforms: platforms,
-            developer: developer,
-            language: language,
+          return RepositoryProvider<CartRepository>(
+            create: (context) => CartRepo(),
+            child: Details(
+              image: image,
+              name: name,
+              description: description,
+              //isFourK: isFourK,
+              isMultiplayer: isMultiplayer,
+              //players: players,
+              genre: genre,
+              isFeatured: isFeatured,
+              price: price,
+              platforms: platforms,
+              developer: developer,
+              language: language,
+            ),
           );
         });
   }
