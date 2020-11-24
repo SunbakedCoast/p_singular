@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:p_singular/BLOCS/BLOCS_AUTH/authentication.dart';
 import 'package:p_singular/BLOCS/BLOCS_SIGNIN/signin.dart';
 import 'package:p_singular/SRC/SERVICES/services.dart';
@@ -57,6 +58,7 @@ class _Form extends StatelessWidget {
     final _authService = RepositoryProvider.of<AuthenticationService>(context);
     final _authBloc = RepositoryProvider.of<AuthenticationBloc>(context);
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Container(
             height: _screenSize.height,
@@ -108,70 +110,77 @@ class _SignInFormState extends State<_SignInForm> {
         return Form(
           key: _key,
           autovalidateMode: AutovalidateMode.always,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 30, right: 30, top: 10),
-                child: TextFormField(
-                  autocorrect: false,
-                  keyboardType: TextInputType.emailAddress,
-                  controller: _emailController,
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    hintText: 'Email',
-                    hintStyle: TextStyle(fontFamily: 'OSRegular'),
-                  ),
-                  validator: (value) {
-                    if (value == null) {
-                      return 'Email is required';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
-                child: TextFormField(
-                    keyboardType: TextInputType.name,
-                    controller: _passwordController,
-                    obscureText: true,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      hintStyle: TextStyle(fontFamily: 'OSRegular'),
-                    ),
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Password is required';
-                      } else {
-                        return null;
-                      }
-                    }),
-              ),
-              Container(
-                margin: const EdgeInsets.all(30),
-                child: SizedBox(
-                  width: _screenSize.width,
-                  child: RaisedButton(
-                    elevation: 4.0,
-                    splashColor: Colors.white,
-                    onPressed:
-                        state is SignInLoading ? () {} : _loginButtonPressed,
-                    color: Colors.black,
-                    child: Text(
-                      'Log in',
-                      style: TextStyle(
-                          fontFamily: 'OSBold',
-                          color: Colors.white,
-                          fontSize: 14.0),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 30, right: 30, top: 10),
+                    child: TextFormField(
+                      autocorrect: false,
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _emailController,
+                      style: GoogleFonts.poppins(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                      decoration: InputDecoration(
+                        hintText: 'Email',
+                        hintStyle: GoogleFonts.poppins(
+                            color: Colors.grey, fontWeight: FontWeight.bold),
+                      ),
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Email is required';
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
                   ),
-                ),
-              )
-            ],
+                  Container(
+                    margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
+                    child: TextFormField(
+                        keyboardType: TextInputType.name,
+                        controller: _passwordController,
+                        obscureText: true,
+                        style: GoogleFonts.poppins(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                        decoration: InputDecoration(
+                          hintText: 'Password',
+                          hintStyle: GoogleFonts.poppins(
+                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        ),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Password is required';
+                          } else {
+                            return null;
+                          }
+                        }),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(30),
+                    child: SizedBox(
+                      width: _screenSize.width,
+                      child: RaisedButton(
+                        elevation: 4.0,
+                        splashColor: Colors.black,
+                        onPressed: state is SignInLoading
+                            ? () {}
+                            : _loginButtonPressed,
+                        color: Theme.of(context).accentColor,
+                        child: Text(
+                          'Log in',
+                          style: GoogleFonts.poppins(
+                              color: Colors.black, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         );
       }

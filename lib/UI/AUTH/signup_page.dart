@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:p_singular/BLOCS/BLOCS_AUTH/authentication.dart';
 import 'package:p_singular/BLOCS/BLOCS_SIGNUP/signup.dart';
 import 'package:p_singular/SRC/MODELS/models.dart';
@@ -39,6 +40,7 @@ class _Form extends StatelessWidget {
     var _screenSize = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         body: RepositoryProvider<PlayerRepository>(
             create: (context) => FireStorePlayerRepository(),
             child: BlocProvider<SignUpBloc>(
@@ -114,10 +116,12 @@ class _SignUpFormState extends State<_SignUpForm> {
                       //autocorrect: false,
                       keyboardType: TextInputType.name,
                       controller: _userNameTextController,
-                      style: TextStyle(color: Colors.black),
+                      style: GoogleFonts.poppins(
+                          color: Colors.white, fontWeight: FontWeight.bold),
                       decoration: InputDecoration(
                         hintText: 'User Name',
-                        hintStyle: TextStyle(fontFamily: 'OSRegular'),
+                        hintStyle:  GoogleFonts.poppins(
+                            color: Colors.grey, fontWeight: FontWeight.bold),
                       ),
                       validator: (value) {
                         if (value == null) {
@@ -133,10 +137,12 @@ class _SignUpFormState extends State<_SignUpForm> {
                     child: TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailTextController,
-                      style: TextStyle(color: Colors.black),
+                      style: GoogleFonts.poppins(
+                          color: Colors.white, fontWeight: FontWeight.bold),
                       decoration: InputDecoration(
                         hintText: 'Email',
-                        hintStyle: TextStyle(fontFamily: 'OSRegular'),
+                        hintStyle:  GoogleFonts.poppins(
+                            color: Colors.grey, fontWeight: FontWeight.bold),
                       ),
                       validator: (value) {
                         if (value == null) {
@@ -153,10 +159,12 @@ class _SignUpFormState extends State<_SignUpForm> {
                       //autocorrect: false,
                       obscureText: true,
                       controller: _passwordTextController,
-                      style: TextStyle(color: Colors.black),
+                      style: GoogleFonts.poppins(
+                          color: Colors.white, fontWeight: FontWeight.bold),
                       decoration: InputDecoration(
                         hintText: 'Password 6+ characters',
-                        hintStyle: TextStyle(fontFamily: 'OSRegular'),
+                        hintStyle:  GoogleFonts.poppins(
+                            color: Colors.grey, fontWeight: FontWeight.bold),
                       ),
                       validator: (value) {
                         if (value == null) {
@@ -177,13 +185,11 @@ class _SignUpFormState extends State<_SignUpForm> {
                         onPressed: state is SignUpLoading
                             ? () {}
                             : _signupButtonPressed,
-                        color: Colors.black,
+                        color: Theme.of(context).accentColor,
                         child: Text(
                           'Count me in!',
-                          style: TextStyle(
-                              fontFamily: 'OSBold',
-                              color: Colors.white,
-                              fontSize: 14.0),
+                          style:  GoogleFonts.poppins(
+                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),

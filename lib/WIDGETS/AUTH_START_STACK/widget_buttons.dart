@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:p_singular/UI/VALUES/values.dart';
+import 'package:p_singular/pages.dart';
 
 class AuthButtons extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -14,7 +15,10 @@ class AuthButtons extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(right: 10),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SignIn()));
+                },
                 child: Text(
                   'Sign in',
                   style: GoogleFonts.poppins(
@@ -24,7 +28,10 @@ class AuthButtons extends StatelessWidget {
             ),
             RaisedButton(
               splashColor: Theme.of(context).accentColor,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SignUp()));
+              },
               color: Theme.of(context).accentColor,
               child: Text('Sign up',
                   style: GoogleFonts.poppins(
