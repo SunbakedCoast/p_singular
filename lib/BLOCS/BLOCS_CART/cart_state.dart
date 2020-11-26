@@ -16,3 +16,5 @@ class CartDataLoaded extends CartState {
 
   List<Object> get props => [cart];
 }
+
+class CartEmptyState extends CartState{}

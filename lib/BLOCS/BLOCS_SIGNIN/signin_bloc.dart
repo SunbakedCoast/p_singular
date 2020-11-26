@@ -18,19 +18,24 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   @override
   Stream<SignInState> mapEventToState(SignInEvent event) async* {
     if (event is SignInButtonPressed) {
-      yield * _mapSignInButtonPressedtoState(event);
+      yield* _mapSignInButtonPressedtoState(event);
     }
   }
 
   Stream<SignInState> _mapSignInButtonPressedtoState(
       SignInButtonPressed event) async* {
     yield SignInLoading();
-    await _authenticationService.signInWithCredentials(
-        event.email, event.password);
-    final user = _authenticationService.getCurrentUser();
-    if (user != null)
+    try {
+      await _authenticationService.signInWithCredentials(
+          event.email, event.password);
+      //final user = _authenticationService.getCurrentUser();
+      _authenticationBloc.add(UserLoggedIn());
+    } catch (e) {
+      yield SignInFailure(error: e.message ?? 'an Unknown error has occured');
+    }
+    /*if (user != null)
       _authenticationBloc.add(UserLoggedIn());
     else
-      yield SignInFailure(error: 'errorTest');
+      yield SignInFailure(error: 'errorTest'); */
   }
 }

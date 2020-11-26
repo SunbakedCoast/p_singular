@@ -23,46 +23,46 @@ class _MyCart extends StatelessWidget {
   Widget build(BuildContext context) {
     final _cartBloc = BlocProvider.of<CartBloc>(context);
     var _screenSize = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).accentColor,
-        persistentFooterButtons: [
-          SizedBox(
-            width: _screenSize.width,
-            child: RaisedButton(
-              splashColor: Theme.of(context).accentColor,
-              onPressed: () {},
-              color: Theme.of(context).backgroundColor,
-              child: Text('Check out',
-                  style: GoogleFonts.poppins(
-                      color: Theme.of(context).accentColor,
-                      fontWeight: FontWeight.bold)),
-            ),
+    return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+      if (state is CartInitial) {
+        print(state.toString());
+        return Center(
+          child: Text(state.toString()),
+        );
+      }
+      if (state is CartLoading) {
+        print(state.toString());
+        return Center(
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.black,
           ),
-        ],
-        body: BlocBuilder<CartBloc, CartState>(builder: (context, state) {
-          if (state is CartInitial) {
-            print(state.toString());
-            return Center(
-              child: Text(state.toString()),
-            );
-          }
-          if (state is CartLoading) {
-            print(state.toString());
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.black,
+        );
+      }
+      if (state is CartDataLoaded) {
+        final _cart = state.cart;
+        //print('CART LENGTH: ${_cart.length}');
+        final _total = _cart
+            .map((cart) => int.parse(cart.price.toString()))
+            .reduce((value, element) => value + element);
+        print('CART STATE: ${state.toString()}');
+        return SafeArea(
+                  child: Scaffold(
+            backgroundColor: Theme.of(context).accentColor,
+            persistentFooterButtons: [
+                 SizedBox(
+              width: _screenSize.width,
+              child: RaisedButton(
+                splashColor: Theme.of(context).accentColor,
+                onPressed: () {},
+                color: Theme.of(context).backgroundColor,
+                child: Text('Check out',
+                    style: GoogleFonts.poppins(
+                        color: Theme.of(context).accentColor,
+                        fontWeight: FontWeight.bold)),
               ),
-            );
-          }
-          if (state is CartDataLoaded) {
-            final _cart = state.cart;
-            //print('CART LENGTH: ${_cart.length}');
-            final _total = _cart
-                .map((cart) => int.parse(cart.price.toString()))
-                .reduce((value, element) => value + element);
-            print('CART STATE: ${state.toString()}');
-            return Padding(
+            ),
+            ],
+            body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
@@ -90,13 +90,13 @@ class _MyCart extends StatelessWidget {
                   ],
                 ),
               ),
-            );
-          }
-          print(state.toString());
-          return Container();
-        }),
-      ),
-    );
+            ),
+          ),
+        );
+      }
+      print(state.toString());
+      return Container();
+    });
   }
 }
 
@@ -185,8 +185,7 @@ Widget _item(
         IconButton(
             icon: Icon(Icons.close),
             splashColor: Theme.of(context).backgroundColor,
-            onPressed: removeButtonPressed
-            )
+            onPressed: removeButtonPressed)
       ],
     ),
   );

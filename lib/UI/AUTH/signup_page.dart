@@ -68,7 +68,7 @@ class _SignUpFormState extends State<_SignUpForm> {
   final _userNameTextController = TextEditingController();
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
-  bool _validate = false;
+  //bool _validate = false;
 
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
@@ -84,11 +84,11 @@ class _SignUpFormState extends State<_SignUpForm> {
           userName: _userNameTextController.text,
           email: _emailTextController.text,
         )));
-      } else {
+      } /* else {
         setState(() {
           _validate = true;
         });
-      }
+      } */
     }
 
     return BlocListener<SignUpBloc, SignUpState>(listener: (context, state) {
@@ -108,8 +108,27 @@ class _SignUpFormState extends State<_SignUpForm> {
               physics: ScrollPhysics(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 30),
+                    child: Text('Create account with Singular', 
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22
+                    )),
+                  ),
+                   Container(
+                    margin: const EdgeInsets.only(left: 30),
+                    child: Text('Hello there!', 
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12
+                    )),
+                  ),
                   Container(
                     margin: const EdgeInsets.only(left: 30, right: 30, top: 10),
                     child: TextFormField(
@@ -119,7 +138,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                       style: GoogleFonts.poppins(
                           color: Colors.white, fontWeight: FontWeight.bold),
                       decoration: InputDecoration(
-                        hintText: 'User Name',
+                        hintText: 'Username',
                         hintStyle:  GoogleFonts.poppins(
                             color: Colors.grey, fontWeight: FontWeight.bold),
                       ),

@@ -14,7 +14,16 @@ class DashboardProvider extends StatelessWidget {
       }
       if (state is AuthenticationFailure) {}
       if (state is AuthenticationAuthenticated) {}
+      if (state is AuthenticationLoading) {
+        return _progressIndicator();
+      }
     });
+  }
+
+  Widget _progressIndicator() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
   }
 }
 
@@ -28,9 +37,6 @@ class Dashboard extends StatelessWidget {
 
     var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      body: SafeArea(
-        child: Container(),
-      ),
       backgroundColor: Theme.of(context).backgroundColor,
       persistentFooterButtons: [
         SizedBox(
@@ -45,6 +51,23 @@ class Dashboard extends StatelessWidget {
           ),
         ),
       ],
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Username', 
+              style: GoogleFonts.poppins(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 24
+              )),
+            ],
+          ),
+        )
+      ),
     );
   }
 }

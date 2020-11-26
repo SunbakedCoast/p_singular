@@ -16,17 +16,17 @@ class SignIn extends StatelessWidget {
         return _Form();
       }
       if (state is AuthenticationFailure) {
-        //return AuthenticationExceptionWidget(authBloc: _authBloc, error: 'Authentication Error');
+        return _authenticationFailure(
+            _authBloc, _screenSize, state.errorMessage);
       }
       if (state is AuthenticationAuthenticated) {
         return Home();
       }
-
+      print('Sign in state: ${state.toString()}');
       return _progressIndicator();
     });
   }
 
-  /*
   Widget _authenticationFailure(
       AuthenticationBloc authBloc, Size screenSize, String error) {
     return GestureDetector(
@@ -40,8 +40,9 @@ class SignIn extends StatelessWidget {
       ),
     );
   }
+
   //TODO REMOVE OR CHANGE IF NOT VIAGBLE
-  Widget _authenticationFailureTestWidget(AuthenticationBloc authBloc, Size screenSize, String error){
+  /* Widget _authenticationFailureTestWidget(AuthenticationBloc authBloc, Size screenSize, String error){
     return 
   }
  */
@@ -80,7 +81,7 @@ class _SignInFormState extends State<_SignInForm> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _validate = false;
+  //bool _validate = false;
 
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
@@ -90,11 +91,12 @@ class _SignInFormState extends State<_SignInForm> {
       if (_key.currentState.validate()) {
         _signinBloc.add(SignInButtonPressed(
             email: _emailController.text, password: _passwordController.text));
-      } else {
+      }
+      /*else {
         setState(() {
           _validate = true;
         });
-      }
+      } */
     }
 
     return BlocListener<SignInBloc, SignInState>(listener: (context, state) {
@@ -114,12 +116,21 @@ class _SignInFormState extends State<_SignInForm> {
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
+                    margin: const EdgeInsets.only(left: 30),
+                    child: Text('Welcome back!',
+                        style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22)),
+                  ),
+                  Container(
                     margin: const EdgeInsets.only(left: 30, right: 30, top: 10),
                     child: TextFormField(
-                      autocorrect: false,
+                      //autocorrect: false,
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailController,
                       style: GoogleFonts.poppins(
@@ -129,13 +140,13 @@ class _SignInFormState extends State<_SignInForm> {
                         hintStyle: GoogleFonts.poppins(
                             color: Colors.grey, fontWeight: FontWeight.bold),
                       ),
-                      validator: (value) {
+                      /* validator: (value) {
                         if (value == null) {
                           return 'Email is required';
                         } else {
                           return null;
                         }
-                      },
+                      }, */
                     ),
                   ),
                   Container(
@@ -184,6 +195,8 @@ class _SignInFormState extends State<_SignInForm> {
           ),
         );
       }
+      print('Sign in state: ${state.toString()}');
+      return _showProgressIndicator();
     }));
   }
 

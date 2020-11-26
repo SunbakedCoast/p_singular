@@ -6,7 +6,8 @@ import 'package:p_singular/pages.dart';
 class AuthButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
-        top: topMargin(context) + 20 + (mainSquareSize(context) + 120),
+        top: topMargin(context) + 20 +
+         (mainSquareSize(context) + 120),
         right: 20,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -22,7 +23,7 @@ class AuthButtons extends StatelessWidget {
                 child: Text(
                   'Sign in',
                   style: GoogleFonts.poppins(
-                      color: Colors.black, fontWeight: FontWeight.bold),
+                      color: Theme.of(context).accentColor, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
