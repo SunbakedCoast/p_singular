@@ -37,6 +37,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   Widget build(BuildContext context) {
+    
     return RepositoryProvider<GamesRepository>(
       create: (context) => GameAPI(),
       child: BlocProvider<SearchBloc>(

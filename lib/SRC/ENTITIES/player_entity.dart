@@ -17,7 +17,7 @@ class PlayerEntity extends Equatable {
 
   Map<String, Object> toDocument() {
     return {
-      'userrName': userName,
+      'userName': userName,
       'email': email,
     };
   }

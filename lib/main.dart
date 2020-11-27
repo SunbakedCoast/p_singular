@@ -1,28 +1,46 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:p_singular/BLOCS/BLOCS_AUTH/authentication.dart';
+import 'package:p_singular/BLOCS/BLOCS_DASHBOARD/dashboard.dart';
+import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
 import 'package:p_singular/SRC/SERVICES/services.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-///when I wrote this Me and God know how all these works 
+///when I wrote this Me and God know how all these works
 ///but now it's only God
 
 ///[CHECKED FOR SIMPLIFICATION]
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp( RepositoryProvider<AuthenticationService>(
-      create: (context) {
-        return FirebaseAuthenticationService();
-      },
-      child: BlocProvider<AuthenticationBloc>(
-        create: (context) {
-          final _authService =
-              RepositoryProvider.of<AuthenticationService>(context);
-          return AuthenticationBloc(_authService)..add(AppLoaded());
-        },
+  runApp(MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<AuthenticationService>(create: (context) {
+          return FirebaseAuthenticationService();
+        }),
+        RepositoryProvider<PlayerRepository>(create: (context) {
+          return FireStorePlayerRepository();
+        })
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AuthenticationBloc>(
+            create: (context) {
+              final _authService =
+                  RepositoryProvider.of<AuthenticationService>(context);
+              return AuthenticationBloc(_authService)..add(AppLoaded());
+            },
+          ),
+          BlocProvider<DashboardBloc>(create: (context) {
+            final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
+            final _playerRepository =
+                RepositoryProvider.of<PlayerRepository>(context);
+            return DashboardBloc(_authBloc, _playerRepository)..add(LoadUserData())
+              ..add(LoadUserData());
+          })
+        ],
         child: Singular(),
       )));
 }
@@ -42,8 +60,9 @@ class Singular extends StatelessWidget {
 
             if (state is AuthenticationAuthenticated) return Home();
 
-            if (state is AuthenticationFailure) return Container();    //TODO RETURN AUTHFAILURE
-        
+            if (state is AuthenticationFailure)
+              return Container(); //TODO RETURN AUTHFAILURE
+
             if (state is AuthenticationUnauthenticated)
               return AuthenticationStart();
 
@@ -55,7 +74,7 @@ class Singular extends StatelessWidget {
 
   ThemeData _themeData() {
     return ThemeData(
-      /*appBarTheme: AppBarTheme(elevation: 0.0, color: Colors.black12),//elevation did work
+        /*appBarTheme: AppBarTheme(elevation: 0.0, color: Colors.black12),//elevation did work
           inputDecorationTheme:
               InputDecorationTheme(border: UnderlineInputBorder()), */
         primaryColor: Color(0xFF22262F),
