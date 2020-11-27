@@ -129,20 +129,17 @@ class HorizontalList extends StatelessWidget {
             closedShape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             openBuilder: (_, closeContainer) {
-              return RepositoryProvider<CartRepository>(
-                create: (context) => CartRepo(),
-                  child: Details(
-                  image: image,
-                  name: name,
-                  description: description,
-                  isMultiplayer: isMultiplayer,
-                  genre: genre,
-                  isFeatured: isFeatured,
-                  price: price,
-                  platforms: platforms,
-                  developer: developer,
-                  language: language,
-                ),
+              return Details(
+                image: image,
+                name: name,
+                description: description,
+                isMultiplayer: isMultiplayer,
+                genre: genre,
+                isFeatured: isFeatured,
+                price: price,
+                platforms: platforms,
+                developer: developer,
+                language: language,
               );
             }),
       ),

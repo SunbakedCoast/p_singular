@@ -37,91 +37,78 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   Widget build(BuildContext context) {
-    
-    return RepositoryProvider<GamesRepository>(
-      create: (context) => GameAPI(),
-      child: BlocProvider<SearchBloc>(
-        create: (context) {
-          final gamesRepository =
-              RepositoryProvider.of<GamesRepository>(context);
-          return SearchBloc(gamesRepository);
-        },
-        //TODO SWITCH SAFEAREA TO SCAFOOLD
-        child: SafeArea(
-          child: Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
-            floatingActionButton: OpenContainer(
-                closedBuilder: (_, openContainer) {
-                  return FloatingActionButton(
-                    elevation: 0.0,
-                    onPressed: openContainer,
-                    backgroundColor: Theme.of(context).accentColor,
-                    child: Icon(
-                      Icons.shopping_cart,
-                      color: Colors.black,
-                    ),
-                  );
-                },
-                openColor: Theme.of(context).accentColor,
-                closedElevation: 5.0,
-                closedShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100)),
-                closedColor: Theme.of(context).accentColor,
-                openBuilder: (_, closeContainer) {
-                  return MyCartProvider();
-                }),
-            body: NestedScrollView(
-              controller: _scrollController,
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxScrolled) {
-                return [
-                  SliverAppBar(
-                    backgroundColor: Theme.of(context).backgroundColor,
-                    title: Text('Singular',
-                        style: GoogleFonts.bitter(
-                          fontWeight: FontWeight.w900,
-                        )),
-                    pinned: true,
-                    floating: true,
-                    actions: [
-                      IconButton(
-                        icon: Icon(Icons.search),
-                        color: Colors.white,
-                        onPressed: () async {
-                          Games selected = await showSearch<Games>(
-                              context: context,
-                              delegate: SearchData(
-                                  BlocProvider.of<SearchBloc>(context)));
-                          print('selected: $selected');
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.person_outline_outlined),
-                        color: Colors.white,
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
-                        },
-                      )
-                    ],
-                    forceElevated: innerBoxScrolled,
-                    bottom: TabBar(
-                      labelStyle:
-                          GoogleFonts.poppins(fontWeight: FontWeight.bold),
-                      labelColor: Theme.of(context).accentColor,
-                      unselectedLabelColor: Colors.grey,
-                      isScrollable: true,
-                      indicatorSize: TabBarIndicatorSize.label,
-                      tabs: _tabs,
-                      controller: _tabController,
-                    ),
-                  )
-                ];
-              },
-              body: TabBarView(
-                children: [HomeProvider(), MostPlayedTab()],
-                controller: _tabController,
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      floatingActionButton: OpenContainer(
+          closedBuilder: (_, openContainer) {
+            return FloatingActionButton(
+              elevation: 0.0,
+              onPressed: openContainer,
+              backgroundColor: Theme.of(context).accentColor,
+              child: Icon(
+                Icons.shopping_cart,
+                color: Colors.black,
               ),
-            ),
+            );
+          },
+          openColor: Theme.of(context).accentColor,
+          closedElevation: 5.0,
+          closedShape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+          closedColor: Theme.of(context).accentColor,
+          openBuilder: (_, closeContainer) {
+            return MyCartProvider();
+          }),
+      body: SafeArea(
+        child: NestedScrollView(
+          controller: _scrollController,
+          headerSliverBuilder: (BuildContext context, bool innerBoxScrolled) {
+            return [
+              SliverAppBar(
+                backgroundColor: Theme.of(context).backgroundColor,
+                title: Text('Singular',
+                    style: GoogleFonts.bitter(
+                      fontWeight: FontWeight.w900,
+                    )),
+                pinned: true,
+                floating: true,
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.search),
+                    color: Colors.white,
+                    onPressed: () async {
+                      Games selected = await showSearch<Games>(
+                          context: context,
+                          delegate:
+                              SearchData(BlocProvider.of<SearchBloc>(context)));
+                      print('selected: $selected');
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.person_outline_outlined),
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Dashboard()));
+                    },
+                  )
+                ],
+                forceElevated: innerBoxScrolled,
+                bottom: TabBar(
+                  labelStyle: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                  labelColor: Theme.of(context).accentColor,
+                  unselectedLabelColor: Colors.grey,
+                  isScrollable: true,
+                  indicatorSize: TabBarIndicatorSize.label,
+                  tabs: _tabs,
+                  controller: _tabController,
+                ),
+              )
+            ];
+          },
+          body: TabBarView(
+            children: [HomeProvider(), MostPlayedTab()],
+            controller: _tabController,
           ),
         ),
       ),
@@ -146,61 +133,51 @@ class SearchData extends SearchDelegate<Games> {
 
   @override
   Widget buildLeading(BuildContext context) {
-     return IconButton(
+    return IconButton(
         icon: AnimatedIcon(
           icon: AnimatedIcons.menu_arrow,
           progress: transitionAnimation,
         ),
-        onPressed: () {}); 
+        onPressed: () {});
   }
 
   @override
   Widget buildResults(BuildContext context) {
     gamesBloc.add(SearchEvent(query));
-    return RepositoryProvider<GamesRepository>(
-      create: (context) => GameAPI(),
-      child: BlocProvider<SearchBloc>(
-        create: (context) {
-          final _gamesRepository =
-              RepositoryProvider.of<GamesRepository>(context);
-          return SearchBloc(_gamesRepository);
-        },
-        child: BlocBuilder<SearchBloc, SearchState>(
-            cubit: gamesBloc,
-            builder: (context, state) {
-              if (state.isLoading) return _progressIndicator();
-              if (state.hasError) return _error(state.error);
+    return BlocBuilder<SearchBloc, SearchState>(
+        cubit: gamesBloc,
+        builder: (context, state) {
+          if (state.isLoading) return _progressIndicator();
+          if (state.hasError) return _error(state.error);
 
-              ///[FOR DEBUGGING PURPOSES ONLY]
-              print('CURRENTSTATE: $state');
-              print('GAMES LENGHT IS EQUAL TO: ${state.games.length}');
+          ///[FOR DEBUGGING PURPOSES ONLY]
+          print('CURRENTSTATE: $state');
+          print('GAMES LENGHT IS EQUAL TO: ${state.games.length}');
 
-              ///[FOR DEBUGGING PURPOSES ONLY]
-              return GridView.builder(
-                  padding: const EdgeInsets.all(10),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  physics: BouncingScrollPhysics(),
-                  itemCount: state.games.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 4.0,
-                      mainAxisSpacing: 4.0),
-                  itemBuilder: (context, index) => _item(
-                      context: context,
-                      image: state.games[index].image,
-                      name: state.games[index].name,
-                      description: state.games[index].description,
-                      isMultiplayer: state.games[index].isMultiplayer,
-                      genre: state.games[index].genre,
-                      isFeatured: state.games[index].isFeatured,
-                      price: state.games[index].price,
-                      platforms: state.games[index].platforms,
-                      developer: state.games[index].developer,
-                      language: state.games[index].language));
-            }),
-      ),
-    );
+          ///[FOR DEBUGGING PURPOSES ONLY]
+          return GridView.builder(
+              padding: const EdgeInsets.all(10),
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              physics: BouncingScrollPhysics(),
+              itemCount: state.games.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 4.0,
+                  mainAxisSpacing: 4.0),
+              itemBuilder: (context, index) => _item(
+                  context: context,
+                  image: state.games[index].image,
+                  name: state.games[index].name,
+                  description: state.games[index].description,
+                  isMultiplayer: state.games[index].isMultiplayer,
+                  genre: state.games[index].genre,
+                  isFeatured: state.games[index].isFeatured,
+                  price: state.games[index].price,
+                  platforms: state.games[index].platforms,
+                  developer: state.games[index].developer,
+                  language: state.games[index].language));
+        });
   }
 
   @override
@@ -295,22 +272,17 @@ class SearchData extends SearchDelegate<Games> {
         closedShape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         openBuilder: (_, closeContainer) {
-          return RepositoryProvider<CartRepository>(
-            create: (context) => CartRepo(),
-            child: Details(
-              image: image,
-              name: name,
-              description: description,
-              //isFourK: isFourK,
-              isMultiplayer: isMultiplayer,
-              //players: players,
-              genre: genre,
-              isFeatured: isFeatured,
-              price: price,
-              platforms: platforms,
-              developer: developer,
-              language: language,
-            ),
+          return Details(
+            image: image,
+            name: name,
+            description: description,
+            isMultiplayer: isMultiplayer,
+            genre: genre,
+            isFeatured: isFeatured,
+            price: price,
+            platforms: platforms,
+            developer: developer,
+            language: language,
           );
         });
   }
@@ -323,39 +295,3 @@ class SearchData extends SearchDelegate<Games> {
         child: Text(error),
       );
 }
-
-/*class ParentProvider extends StatelessWidget {
-  Widget build(BuildContext context) {
-    final _cartRepository = RepositoryProvider.of<CartRepository>(context);
-    final _gamesRepository = RepositoryProvider.of<GamesRepository>(context);
-    final _playerRepository = RepositoryProvider.of<PlayerRepository>(context);
-    return MultiRepositoryProvider(providers: [
-      RepositoryProvider<CartRepository>(
-        create: (context) => CartRepo()),
-      RepositoryProvider<GamesRepository>(
-        create: (context) => GameAPI()),
-      RepositoryProvider<PlayerRepository>(
-        create: (context) => FireStorePlayerRepository())
-    ], 
-    child: MultiBlocProvider(
-      providers: [
-        BlocProvider<CartBloc>(
-          create: (context) => CartBloc(_cartRepository)..add(LoadCartData())),
-        BlocProvider<CategoriesBloc>(
-          create: (context) => CategoriesBloc(_gamesRepository)..add(LoadCategories())
-        ),
-        BlocProvider<DetailsBloc>(
-          create: (context) => DetailsBloc(_cartRepository),
-        ),
-        BlocProvider<HomeBloc>(
-          create: (context) => HomeBloc(_gamesRepository)..add(LoadAllData()),
-        ),
-        BlocProvider<SearchBloc>(
-          create: (context) => SearchBloc(_gamesRepository),
-        ),
-      ],
-    child: Home(),
-    )
-    );
-  }
-} */

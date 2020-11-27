@@ -4,6 +4,7 @@ import 'package:p_singular/WIDGETS/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+///TODO [SIMPLIFY]
 class HomeProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider<GamesRepository>(
@@ -19,6 +20,7 @@ class HomeProvider extends StatelessWidget {
   }
 }
 
+///TODO [SIMPLIFY]
 
 ///[SIMPLIFY _games VARIABLE]
 class _HomeTab extends StatelessWidget {

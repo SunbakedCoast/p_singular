@@ -18,39 +18,38 @@ class Categories extends StatelessWidget {
       @required this.gradientTwo});
   Widget build(BuildContext context) {
     return RepositoryProvider<GamesRepository>(
-        create: (context) => GameAPI(),
-        child: BlocProvider<CategoriesBloc>(
-          create: (context) {
-            final gamesRepository =
-                RepositoryProvider.of<GamesRepository>(context);
-            return CategoriesBloc(gamesRepository)..add(LoadCategories());
-          },
-          child: SafeArea(
-            child: Scaffold(
-              body: Container(
-                  height: screenHeight(context),
-                  width: screenHeight(context),
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [Color(gradientOne), Color(gradientTwo)])),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(20),
-                        child: Text(category,
-                            style: Theme.of(context).textTheme.headline1),
-                      ),
-                      CategoriesSlider(category: category)
-                    ],
-                  )),
-            ),
-          ),
-        ));
+      create: (context) => GameAPI(),
+      child: BlocProvider<CategoriesBloc>(
+        create: (context) {
+          final gamesRepository =
+              RepositoryProvider.of<GamesRepository>(context);
+          return CategoriesBloc(gamesRepository)..add(LoadCategories());
+        },
+        child: Scaffold(
+          body: Container(
+              height: screenHeight(context),
+              width: screenHeight(context),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Color(gradientOne), Color(gradientTwo)])),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.all(20),
+                    child: Text(category,
+                        style: Theme.of(context).textTheme.headline1),
+                  ),
+                  CategoriesSlider(category: category)
+                ],
+              )),
+        ),
+      ),
+    );
   }
 }
 

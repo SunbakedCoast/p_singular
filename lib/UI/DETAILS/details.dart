@@ -121,36 +121,38 @@ class DetailsState extends State<Details> with TickerProviderStateMixin {
 
     ///[OFFSET TRACKING]
     return ListenableProvider.value(
-      value: _animationController,
-      child: SafeArea(
-          child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: GestureDetector(
-          onVerticalDragUpdate: _dragUpdate,
-          onVerticalDragEnd: _handleDragEnd,
-          child: Stack(
-                children: [
-                  MainImage(image: widget.image),
-                  GradientDark(),
-                  ArrowUp(arrowAnimationOffset: _arrowAnimationOffset),
-                  TitleLabel(name: widget.name, platforms: widget.platforms),
-                  DetailsBody(body: widget.description),
-                  Play(
+        value: _animationController,
+        child: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: SafeArea(
+                      child: GestureDetector(
+                onVerticalDragUpdate: _dragUpdate,
+                onVerticalDragEnd: _handleDragEnd,
+                child: Stack(
+                  children: [
+                    MainImage(image: widget.image),
+                    GradientDark(),
+                    ArrowUp(arrowAnimationOffset: _arrowAnimationOffset),
+                    TitleLabel(name: widget.name, platforms: widget.platforms),
+                    DetailsBody(body: widget.description),
+                    Play(
                       image: widget.image,
                       name: widget.name,
                       price: widget.price,
-                      ),
-                  GameDetails(
-                      developer: widget.developer,
-                      language: widget.language,
-                      isMultiplayer: widget.isMultiplayer),
-                  BackArrow(),
-                  PlayersWidget(price: widget.price)
-                ],
-              ) ///[HERE]
-        ),
-      )),
-    );
+                    ),
+                    GameDetails(
+                        developer: widget.developer,
+                        language: widget.language,
+                        isMultiplayer: widget.isMultiplayer),
+                    BackArrow(),
+                    PlayersWidget(price: widget.price)
+                  ],
+                )
+
+                ///[HERE]
+                ),
+          ),
+        ));
   }
 
   void _dragUpdate(DragUpdateDetails dragUpdateDetails) {

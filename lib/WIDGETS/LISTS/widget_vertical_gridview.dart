@@ -1,8 +1,6 @@
 import 'package:animations/animations.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:p_singular/BLOCS/BLOCS_HOME/home.dart';
 import 'package:p_singular/SRC/MODELS/models.dart';
-import 'package:p_singular/SRC/REPOSITORIES/cart_repository.dart';
 import 'package:p_singular/UI/VALUES/values.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
@@ -129,20 +127,17 @@ class GridViewVertical extends StatelessWidget {
           closedShape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           openBuilder: (_, closeContainer) {
-            return RepositoryProvider<CartRepository>(
-              create: (context) => CartRepo(),
-                          child: Details(
-                image: image,
-                name: name,
-                description: description,
-                isMultiplayer: isMultiplayer,
-                genre: genre,
-                isFeatured: isFeatured,
-                price: price,
-                platforms: platforms,
-                developer: developer,
-                language: language,
-              ),
+            return Details(
+              image: image,
+              name: name,
+              description: description,
+              isMultiplayer: isMultiplayer,
+              genre: genre,
+              isFeatured: isFeatured,
+              price: price,
+              platforms: platforms,
+              developer: developer,
+              language: language,
             );
           }),
     );
