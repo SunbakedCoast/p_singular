@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:p_singular/BLOCS/BLOCS_AUTH/authentication.dart';
 import 'package:p_singular/BLOCS/BLOCS_SIGNIN/signin.dart';
-import 'package:p_singular/SRC/SERVICES/services.dart';
 import 'package:p_singular/pages.dart';
 
 class SignIn extends StatelessWidget {
@@ -13,13 +12,17 @@ class SignIn extends StatelessWidget {
         builder: (context, state) {
       final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
       if (state is AuthenticationUnauthenticated) {
+        print(state.toString());
         return _Form();
       }
       if (state is AuthenticationFailure) {
+        print(state.toString());
         return _authenticationFailure(
             _authBloc, _screenSize, state.errorMessage);
       }
       if (state is AuthenticationAuthenticated) {
+        print(state.toString());
+
         return Home();
       }
       print('Sign in state: ${state.toString()}');
@@ -56,18 +59,14 @@ class SignIn extends StatelessWidget {
 class _Form extends StatelessWidget {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    final _authService = RepositoryProvider.of<AuthenticationService>(context);
-    final _authBloc = RepositoryProvider.of<AuthenticationBloc>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Container(
-            height: _screenSize.height,
-            width: _screenSize.width,
-            child: BlocProvider<SignInBloc>(
-              create: (context) => SignInBloc(_authBloc, _authService),
-              child: _SignInForm(),
-            )),
+          height: _screenSize.height,
+          width: _screenSize.width,
+          child: _SignInForm(),
+        ),
       ),
     );
   }
@@ -90,13 +89,9 @@ class _SignInFormState extends State<_SignInForm> {
     _loginButtonPressed() {
       if (_key.currentState.validate()) {
         _signinBloc.add(SignInButtonPressed(
-            email: _emailController.text, password: _passwordController.text));
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim()));
       }
-      /*else {
-        setState(() {
-          _validate = true;
-        });
-      } */
     }
 
     return BlocListener<SignInBloc, SignInState>(listener: (context, state) {
@@ -140,13 +135,6 @@ class _SignInFormState extends State<_SignInForm> {
                         hintStyle: GoogleFonts.poppins(
                             color: Colors.grey, fontWeight: FontWeight.bold),
                       ),
-                      /* validator: (value) {
-                        if (value == null) {
-                          return 'Email is required';
-                        } else {
-                          return null;
-                        }
-                      }, */
                     ),
                   ),
                   Container(

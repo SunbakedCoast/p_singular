@@ -4,26 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:p_singular/BLOCS/BLOCS_CART/cart.dart';
 import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
 
-class MyCartProvider extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return RepositoryProvider<CartRepository>(
-        create: (context) => CartRepo(),
-        child: BlocProvider<CartBloc>(
-          create: (context) {
-            final _cartRepository =
-                RepositoryProvider.of<CartRepository>(context);
-            return CartBloc(_cartRepository)..add(LoadCartData());
-          },
-          child: _MyCart(),
-        ));
-  }
-}
 
-class _MyCart extends StatelessWidget {
+class MyCart extends StatelessWidget {
   Widget build(BuildContext context) {
     final _cartBloc = BlocProvider.of<CartBloc>(context);
     var _screenSize = MediaQuery.of(context).size;
-    return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+    return BlocBuilder<CartBloc, CartState>(
+      builder: (context, state) {
       if (state is CartInitial) {
         print(state.toString());
         return Center(

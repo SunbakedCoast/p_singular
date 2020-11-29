@@ -77,12 +77,12 @@ class _SignUpFormState extends State<_SignUpForm> {
     _signupButtonPressed() {
       if (_key.currentState.validate()) {
         _signupBloc.add(SignUpButtonPressed(
-            email: _emailTextController.text,
-            password: _passwordTextController.text));
+            email: _emailTextController.text.trim(),
+            password: _passwordTextController.text.trim()));
         _signupBloc.add(SendUserDataWithButtonPressed(
             player: Player(
-          userName: _userNameTextController.text,
-          email: _emailTextController.text,
+          userName: _userNameTextController.text.trim(),
+          email: _emailTextController.text.trim(),
         )));
       } /* else {
         setState(() {

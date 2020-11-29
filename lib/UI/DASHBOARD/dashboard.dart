@@ -3,22 +3,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:p_singular/BLOCS/BLOCS_AUTH/authentication.dart';
 import 'package:p_singular/BLOCS/BLOCS_DASHBOARD/dashboard.dart';
-import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
 import 'package:p_singular/pages.dart';
 
 class DashboardProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-      final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
+      //final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
       if (state is AuthenticationUnauthenticated) {
+        print(state.toString());
         return AuthenticationStart();
       }
       if (state is AuthenticationFailure) {}
       if (state is AuthenticationAuthenticated) {
-        return Dashboard();
+        return _Dashboard();
       }
       if (state is AuthenticationLoading) {
+        print(state.toString());
         return _progressIndicator();
       }
     });
@@ -31,7 +32,7 @@ class DashboardProvider extends StatelessWidget {
   }
 }
 
-class Dashboard extends StatelessWidget {
+class _Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final _dashboardBloc = BlocProvider.of<DashboardBloc>(context);
 
@@ -41,8 +42,6 @@ class Dashboard extends StatelessWidget {
     }
 
     var _screenSize = MediaQuery.of(context).size;
-    /*final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
-    final _playerRepository = RepositoryProvider.of<PlayerRepository>(context);*/
     return BlocBuilder<DashboardBloc, DashboardState>(
         builder: (context, state) {
       if (state is DashboardDataLoaded) {
@@ -55,7 +54,8 @@ class Dashboard extends StatelessWidget {
               width: _screenSize.width,
               child: RaisedButton(
                 splashColor: Theme.of(context).accentColor,
-                onPressed: _logoutButtonPressed,
+                onPressed:
+                    state is DashboardLoading ? () {} : _logoutButtonPressed,
                 color: Colors.red,
                 child: Text('Log out',
                     style: GoogleFonts.poppins(
@@ -70,40 +70,39 @@ class Dashboard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              RichText(
-                text: TextSpan(
-                  text: 'Hello ',
-                  style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 18
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(text: '$_userName, ',
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                    )),
-                  ]
+                RichText(
+                  text: TextSpan(
+                      text: 'Hello ',
+                      style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 18),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: '$_userName, ',
+                            style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold)),
+                      ]),
                 ),
-              ), 
-              Padding(
-                padding: const EdgeInsets.only(top: 5),
-                child: Text('Welcome to Singular! We are an online retail gaming store.', 
-                style: GoogleFonts.poppins(
-                  color: Colors.white,
-                  fontWeight: FontWeight.normal
-                )),
-              )
+                Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: Text(
+                      'Welcome to Singular! We are an online retail gaming store.',
+                      style: GoogleFonts.poppins(
+                          color: Colors.white, fontWeight: FontWeight.normal)),
+                )
               ],
             ),
           )),
         );
       }
-      print(state.toString());
-      return Center(
-        child: CircularProgressIndicator(),
-      );
+      if (state is DashboardLoading) {
+        print(state.toString());
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
     });
   }
 }

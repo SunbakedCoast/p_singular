@@ -17,38 +17,28 @@ class Categories extends StatelessWidget {
       @required this.gradientOne,
       @required this.gradientTwo});
   Widget build(BuildContext context) {
-    return RepositoryProvider<GamesRepository>(
-      create: (context) => GameAPI(),
-      child: BlocProvider<CategoriesBloc>(
-        create: (context) {
-          final gamesRepository =
-              RepositoryProvider.of<GamesRepository>(context);
-          return CategoriesBloc(gamesRepository)..add(LoadCategories());
-        },
-        child: Scaffold(
-          body: Container(
-              height: screenHeight(context),
-              width: screenHeight(context),
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Color(gradientOne), Color(gradientTwo)])),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.all(20),
-                    child: Text(category,
-                        style: Theme.of(context).textTheme.headline1),
-                  ),
-                  CategoriesSlider(category: category)
-                ],
-              )),
-        ),
-      ),
+    return Scaffold(
+      body: Container(
+          height: screenHeight(context),
+          width: screenHeight(context),
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(gradientOne), Color(gradientTwo)])),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.all(20),
+                child: Text(category,
+                    style: Theme.of(context).textTheme.headline1),
+              ),
+              CategoriesSlider(category: category)
+            ],
+          )),
     );
   }
 }
@@ -250,20 +240,17 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                   bottomRight: Radius.circular(5),
                   bottomLeft: Radius.circular(15))),
           openBuilder: (_, closeContainer) {
-            return RepositoryProvider<CartRepository>(
-              create: (context) => CartRepo(),
-              child: Details(
-                image: image,
-                name: name,
-                description: description,
-                isMultiplayer: isMultiplayer,
-                genre: genre,
-                isFeatured: isFeatured,
-                price: price,
-                platforms: platforms,
-                developer: developer,
-                language: language,
-              ),
+            return Details(
+              image: image,
+              name: name,
+              description: description,
+              isMultiplayer: isMultiplayer,
+              genre: genre,
+              isFeatured: isFeatured,
+              price: price,
+              platforms: platforms,
+              developer: developer,
+              language: language,
             );
           }),
     );

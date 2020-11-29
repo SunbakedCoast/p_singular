@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:p_singular/BLOCS/BLOCS_AUTH/authentication.dart';
+import 'package:p_singular/BLOCS/BLOCS_CART/cart.dart';
 import 'package:p_singular/BLOCS/BLOCS_DASHBOARD/dashboard.dart';
 import 'package:p_singular/BLOCS/BLOCS_HOME/home.dart';
 import 'package:p_singular/BLOCS/BLOCS_SEARCH/search.dart';
@@ -9,6 +10,9 @@ import 'package:p_singular/SRC/SERVICES/services.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'BLOCS/BLOCS_CATEGORIES/categories.dart';
+import 'BLOCS/BLOCS_SIGNIN/signin.dart';
 
 ///when I wrote this Me and God know how all these works
 ///but now it's only God
@@ -52,6 +56,22 @@ void main() async {
             final _gamesRepository =
                 RepositoryProvider.of<GamesRepository>(context);
             return HomeBloc(_gamesRepository)..add(LoadAllData());
+          }),
+          BlocProvider<CartBloc>(create: (context) {
+            final _cartRepository =
+                RepositoryProvider.of<CartRepository>(context);
+            return CartBloc(_cartRepository)..add(LoadCartData());
+          }),
+          BlocProvider<CategoriesBloc>(create: (context) {
+            final gamesRepository =
+                RepositoryProvider.of<GamesRepository>(context);
+            return CategoriesBloc(gamesRepository)..add(LoadCategories());
+          }),
+          BlocProvider<SignInBloc>(create: (context) {
+            final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
+            final _authService =
+                RepositoryProvider.of<AuthenticationService>(context);
+            return SignInBloc(_authBloc, _authService);
           })
         ],
         child: Singular(),

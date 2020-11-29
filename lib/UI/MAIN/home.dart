@@ -2,7 +2,6 @@ import 'package:animations/animations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:p_singular/BLOCS/BLOCS_SEARCH/search.dart';
 import 'package:p_singular/SRC/MODELS/models.dart';
-import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
 import 'package:p_singular/UI/VALUES/values.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +56,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
           closedColor: Theme.of(context).accentColor,
           openBuilder: (_, closeContainer) {
-            return MyCartProvider();
+            return MyCart();
           }),
       body: SafeArea(
         child: NestedScrollView(
@@ -89,7 +88,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     color: Colors.white,
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Dashboard()));
+                          MaterialPageRoute(builder: (context) => DashboardProvider()));
                     },
                   )
                 ],
@@ -107,7 +106,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ];
           },
           body: TabBarView(
-            children: [HomeProvider(), MostPlayedTab()],
+            children: [HomeTab(), MostPlayedTab()],
             controller: _tabController,
           ),
         ),

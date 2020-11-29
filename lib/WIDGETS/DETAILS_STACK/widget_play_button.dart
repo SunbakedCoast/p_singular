@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+
+///TODO [SIMPLIFY] TO [CUBIT]
 class Play extends StatelessWidget {
   final String image;
   final String name;

@@ -1,10 +1,6 @@
 import 'dart:ui';
 import 'dart:math' as math;
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:p_singular/BLOCS/BLOCS_DETAILS/details.dart';
-import 'package:p_singular/BLOCS/BLOCS_DETAILSBTN/detailsbtn.dart';
-import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
 import 'package:p_singular/UI/VALUES/values.dart';
 import 'package:p_singular/WIDGETS/widgets.dart';
 import 'package:flutter/material.dart';

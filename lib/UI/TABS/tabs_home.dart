@@ -4,26 +4,8 @@ import 'package:p_singular/WIDGETS/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-///TODO [SIMPLIFY]
-class HomeProvider extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return RepositoryProvider<GamesRepository>(
-        create: (context) => GameAPI(),
-        child: BlocProvider<HomeBloc>(
-          create: (context) {
-            final gameRepository =
-                RepositoryProvider.of<GamesRepository>(context);
-            return HomeBloc(gameRepository)..add(LoadAllData());
-          },
-          child: _HomeTab(),
-        ));
-  }
-}
-
-///TODO [SIMPLIFY]
-
 ///[SIMPLIFY _games VARIABLE]
-class _HomeTab extends StatelessWidget {
+class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
       if (state is DataLoaded) {
