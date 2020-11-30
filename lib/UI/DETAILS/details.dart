@@ -6,19 +6,83 @@ import 'package:p_singular/WIDGETS/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/* class DetailsProvider extends StatelessWidget {
+  final String image;
+  final String name;
+  final String description;
+  final String isMultiplayer;
+  final String genre;
+  final bool isFeatured;
+  final int price;
+  final List<dynamic> platforms;
+  final String developer;
+  final String language;
+
+  DetailsProvider(
+      {@required this.image,
+      @required this.name,
+      @required this.description,
+      @required this.isMultiplayer,
+      @required this.genre,
+      @required this.isFeatured,
+      @required this.price,
+      @required this.platforms,
+      @required this.developer,
+      @required this.language});
+
+  Widget build(BuildContext context) {
+    final _cartRepository = RepositoryProvider.of<CartRepository>(context);
+    return BlocProvider<DetailsBtnBloc>(
+      create: (context) => DetailsBtnBloc(_cartRepository),
+      child: _Details(
+        image: image,
+        name: name,
+        description: description,
+        isMultiplayer: isMultiplayer,
+        genre: genre,
+        isFeatured: isFeatured,
+        price: price,
+        platforms: platforms,
+        developer: developer,
+        language: language,
+      ),
+    );
+  } 
+}
+*/
 class Details extends StatefulWidget {
-  _DetailsState createState() => _DetailsState();
+  final String image;
+  final String name;
+  final String description;
+  final String isMultiplayer;
+  final String genre;
+  final bool isFeatured;
+  final int price;
+  final List<dynamic> platforms;
+  final String developer;
+  final String language;
+
+  Details(
+      {@required this.image,
+      @required this.name,
+      @required this.description,
+      @required this.isMultiplayer,
+      @required this.genre,
+      @required this.isFeatured,
+      @required this.price,
+      @required this.platforms,
+      @required this.developer,
+      @required this.language});
+  DetailsState createState() => DetailsState();
 }
 
-class _DetailsState extends State<Details> with TickerProviderStateMixin {
+class DetailsState extends State<Details> with TickerProviderStateMixin {
   AnimationController _animationController;
   AnimationController _arrowAnimationController;
 
   Animation<Offset> _arrowAnimationOffset;
 
   Animation _arrowAnimation;
-
-  //bool blur = false;
 
   double get maxHeight => mainSquareSize(context) + 32 + 24;
 
@@ -46,8 +110,6 @@ class _DetailsState extends State<Details> with TickerProviderStateMixin {
   }
 
   Widget build(BuildContext context) {
-    //print(_screenSize.height);
-    //blur ? print('TRUE') : print('FALSE');
     _animationController.value > 0.0
         ? print('Animation value ${_animationController.value}')
         : print(
@@ -55,31 +117,38 @@ class _DetailsState extends State<Details> with TickerProviderStateMixin {
 
     ///[OFFSET TRACKING]
     return ListenableProvider.value(
-      value: _animationController,
-      child: SafeArea(
+        value: _animationController,
         child: Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
-            body: GestureDetector(
-              onVerticalDragUpdate: _dragUpdate,
-              onVerticalDragEnd: _handleDragEnd,
-              child: Container(
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: SafeArea(
+                      child: GestureDetector(
+                onVerticalDragUpdate: _dragUpdate,
+                onVerticalDragEnd: _handleDragEnd,
                 child: Stack(
                   children: [
-                    MainImage(),
+                    MainImage(image: widget.image),
                     GradientDark(),
                     ArrowUp(arrowAnimationOffset: _arrowAnimationOffset),
-                    TitleLabel(),
-                    DetailsBody(),
-                    PlayButton(),
-                    ResIcon(),
+                    TitleLabel(name: widget.name, platforms: widget.platforms),
+                    DetailsBody(body: widget.description),
+                    Play(
+                      image: widget.image,
+                      name: widget.name,
+                      price: widget.price,
+                    ),
+                    GameDetails(
+                        developer: widget.developer,
+                        language: widget.language,
+                        isMultiplayer: widget.isMultiplayer),
                     BackArrow(),
-                    PlayersWidget()
+                    PlayersWidget(price: widget.price)
                   ],
+                )
+
+                ///[HERE]
                 ),
-              ),
-            )),
-      ),
-    );
+          ),
+        ));
   }
 
   void _dragUpdate(DragUpdateDetails dragUpdateDetails) {

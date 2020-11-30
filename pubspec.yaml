@@ -47,6 +47,18 @@ dependencies:
   # BLOC 
   flutter_bloc: ^6.0.1
 
+  #firebase core
+  firebase_core: ^0.5.2
+
+  #firebase database 
+  firebase_database: ^4.3.0
+
+  #firebase authentication
+  firebase_auth: ^0.18.3
+
+  #firestore
+  cloud_firestore: ^0.14.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
