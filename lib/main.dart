@@ -44,7 +44,6 @@ void main() async {
             final _playerRepository =
                 RepositoryProvider.of<PlayerRepository>(context);
             return DashboardBloc(_authBloc, _playerRepository)
-              ..add(LoadUserData())
               ..add(LoadUserData());
           }),
           BlocProvider<SearchBloc>(create: (context) {
@@ -61,7 +60,7 @@ void main() async {
             final _cartRepository =
                 RepositoryProvider.of<CartRepository>(context);
             return CartBloc(_cartRepository)..add(LoadCartData());
-          }),
+          }), 
           BlocProvider<CategoriesBloc>(create: (context) {
             final gamesRepository =
                 RepositoryProvider.of<GamesRepository>(context);

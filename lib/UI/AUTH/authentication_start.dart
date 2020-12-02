@@ -17,12 +17,11 @@ class AuthenticationStart extends StatelessWidget {
         body: Stack(
           children: [
             Stack(
-              alignment: Alignment.center,
               children: [
                 PageView(
                   controller: _pageController,
                   physics: BouncingScrollPhysics(),
-                  children: [PageOne(), PageTwo(), PageThree()],
+                  children: [PageOne(), PageTwo()],
                 ),
                 PageIndicator(),
                 AuthButtons()

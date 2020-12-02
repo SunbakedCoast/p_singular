@@ -121,7 +121,7 @@ class DetailsState extends State<Details> with TickerProviderStateMixin {
         child: Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
-                      child: GestureDetector(
+                child: GestureDetector(
                 onVerticalDragUpdate: _dragUpdate,
                 onVerticalDragEnd: _handleDragEnd,
                 child: Stack(

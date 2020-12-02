@@ -4,86 +4,88 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:p_singular/BLOCS/BLOCS_CART/cart.dart';
 import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
 
-
 class MyCart extends StatelessWidget {
   Widget build(BuildContext context) {
     final _cartBloc = BlocProvider.of<CartBloc>(context);
     var _screenSize = MediaQuery.of(context).size;
-    return BlocBuilder<CartBloc, CartState>(
-      builder: (context, state) {
-      if (state is CartInitial) {
-        print(state.toString());
-        return Center(
-          child: Text(state.toString()),
-        );
-      }
-      if (state is CartLoading) {
-        print(state.toString());
-        return Center(
-          child: CircularProgressIndicator(
-            backgroundColor: Colors.black,
-          ),
-        );
-      }
-      if (state is CartDataLoaded) {
-        final _cart = state.cart;
-        //print('CART LENGTH: ${_cart.length}');
-        final _total = _cart
-            .map((cart) => int.parse(cart.price.toString()))
-            .reduce((value, element) => value + element);
-        print('CART STATE: ${state.toString()}');
-        return SafeArea(
-                  child: Scaffold(
-            backgroundColor: Theme.of(context).accentColor,
-            persistentFooterButtons: [
-                 SizedBox(
-              width: _screenSize.width,
-              child: RaisedButton(
-                splashColor: Theme.of(context).accentColor,
-                onPressed: () {},
-                color: Theme.of(context).backgroundColor,
-                child: Text('Check out',
-                    style: GoogleFonts.poppins(
-                        color: Theme.of(context).accentColor,
-                        fontWeight: FontWeight.bold)),
-              ),
+    final _cartRepository = RepositoryProvider.of<CartRepository>(context);
+    return BlocProvider<CartBloc>(
+      create: (context) => CartBloc(_cartRepository)..add(LoadCartData()),
+      child: BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+        if (state is CartInitial) {
+          print(state.toString());
+          return Center(
+            child: Text(state.toString()),
+          );
+        }
+        if (state is CartLoading) {
+          print(state.toString());
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.black,
             ),
-            ],
-            body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        child: Text('Cart',
-                            style: GoogleFonts.poppins(
-                                fontSize: 18, fontWeight: FontWeight.bold))),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: state.cart.length,
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, index) => _item(
-                            context: context,
-                            screenSize: _screenSize,
-                            name: _cart[index].name,
-                            image: _cart[index].image,
-                            price: _cart[index].price.toString(),
-                            cartBloc: _cartBloc)),
-                    _priceIndicator(price: _total)
-                  ],
+          );
+        }
+        if (state is CartDataLoaded) {
+          final _cart = state.cart;
+          //print('CART LENGTH: ${_cart.length}');
+          final _total = _cart
+              .map((cart) => int.parse(cart.price.toString()))
+              .reduce((value, element) => value + element);
+          print('CART STATE: ${state.toString()}');
+          return SafeArea(
+            child: Scaffold(
+              backgroundColor: Theme.of(context).accentColor,
+              persistentFooterButtons: [
+                SizedBox( 
+                  width: _screenSize.width,
+                  child: RaisedButton(
+                    splashColor: Theme.of(context).accentColor,
+                    onPressed: () {},
+                    color: Theme.of(context).backgroundColor,
+                    child: Text('Check out',
+                        style: GoogleFonts.poppins(
+                            color: Theme.of(context).accentColor,
+                            fontWeight: FontWeight.bold)),
+                  ),
+                ),
+              ],
+              body: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          child: Text('Cart',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 18, fontWeight: FontWeight.bold))),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: state.cart.length,
+                          physics: BouncingScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) => _item(
+                              context: context,
+                              screenSize: _screenSize,
+                              name: _cart[index].name,
+                              image: _cart[index].image,
+                              price: _cart[index].price.toString(),
+                              cartBloc: _cartBloc)),
+                      _priceIndicator(price: _total)
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      }
-      print(state.toString());
-      return Container();
-    });
+          );
+        }
+        print(state.toString());
+        return Container();
+      }),
+    );
   }
 }
 
