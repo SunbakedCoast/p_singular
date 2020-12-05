@@ -2,32 +2,54 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p_singular/UI/VALUES/page_offset.dart';
 import 'package:p_singular/WIDGETS/widgets.dart';
-import 'package:p_singular/pages.dart';
 import 'package:provider/provider.dart';
 
+class AuthenticationStart extends StatefulWidget {
+  _AuthenticationStartState createState() => _AuthenticationStartState();
+}
+
 ///TODO [UPDATE UI]
-class AuthenticationStart extends StatelessWidget {
+class _AuthenticationStartState extends State<AuthenticationStart>
+    with TickerProviderStateMixin {
+  AnimationController _animationController;
   final PageController _pageController = PageController();
+
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1000),
+    );
+  }
+
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     //var _screenSize = MediaQuery.of(context).size;
     return ChangeNotifierProvider(
       create: (_) => PageOffsetNotifier(_pageController),
-      child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: Stack(
-          children: [
-            Stack(
-              children: [
-                PageView(
-                  controller: _pageController,
-                  physics: BouncingScrollPhysics(),
-                  children: [PageOne(), PageTwo()],
-                ),
-                PageIndicator(),
-                AuthButtons()
-              ],
-            )
-          ],
+      child: ListenableProvider.value(
+        value: _animationController,
+        child: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: Stack(
+            children: [
+              Stack(
+                children: [
+                  PageView(
+                    controller: _pageController,
+                    physics: ClampingScrollPhysics(),
+                    children: [PageOne(), PageTwo()],
+                  ),
+                  PageIndicator(),
+                  AuthButtons()
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

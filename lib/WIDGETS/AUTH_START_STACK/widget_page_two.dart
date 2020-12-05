@@ -1,14 +1,117 @@
-
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:p_singular/UI/VALUES/page_offset.dart';
+import 'package:p_singular/UI/VALUES/values.dart';
+import 'package:p_singular/WIDGETS/widgets.dart';
+import 'package:provider/provider.dart';
 
-class PageTwo extends StatelessWidget{
-   Widget build(BuildContext context) {
-    return Center(
+import 'dart:math' as math;
+
+class PageTwo extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        CircleContainer(),
+        ACAlexios(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: topMargin(context) + 200),
+            Heading1(),
+            //Heading2(),
+            Body1()
+          ],
+        )
+      ],
+    );
+  }
+}
+
+class Heading1 extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Consumer<PageOffsetNotifier>(
+      builder: (context, notifier, child) {
+        return Transform.translate(
+          offset: Offset(70 - 0.5 * notifier.offset, 0),
+          child: Opacity(opacity: math.max(0, notifier.page), child: child),
+        );
+      },
       child: Container(
-        height: 40,
-        width: 40,
-        color: Colors.yellow,
+        margin: const EdgeInsets.only(left: 130),
+        child: Text('Heading \nPlaceholder',
+            style: GoogleFonts.poppins(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+            )),
       ),
+    );
+  }
+}
+
+/*class Heading2 extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Consumer<PageOffsetNotifier>(builder: (context, notifier, child) {
+      return Container(
+        margin: const EdgeInsets.only(left: 15),
+        child: Text('Heading \n Placeholder2',
+            style: GoogleFonts.poppins(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+            )),
+      );
+    });
+  }
+} */
+
+class Body1 extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Consumer<PageOffsetNotifier>(
+        builder: (context, notifier, child) {
+          return Transform.translate(
+            offset: Offset(-145 + 0.1 * notifier.offset, 0),
+            child: Opacity(opacity: math.max(0, notifier.page), child: child),
+          );
+        },
+        child: Container(
+          margin: const EdgeInsets.only(left: 130, top: 10),
+          child: Text(
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
+              style: GoogleFonts.poppins(
+                color: Colors.white,
+                fontWeight: FontWeight.w300,
+                fontSize: 14,
+              )),
+        ));
+  }
+}
+
+class CircleContainer extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Consumer2<PageOffsetNotifier, AnimationController>(
+      builder: (context, notifier, animation, child) {
+        double multiplier;
+        if (animation.value == 0) {
+          multiplier = math.max(0, 4 * notifier.page - 3);
+        } else {
+          multiplier = math.max(0, 1 - 6 * animation.value);
+        }
+
+        double size = MediaQuery.of(context).size.width * 0.5 * multiplier;
+        return Positioned(
+          top: topMargin(context),
+          left: 130,
+          child: Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Theme.of(context).accentColor.withOpacity(0.6),
+            ),
+          ),
+        );
+      },
     );
   }
 }
