@@ -7,7 +7,7 @@ class AuthButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Positioned(
-        top: topMargin(context) - 10 + (mainSquareSize(context) + 120),
+        top: topMargin(context) - 10 + (mainSquareSize(context) + 150),
         right: 25,
         left: 25,
         child: Column(

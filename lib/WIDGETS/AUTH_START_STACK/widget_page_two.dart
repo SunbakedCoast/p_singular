@@ -100,8 +100,8 @@ class CircleContainer extends StatelessWidget {
 
         double size = MediaQuery.of(context).size.width * 0.5 * multiplier;
         return Positioned(
-          top: topMargin(context),
-          left: 130,
+          top: topMargin(context) - 25,
+          left: 100,
           child: Container(
             width: size,
             height: size,

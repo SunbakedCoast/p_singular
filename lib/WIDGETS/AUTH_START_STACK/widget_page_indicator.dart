@@ -8,8 +8,8 @@ class PageIndicator extends StatelessWidget {
     return Consumer<PageOffsetNotifier>(builder: (context, notifier, _) {
       print('notifier ${notifier.page.round()}');
       return Positioned(
-          top: topMargin(context) - 50 + (mainSquareSize(context) + 120),
-          left: 20,
+          top: topMargin(context) - 50 + (mainSquareSize(context) + 150),
+          left: 150,
           child: Row(
             children: [
               AnimatedContainer(
@@ -18,8 +18,9 @@ class PageIndicator extends StatelessWidget {
                 margin: const EdgeInsets.all(5),
                 height: 8,
                 decoration: BoxDecoration(
-                    color:
-                        notifier.page.round() == 0 ? Theme.of(context).accentColor : Colors.grey,
+                    color: notifier.page.round() == 0
+                        ? Theme.of(context).accentColor
+                        : Colors.grey,
                     borderRadius: BorderRadius.circular(100)),
               ),
               AnimatedContainer(
@@ -28,8 +29,9 @@ class PageIndicator extends StatelessWidget {
                 width: notifier.page.round() == 1 ? 30 : 10,
                 height: 8,
                 decoration: BoxDecoration(
-                    color:
-                        notifier.page.round() == 1 ? Theme.of(context).accentColor :  Colors.grey,
+                    color: notifier.page.round() == 1
+                        ? Theme.of(context).accentColor
+                        : Colors.grey,
                     borderRadius: BorderRadius.circular(100)),
               ),
             ],

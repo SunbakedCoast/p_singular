@@ -11,16 +11,33 @@ class PageOne extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        SingularLogo(),
         ACKassandra(),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: topMargin(context) + 130),
+            SizedBox(height: topMargin(context) + 110),
             Welcome(),
             WelcomeBody()
           ],
         ),
       ],
+    );
+  }
+}
+
+class SingularLogo extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Consumer<PageOffsetNotifier>(
+      builder: (context, notifier, child) {
+        return Transform.translate(
+          offset: Offset(-100 - 0.1 * notifier.offset, topMargin(context) - 100),
+          child: Transform.scale(scale: 0.3, child: child),
+        );
+      },
+      child: IgnorePointer(
+        child: Image.asset('assets/singular_official_icon.png'),
+      ),
     );
   }
 }
@@ -54,13 +71,12 @@ class WelcomeBody extends StatelessWidget {
           return Transform.translate(
             offset: Offset(5 + 0.5 * notifier.offset, 0),
             child: Opacity(
-                opacity: math.max(0, 1 - 2 * notifier.page), child: child),
+                opacity: math.max(0, 1 - 4 * notifier.page), child: child),
           );
         },
         child: Container(
-          margin: const EdgeInsets.only(left: 20, top: 10),
-          child: Text(
-              'Lorem ipsum dolor sit amet',
+          margin: const EdgeInsets.only(left: 15, top: 10),
+          child: Text('Lorem ipsum dolor sit amet',
               style: GoogleFonts.poppins(
                 color: Colors.white,
                 fontWeight: FontWeight.w300,
