@@ -40,7 +40,7 @@ class Heading1 extends StatelessWidget {
         margin: const EdgeInsets.only(left: 130),
         child: Text('Heading \nPlaceholder',
             style: GoogleFonts.poppins(
-              color: Colors.white,
+              color: Theme.of(context).accentColor,
               fontWeight: FontWeight.bold,
               fontSize: 24,
             )),

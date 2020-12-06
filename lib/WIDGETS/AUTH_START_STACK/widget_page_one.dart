@@ -32,7 +32,9 @@ class SingularLogo extends StatelessWidget {
       builder: (context, notifier, child) {
         return Transform.translate(
           offset: Offset(-100 - 0.1 * notifier.offset, topMargin(context) - 100),
-          child: Transform.scale(scale: 0.3, child: child),
+          child: Transform.scale(scale: 0.3, child: Opacity(
+            opacity: math.max(0, 1 - 4 * notifier.page),
+            child: child)),
         );
       },
       child: IgnorePointer(

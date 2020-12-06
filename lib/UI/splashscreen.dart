@@ -9,7 +9,9 @@ class SplashScreen extends StatelessWidget {
       height: _screenSize.height,
       color: Theme.of(context).backgroundColor,
       child: Center(
-        child: Text('Singular'),
+        child: Transform.scale(
+          scale: 0.3,
+          child: Image.asset('assets/singular_official_icon.png'))
       ),
     );
   }
