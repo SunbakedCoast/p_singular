@@ -39,7 +39,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Stream<CartState> _mapCartDataUpdated(CartDataUpdated event) async* {
-    yield CartDataLoaded(event.cart);
+    if (event.cart.isEmpty) {
+      yield CartEmptyState();
+    } else {
+      yield CartDataLoaded(event.cart);
+    }
   }
 
   Stream<CartState> _mapRemoveCartData(RemoveCartData event) async* {

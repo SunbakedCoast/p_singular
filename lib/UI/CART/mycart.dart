@@ -37,7 +37,7 @@ class MyCart extends StatelessWidget {
             child: Scaffold(
               backgroundColor: Theme.of(context).accentColor,
               persistentFooterButtons: [
-                SizedBox( 
+                SizedBox(
                   width: _screenSize.width,
                   child: RaisedButton(
                     splashColor: Theme.of(context).accentColor,
@@ -80,6 +80,24 @@ class MyCart extends StatelessWidget {
                 ),
               ),
             ),
+          );
+        }
+        if (state is CartEmptyState) {
+          return SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset('assets/sad_vaultboy.png'),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Text('Your cart is empty', style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold
+                  )),
+                )
+              ],
+            )
           );
         }
         print(state.toString());

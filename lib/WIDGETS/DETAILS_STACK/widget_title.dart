@@ -15,7 +15,7 @@ class TitleLabel extends StatelessWidget {
         return Positioned(
           top: topMargin(context) +
               120 +
-              (1 - animation.value) * (mainSquareSize(context) - 10),
+              (1 - animation.value) * (mainSquareSize(context) + 20),
           left: 10,
           child: child,
         );
