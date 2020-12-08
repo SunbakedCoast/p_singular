@@ -21,6 +21,7 @@ class Play extends StatelessWidget {
   });
   Widget build(BuildContext context) {
     final _cartRepository = RepositoryProvider.of<CartRepository>(context);
+    ///TODO [TRANSFER TO DETAILS.dart]
     return BlocProvider<DetailsBtnBloc>(
       create: (context) =>
           DetailsBtnBloc(_cartRepository)..add(CheckIfExists(name: name)),

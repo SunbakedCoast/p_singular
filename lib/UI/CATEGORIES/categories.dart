@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:p_singular/BLOCS/BLOCS_CATEGORIES/categories.dart';
+import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
 import 'package:p_singular/UI/VALUES/values.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
@@ -68,46 +69,55 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
   }
 
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoriesBloc, CategoriesState>(
-        builder: (context, state) {
-      if (state is CategoriesLoaded) {
-        final _gameState = state.games;
-        final _games =
-            _gameState.where((game) => game.genre == widget.category).toList();
-        print('${widget.category} COUNT: ${_games.length}');
-        return Container(
-          child: Expanded(
-            child: Container(
-                child: PageView.builder(
-                    physics: BouncingScrollPhysics(),
-                    controller: _pageController,
-                    itemCount: _games.length,
-                    itemBuilder: (context, currentIdx) {
-                      // if (3 >= currentIdx) {
-                      bool active = currentIdx == currentPage;
-                      return _animatedContainer(
-                          active: active,
-                          image: _games[currentIdx].image,
-                          name: _games[currentIdx].name,
-                          description: _games[currentIdx].description,
-                          isMultiplayer: _games[currentIdx].isMultiplayer,
-                          genre: _games[currentIdx].genre,
-                          isFeatured: _games[currentIdx].isFeatured,
-                          price: _games[currentIdx].price,
-                          platforms: _games[currentIdx].platforms,
-                          developer: _games[currentIdx].developer,
-                          language: _games[currentIdx].language);
-                    })),
-          ),
-        );
+    ///TODO [OBSERVE]
+    return BlocProvider<CategoriesBloc>(
+      create: (context) {
+        final _gamesRepository =
+            RepositoryProvider.of<GamesRepository>(context);
+        return CategoriesBloc(_gamesRepository)..add(LoadCategories());
+      },
+      child: BlocBuilder<CategoriesBloc, CategoriesState>(
+          builder: (context, state) {
+        if (state is CategoriesLoaded) {
+          final _gameState = state.games;
+          final _games = _gameState
+              .where((game) => game.genre == widget.category)
+              .toList();
+          print('${widget.category} COUNT: ${_games.length}');
+          return Container(
+            child: Expanded(
+              child: Container(
+                  child: PageView.builder(
+                      physics: BouncingScrollPhysics(),
+                      controller: _pageController,
+                      itemCount: _games.length,
+                      itemBuilder: (context, currentIdx) {
+                        // if (3 >= currentIdx) {
+                        bool active = currentIdx == currentPage;
+                        return _animatedContainer(
+                            active: active,
+                            image: _games[currentIdx].image,
+                            name: _games[currentIdx].name,
+                            description: _games[currentIdx].description,
+                            isMultiplayer: _games[currentIdx].isMultiplayer,
+                            genre: _games[currentIdx].genre,
+                            isFeatured: _games[currentIdx].isFeatured,
+                            price: _games[currentIdx].price,
+                            platforms: _games[currentIdx].platforms,
+                            developer: _games[currentIdx].developer,
+                            language: _games[currentIdx].language);
+                      })),
+            ),
+          );
+        }
+        if (state is CategoriesLoading) {
+          return _progressIndicator();
+        }
       }
-      if (state is CategoriesLoading) {
-        return _progressIndicator();
-      }
-    }
 
-        ///TODO [RETURN WIDGET]
-        );
+          ///TODO [RETURN WIDGET]
+          ),
+    );
   }
 
   Widget _progressIndicator() {

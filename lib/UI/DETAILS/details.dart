@@ -6,6 +6,10 @@ import 'package:p_singular/WIDGETS/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
+
 /* class DetailsProvider extends StatelessWidget {
   final String image;
   final String name;
@@ -121,7 +125,7 @@ class DetailsState extends State<Details> with TickerProviderStateMixin {
         child: Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
-                child: GestureDetector(
+            child: GestureDetector(
                 onVerticalDragUpdate: _dragUpdate,
                 onVerticalDragEnd: _handleDragEnd,
                 child: Stack(
@@ -131,10 +135,13 @@ class DetailsState extends State<Details> with TickerProviderStateMixin {
                     ArrowUp(arrowAnimationOffset: _arrowAnimationOffset),
                     TitleLabel(name: widget.name, platforms: widget.platforms),
                     DetailsBody(body: widget.description),
-                    Play(
-                      image: widget.image,
-                      name: widget.name,
-                      price: widget.price,
+                    RepositoryProvider<CartRepository>(
+                      create: (context) => CartRepo(),
+                      child: Play(
+                        image: widget.image,
+                        name: widget.name,
+                        price: widget.price,
+                      ),
                     ),
                     GameDetails(
                         developer: widget.developer,

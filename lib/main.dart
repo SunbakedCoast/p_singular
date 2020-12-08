@@ -1,17 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:p_singular/BLOCS/BLOCS_AUTH/authentication.dart';
-import 'package:p_singular/BLOCS/BLOCS_CART/cart.dart';
 import 'package:p_singular/BLOCS/BLOCS_DASHBOARD/dashboard.dart';
-import 'package:p_singular/BLOCS/BLOCS_HOME/home.dart';
 import 'package:p_singular/BLOCS/BLOCS_SEARCH/search.dart';
+import 'package:p_singular/BLOCS/BLOCS_SIGNUP/signup.dart';
 import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
 import 'package:p_singular/SRC/SERVICES/services.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'BLOCS/BLOCS_CATEGORIES/categories.dart';
 import 'BLOCS/BLOCS_SIGNIN/signin.dart';
 
 ///when I wrote this Me and God know how all these works
@@ -28,7 +26,9 @@ void main() async {
         RepositoryProvider<PlayerRepository>(
             create: (context) => FireStorePlayerRepository()),
         RepositoryProvider<GamesRepository>(create: (context) => GameAPI()),
-        RepositoryProvider<CartRepository>(create: (context) => CartRepo())
+
+        ///REMOVED PLACED TO THE NAVIGATION RETURN [MYCART]
+        //RepositoryProvider<CartRepository>(create: (context) => CartRepo())
       ],
       child: MultiBlocProvider(
         providers: [
@@ -39,38 +39,46 @@ void main() async {
               return AuthenticationBloc(_authService)..add(AppLoaded());
             },
           ),
-          BlocProvider<DashboardBloc>(create: (context) {
+          /*BlocProvider<DashboardBloc>(create: (context) {
             final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
             final _playerRepository =
                 RepositoryProvider.of<PlayerRepository>(context);
             return DashboardBloc(_authBloc, _playerRepository)
               ..add(LoadUserData());
-          }),
-          BlocProvider<SearchBloc>(create: (context) {
+          }), */ ///TRANSFERED TO DASHBOARD [DASHBOARD.DART]
+          /*BlocProvider<SearchBloc>(create: (context) {
             final _gamesrepository =
                 RepositoryProvider.of<GamesRepository>(context);
             return SearchBloc(_gamesrepository);
-          }),
-          BlocProvider<HomeBloc>(create: (context) {
+          }), */
+          /* BlocProvider<HomeBloc>(create: (context) {
             final _gamesRepository =
                 RepositoryProvider.of<GamesRepository>(context);
             return HomeBloc(_gamesRepository)..add(LoadAllData());
-          }),
-          BlocProvider<CartBloc>(create: (context) {
+          }), */ ///TRANSFERED TO THE NAVIGATION [TABS_HOME.DART]
+          /*BlocProvider<CartBloc>(create: (context) {
             final _cartRepository =
                 RepositoryProvider.of<CartRepository>(context);
             return CartBloc(_cartRepository)..add(LoadCartData());
-          }), 
-          BlocProvider<CategoriesBloc>(create: (context) {
+          }), */ ///REMOVED PLACED TO THE NAVIGATION RETURN [MYCART]
+          /*BlocProvider<CategoriesBloc>(create: (context) {
             final gamesRepository =
                 RepositoryProvider.of<GamesRepository>(context);
             return CategoriesBloc(gamesRepository)..add(LoadCategories());
-          }),
+          }), */
           BlocProvider<SignInBloc>(create: (context) {
             final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
             final _authService =
                 RepositoryProvider.of<AuthenticationService>(context);
             return SignInBloc(_authBloc, _authService);
+          }),
+          BlocProvider<SignUpBloc>(create: (context) {
+            final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
+            final _authService =
+                RepositoryProvider.of<AuthenticationService>(context);
+            final _playerRepository =
+                RepositoryProvider.of<PlayerRepository>(context);
+            return SignUpBloc(_authBloc, _authService, _playerRepository);
           })
         ],
         child: Singular(),

@@ -3,26 +3,35 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:p_singular/BLOCS/BLOCS_AUTH/authentication.dart';
 import 'package:p_singular/BLOCS/BLOCS_DASHBOARD/dashboard.dart';
+import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
 import 'package:p_singular/pages.dart';
 
 class DashboardProvider extends StatelessWidget {
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
-      //final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
-      if (state is AuthenticationUnauthenticated) {
-        print(state.toString());
-        return AuthenticationStart();
-      }
-      if (state is AuthenticationFailure) {}
-      if (state is AuthenticationAuthenticated) {
-        return _Dashboard();
-      }
-      if (state is AuthenticationLoading) {
-        print(state.toString());
-        return _progressIndicator();
-      }
-    });
+    return BlocProvider<DashboardBloc>(
+      create: (context) {
+        final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
+        final _playerRepository =
+            RepositoryProvider.of<PlayerRepository>(context);
+        return DashboardBloc(_authBloc, _playerRepository)..add(LoadUserData());
+      },
+      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+        //final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
+        if (state is AuthenticationUnauthenticated) {
+          print(state.toString());
+          return AuthenticationStart();
+        }
+        if (state is AuthenticationFailure) {}
+        if (state is AuthenticationAuthenticated) {
+          return _Dashboard();
+        }
+        if (state is AuthenticationLoading) {
+          print(state.toString());
+          return _progressIndicator();
+        }
+      }),
+    );
   }
 
   Widget _progressIndicator() {

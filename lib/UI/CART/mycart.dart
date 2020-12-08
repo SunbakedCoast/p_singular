@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:p_singular/BLOCS/BLOCS_CART/cart.dart';
-import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
 
 class MyCart extends StatelessWidget {
   Widget build(BuildContext context) {
     final _cartBloc = BlocProvider.of<CartBloc>(context);
     var _screenSize = MediaQuery.of(context).size;
-    final _cartRepository = RepositoryProvider.of<CartRepository>(context);
-    return BlocProvider<CartBloc>(
-      create: (context) => CartBloc(_cartRepository)..add(LoadCartData()),
-      child: BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+    //BLOCPROVIDER REMOVE
+    return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
         if (state is CartInitial) {
           print(state.toString());
           return Center(
@@ -102,8 +99,7 @@ class MyCart extends StatelessWidget {
         }
         print(state.toString());
         return Container();
-      }),
-    );
+      });
   }
 }
 
