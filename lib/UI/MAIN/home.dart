@@ -18,7 +18,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   final _scrollController = ScrollController();
-  TabController _tabController;
+
+  /*TabController _tabController;
 
   final List<Tab> _tabs = [
     Tab(text: 'Home'),
@@ -36,7 +37,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   void dispose() {
     _tabController.dispose();
     super.dispose();
-  }
+  } */
 
   Widget build(BuildContext context) {
     return BlocProvider<SearchBloc>(
@@ -78,42 +79,43 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             }),
         body: SafeArea(
           child: NestedScrollView(
-            controller: _scrollController,
-            headerSliverBuilder: (BuildContext context, bool innerBoxScrolled) {
-              return [
-                SliverAppBar(
-                  backgroundColor: Theme.of(context).backgroundColor,
-                  title: Text('Singular',
-                      style: GoogleFonts.bitter(
-                        fontWeight: FontWeight.w900,
-                      )),
-                  pinned: true,
-                  floating: true,
-                  actions: [
-                    IconButton(
-                      icon: Icon(Icons.search),
-                      color: Colors.white,
-                      onPressed: () async {
-                        Games selected = await showSearch<Games>(
-                            context: context,
-                            delegate: SearchData(
-                                BlocProvider.of<SearchBloc>(context)));
-                        print('selected: $selected');
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.person_outline_outlined),
-                      color: Colors.white,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DashboardProvider())); 
-                      },
-                    )
-                  ],
-                  forceElevated: innerBoxScrolled,
-                  bottom: TabBar(
+              controller: _scrollController,
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxScrolled) {
+                return [
+                  SliverAppBar(
+                    backgroundColor: Theme.of(context).backgroundColor,
+                    title: Text('Singular',
+                        style: GoogleFonts.bitter(
+                            fontWeight: FontWeight.w900,
+                            color: Theme.of(context).accentColor)),
+                    pinned: false,
+                    floating: true,
+                    actions: [
+                      IconButton(
+                        icon: Icon(Icons.search),
+                        color: Colors.white,
+                        onPressed: () async {
+                          Games selected = await showSearch<Games>(
+                              context: context,
+                              delegate: SearchData(
+                                  BlocProvider.of<SearchBloc>(context)));
+                          print('selected: $selected');
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.person_outline_outlined),
+                        color: Colors.white,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DashboardProvider()));
+                        },
+                      )
+                    ],
+                    forceElevated: innerBoxScrolled,
+                    /*bottom: TabBar(
                     labelStyle:
                         GoogleFonts.poppins(fontWeight: FontWeight.bold),
                     labelColor: Theme.of(context).accentColor,
@@ -122,15 +124,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     indicatorSize: TabBarIndicatorSize.label,
                     tabs: _tabs,
                     controller: _tabController,
-                  ),
-                )
-              ];
-            },
-            body: TabBarView(
-              children: [HomeTab(), MostPlayedTab()],
-              controller: _tabController,
-            ),
-          ),
+                  ), */
+                  )
+                ];
+              },
+              body: HomeTab()),
         ),
       ),
     );
