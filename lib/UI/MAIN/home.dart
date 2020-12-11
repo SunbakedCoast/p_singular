@@ -142,12 +142,7 @@ class SearchData extends SearchDelegate<Games> {
 
   @override
   List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-        icon: Icon(Icons.clear),
-        onPressed: () {},
-      )
-    ];
+    return null;
   }
 
   @override
@@ -157,7 +152,9 @@ class SearchData extends SearchDelegate<Games> {
           icon: AnimatedIcons.menu_arrow,
           progress: transitionAnimation,
         ),
-        onPressed: () {});
+        onPressed: () {
+          Navigator.pop(context);
+        });
   }
 
   @override
@@ -187,6 +184,7 @@ class SearchData extends SearchDelegate<Games> {
               itemBuilder: (context, index) => _item(
                   context: context,
                   image: state.games[index].image,
+                  gif: state.games[index].gif,
                   name: state.games[index].name,
                   description: state.games[index].description,
                   isMultiplayer: state.games[index].isMultiplayer,
@@ -207,6 +205,7 @@ class SearchData extends SearchDelegate<Games> {
   Widget _item(
       {BuildContext context,
       String image,
+      String gif,
       String name,
       String description,
       String isMultiplayer,
@@ -293,6 +292,7 @@ class SearchData extends SearchDelegate<Games> {
         openBuilder: (_, closeContainer) {
           return Details(
             image: image,
+            gif: gif,
             name: name,
             description: description,
             isMultiplayer: isMultiplayer,

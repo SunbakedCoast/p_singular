@@ -97,6 +97,7 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                         return _animatedContainer(
                             active: active,
                             image: _games[currentIdx].image,
+                            gif: _games[currentIdx].gif,
                             name: _games[currentIdx].name,
                             description: _games[currentIdx].description,
                             isMultiplayer: _games[currentIdx].isMultiplayer,
@@ -129,6 +130,7 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
   _animatedContainer(
       {bool active,
       String image,
+      String gif,
       String name,
       String description,
       String isMultiplayer,
@@ -142,6 +144,7 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
     final double offset = active ? 6 : 0;
     final double top = active ? 15 : 100;
     final double bottom = active ? 15 : 100;
+    final transition = active ? gif : image;
 
     return AnimatedContainer(
       duration: Duration(milliseconds: 500),
@@ -161,7 +164,7 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
                       bottomRight: Radius.circular(5),
                       bottomLeft: Radius.circular(15)),
                   image: DecorationImage(
-                      fit: BoxFit.cover, image: NetworkImage(image)),
+                      fit: BoxFit.cover, image: NetworkImage(transition)),
                   boxShadow: [
                     BoxShadow(
                         color: Colors.black87,
@@ -251,6 +254,7 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
           openBuilder: (_, closeContainer) {
             return Details(
               image: image,
+              gif: gif,
               name: name,
               description: description,
               isMultiplayer: isMultiplayer,

@@ -39,6 +39,7 @@ class HorizontalList extends StatelessWidget {
                         context: context,
                         screenSize: _screenSize,
                         image: games[index].image,
+                        gif: games[index].gif,
                         name: games[index].name,
                         description: games[index].description,
                         isMultiplayer: games[index].isMultiplayer,
@@ -56,6 +57,7 @@ class HorizontalList extends StatelessWidget {
       {BuildContext context,
       Size screenSize,
       String image,
+      String gif,
       String name,
       String description,
       String isMultiplayer,
@@ -131,6 +133,7 @@ class HorizontalList extends StatelessWidget {
             openBuilder: (_, closeContainer) {
               return Details(
                 image: image,
+                gif: gif,
                 name: name,
                 description: description,
                 isMultiplayer: isMultiplayer,

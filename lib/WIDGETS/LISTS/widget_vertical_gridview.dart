@@ -36,6 +36,7 @@ class GridViewVertical extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) => _item(
                   context: context,
                   image: games[index].image,
+                  gif: games[index].gif,
                   name: games[index].name,
                   description: games[index].description,
                   isMultiplayer: games[index].isMultiplayer,
@@ -53,6 +54,7 @@ class GridViewVertical extends StatelessWidget {
   Widget _item(
       {BuildContext context,
       String image,
+      String gif,
       String name,
       String description,
       String isMultiplayer,
@@ -129,6 +131,7 @@ class GridViewVertical extends StatelessWidget {
           openBuilder: (_, closeContainer) {
             return Details(
               image: image,
+              gif: gif,
               name: name,
               description: description,
               isMultiplayer: isMultiplayer,

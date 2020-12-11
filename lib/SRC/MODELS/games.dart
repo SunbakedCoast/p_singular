@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 
 class Games extends Equatable {
   final String image;
+  final String gif;
   final String name;
   final String description;
   final String isMultiplayer;
@@ -17,6 +18,7 @@ class Games extends Equatable {
 
   Games(
       {@required this.image,
+      @required this.gif,
       @required this.name,
       @required this.description,
       @required this.isMultiplayer,
@@ -31,6 +33,7 @@ class Games extends Equatable {
   static Games fromEntity(GamesEntity entity) {
     return Games(
         image: entity.image,
+        gif: entity.gif,
         name: entity.name,
         description: entity.description,
         isMultiplayer: entity.isMultiplayer,
@@ -47,11 +50,10 @@ class Games extends Equatable {
   // TODO: implement props
   List<Object> get props => [
         image,
+        gif,
         name,
         description,
-        //isFourK,
         isMultiplayer,
-        //players,
         genre,
         isFeatured,
         price,

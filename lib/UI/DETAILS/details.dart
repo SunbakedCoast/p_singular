@@ -56,6 +56,7 @@ import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
 */
 class Details extends StatefulWidget {
   final String image;
+  final String gif; 
   final String name;
   final String description;
   final String isMultiplayer;
@@ -68,6 +69,7 @@ class Details extends StatefulWidget {
 
   Details(
       {@required this.image,
+      @required this.gif,
       @required this.name,
       @required this.description,
       @required this.isMultiplayer,
