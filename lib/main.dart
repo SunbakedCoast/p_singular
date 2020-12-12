@@ -1,8 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:p_singular/BLOCS/BLOCS_AUTH/authentication.dart';
-import 'package:p_singular/BLOCS/BLOCS_DASHBOARD/dashboard.dart';
-import 'package:p_singular/BLOCS/BLOCS_SEARCH/search.dart';
+import 'package:p_singular/BLOCS/BLOCS_PWRESET/pwreset.dart';
 import 'package:p_singular/BLOCS/BLOCS_SIGNUP/signup.dart';
 import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
 import 'package:p_singular/SRC/SERVICES/services.dart';
@@ -79,6 +78,11 @@ void main() async {
             final _playerRepository =
                 RepositoryProvider.of<PlayerRepository>(context);
             return SignUpBloc(_authBloc, _authService, _playerRepository);
+          }),
+          BlocProvider<PasswordResetBloc>(create: (context) {
+            final _authService =
+                RepositoryProvider.of<AuthenticationService>(context);
+            return PasswordResetBloc(_authService);
           })
         ],
         child: Singular(),
@@ -99,8 +103,7 @@ class Singular extends StatelessWidget {
 
             if (state is AuthenticationAuthenticated) return Home();
 
-            if (state is AuthenticationFailure)
-              return Container(); //TODO RETURN AUTHFAILURE
+            if (state is AuthenticationFailure) return ExceptionWidget();
 
             if (state is AuthenticationUnauthenticated)
               return AuthenticationStart();

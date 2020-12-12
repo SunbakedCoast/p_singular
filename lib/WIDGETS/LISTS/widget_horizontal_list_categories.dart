@@ -2,7 +2,6 @@ import 'package:animations/animations.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
 
-///TODO ADD ALL [textTheme] to [themeData]
 
 class HorizontalCategories extends StatelessWidget {
   final String section;

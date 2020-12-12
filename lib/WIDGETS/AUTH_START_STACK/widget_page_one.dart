@@ -78,7 +78,7 @@ class WelcomeBody extends StatelessWidget {
         },
         child: Container(
           margin: const EdgeInsets.only(left: 15, top: 10),
-          child: Text('Lorem ipsum dolor sit amet',
+          child: Text('Level up today!',
               style: GoogleFonts.poppins(
                 color: Colors.white,
                 fontWeight: FontWeight.w300,

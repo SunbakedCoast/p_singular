@@ -1,6 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:p_singular/SRC/MODELS/models.dart';
-import 'package:meta/meta.dart';
 
 abstract class DetailsBtnState extends Equatable {
   List<Object> get props => [];

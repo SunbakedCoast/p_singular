@@ -38,7 +38,7 @@ class Heading1 extends StatelessWidget {
       },
       child: Container(
         margin: const EdgeInsets.only(left: 130),
-        child: Text('Heading \nPlaceholder',
+        child: Text('Greatness \nAwaits',
             style: GoogleFonts.poppins(
               color: Theme.of(context).accentColor,
               fontWeight: FontWeight.bold,
@@ -48,22 +48,6 @@ class Heading1 extends StatelessWidget {
     );
   }
 }
-
-/*class Heading2 extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Consumer<PageOffsetNotifier>(builder: (context, notifier, child) {
-      return Container(
-        margin: const EdgeInsets.only(left: 15),
-        child: Text('Heading \n Placeholder2',
-            style: GoogleFonts.poppins(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
-            )),
-      );
-    });
-  }
-} */
 
 class Body1 extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -77,7 +61,7 @@ class Body1 extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.only(left: 130, top: 10),
           child: Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
+              'Here at Singular we make sure all players are geared up. We have everything you need, one tap away',
               style: GoogleFonts.poppins(
                 color: Colors.white,
                 fontWeight: FontWeight.w300,

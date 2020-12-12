@@ -30,6 +30,7 @@ class DashboardProvider extends StatelessWidget {
           print(state.toString());
           return _progressIndicator();
         }
+        return _progressIndicator();
       }),
     );
   }
@@ -106,12 +107,10 @@ class _Dashboard extends StatelessWidget {
           )),
         );
       }
-      if (state is DashboardLoading) {
-        print(state.toString());
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
+
+      return Center(
+        child: CircularProgressIndicator(),
+      );
     });
   }
 }

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:p_singular/BLOCS/BLOCS_DETAILS/details.dart';
 import 'package:meta/meta.dart';
 import 'package:p_singular/SRC/MODELS/models.dart';
 

@@ -11,7 +11,7 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-      final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
+      //final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
       if (state is AuthenticationUnauthenticated) {
         print(state.toString());
         return _SignUpForm();
@@ -23,6 +23,7 @@ class SignUp extends StatelessWidget {
         print(state.toString());
         return Home();
       }
+      return _progressIndicator();
     });
   }
 
@@ -228,6 +229,7 @@ class _SignUpFormState extends State<_SignUpForm> {
           ),
         );
       }
+      return _showProgressIndicator();
     }));
   }
 

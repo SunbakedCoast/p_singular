@@ -47,7 +47,6 @@ class Games extends Equatable {
   }
 
   @override
-  // TODO: implement props
   List<Object> get props => [
         image,
         gif,

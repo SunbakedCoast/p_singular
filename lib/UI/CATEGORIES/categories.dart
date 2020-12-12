@@ -69,7 +69,6 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
   }
 
   Widget build(BuildContext context) {
-    ///TODO [OBSERVE]
     return BlocProvider<CategoriesBloc>(
       create: (context) {
         final _gamesRepository =
@@ -111,12 +110,10 @@ class _CategoriesSliderState extends State<CategoriesSlider> {
             ),
           );
         }
-        if (state is CategoriesLoading) {
-          return _progressIndicator();
-        }
+        print(state.toString());
+        return _progressIndicator();
       }
 
-          ///TODO [RETURN WIDGET]
           ),
     );
   }

@@ -8,7 +8,6 @@ class AuthenticationStart extends StatefulWidget {
   _AuthenticationStartState createState() => _AuthenticationStartState();
 }
 
-///TODO [UPDATE UI]
 class _AuthenticationStartState extends State<AuthenticationStart>
     with TickerProviderStateMixin {
   AnimationController _animationController;
@@ -28,7 +27,6 @@ class _AuthenticationStartState extends State<AuthenticationStart>
   }
 
   Widget build(BuildContext context) {
-    //var _screenSize = MediaQuery.of(context).size;
     return ChangeNotifierProvider(
       create: (_) => PageOffsetNotifier(_pageController),
       child: ListenableProvider.value(

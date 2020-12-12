@@ -5,6 +5,7 @@ abstract class AuthenticationService {
   Future<void> signInWithCredentials(String email, String password);
   Future<void> signOut();
   Future<void> signUpWithCredentials(String email, String password);
+  Future<void> sendPasswordReset(String email);
 }
 
 class FirebaseAuthenticationService extends AuthenticationService {
@@ -28,4 +29,8 @@ class FirebaseAuthenticationService extends AuthenticationService {
   Future<void> signUpWithCredentials(String email, String password) =>
       _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
+
+  @override
+  Future<void> sendPasswordReset(String email) =>
+    _firebaseAuth.sendPasswordResetEmail(email: email);
 }

@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 
-///TODO [SIMPLIFY] TO [CUBIT]
 class Play extends StatelessWidget {
   final String image;
   final String name;
@@ -21,7 +20,6 @@ class Play extends StatelessWidget {
   });
   Widget build(BuildContext context) {
     final _cartRepository = RepositoryProvider.of<CartRepository>(context);
-    ///TODO [TRANSFER TO DETAILS.dart]
     return BlocProvider<DetailsBtnBloc>(
       create: (context) =>
           DetailsBtnBloc(_cartRepository)..add(CheckIfExists(name: name)),

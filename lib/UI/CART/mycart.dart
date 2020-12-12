@@ -121,7 +121,6 @@ Widget _priceIndicator({int price}) {
   );
 }
 
-// TODO UPDATE STATE
 Widget _item(
     {BuildContext context,
     Size screenSize,

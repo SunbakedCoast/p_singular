@@ -9,3 +9,5 @@ export 'package:p_singular/UI/AUTH/authentication_start.dart';
 export 'package:p_singular/UI/AUTH/signup_page.dart';
 export 'package:p_singular/UI/AUTH/signin_page.dart';
 export 'package:p_singular/UI/DASHBOARD/dashboard.dart';
+export 'package:p_singular/UI/exception.dart';
+export 'package:p_singular/UI/AUTH/reset_password.dart';

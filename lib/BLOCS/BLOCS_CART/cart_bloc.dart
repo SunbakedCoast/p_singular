@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:p_singular/BLOCS/BLOCS_CART/cart.dart';
 import 'package:p_singular/SRC/REPOSITORIES/cart_repository.dart';
 
-// TODO UPDATE STATE
-
 class CartBloc extends Bloc<CartEvent, CartState> {
   final CartRepository _cartRepository;
   StreamSubscription _streamSubscription;

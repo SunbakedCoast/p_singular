@@ -10,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:p_singular/SRC/REPOSITORIES/repositories.dart';
 import 'package:p_singular/BLOCS/BLOCS_CART/cart.dart';
 
-///TODO ADD ALL [textTheme] to [themeData];
 ///K[CHECKED FOR SIMPLIFICATION]
 class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
@@ -128,7 +127,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   )
                 ];
               },
-              body: HomeTab()),
+              body: HomeTab()
+              ),
         ),
       ),
     );
