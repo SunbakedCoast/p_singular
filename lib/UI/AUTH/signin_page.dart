@@ -96,7 +96,7 @@ class _SignInFormState extends State<_SignInForm> {
 
     return BlocListener<SignInBloc, SignInState>(listener: (context, state) {
       if (state is SignInFailure) {
-        return _showError(state.error);
+        return _showError(context,state.error);
       }
     }, child: BlocBuilder<SignInBloc, SignInState>(builder: (context, state) {
       if (state is SignInLoading) {
@@ -127,7 +127,6 @@ class _SignInFormState extends State<_SignInForm> {
                     Container(
                      margin: const EdgeInsets.only(bottom: 10),
                       child: TextFormField(
-                        //autocorrect: false,
                         keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
                         style: GoogleFonts.poppins(
@@ -206,7 +205,7 @@ class _SignInFormState extends State<_SignInForm> {
     }));
   }
 
-  _showError(String error) {
+  _showError(BuildContext context, String error) {
     Scaffold.of(context).showSnackBar(SnackBar(
       content: Text(error),
       backgroundColor: Colors.red,

@@ -28,14 +28,9 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     try {
       await _authenticationService.signInWithCredentials(
           event.email, event.password);
-      //final user = _authenticationService.getCurrentUser();
       _authenticationBloc.add(UserLoggedIn());
     } catch (e) {
-      yield SignInFailure(error: e.message ?? 'an Unknown error has occured');
+      yield SignInFailure(error: e.message ?? 'An Unknown error has occured');
     }
-    /*if (user != null)
-      _authenticationBloc.add(UserLoggedIn());
-    else
-      yield SignInFailure(error: 'errorTest'); */
   }
 }
