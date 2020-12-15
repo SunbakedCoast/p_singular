@@ -93,7 +93,7 @@ class _SignUpFormState extends State<_SignUpForm> {
 
     return BlocListener<SignUpBloc, SignUpState>(listener: (context, state) {
       if (state is SignUpFailure) {
-        return _showError(state.error);
+        return _showError(context, state.error);
       }
     }, child: BlocBuilder<SignUpBloc, SignUpState>(builder: (context, state) {
       if (state is SignUpLoading) {
@@ -229,11 +229,12 @@ class _SignUpFormState extends State<_SignUpForm> {
           ),
         );
       }
+      print('Sign up state: ${state.toString()}');
       return _showProgressIndicator();
     }));
   }
 
-  _showError(String error) {
+  _showError(BuildContext context, String error) {
     Scaffold.of(context).showSnackBar(SnackBar(
       content: Text(error),
       backgroundColor: Colors.red,

@@ -44,11 +44,7 @@ class SignIn extends StatelessWidget {
     );
   }
 
-  //TODO REMOVE OR CHANGE IF NOT VIAGBLE
-  /* Widget _authenticationFailureTestWidget(AuthenticationBloc authBloc, Size screenSize, String error){
-    return 
-  }
- */
+  //TODO ADD EXCEPTION WIDGET
   Widget _progressIndicator() {
     return Center(
       child: CircularProgressIndicator(),
