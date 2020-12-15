@@ -103,7 +103,7 @@ class Singular extends StatelessWidget {
 
             if (state is AuthenticationAuthenticated) return Home();
 
-            if (state is AuthenticationFailure) return ExceptionWidget();
+            if (state is AuthenticationFailure) return ExceptionWidget(exception: state.errorMessage);
 
             if (state is AuthenticationUnauthenticated)
               return AuthenticationStart();

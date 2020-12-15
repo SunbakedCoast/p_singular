@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 //TODO ADD BLOC
 class ExceptionWidget extends StatelessWidget {
+  final String exception;
+
+  ExceptionWidget({@required this.exception});
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -22,9 +24,7 @@ class ExceptionWidget extends StatelessWidget {
         ),
         RaisedButton(
           splashColor: Theme.of(context).accentColor,
-          onPressed: () {
-           
-          },
+          onPressed: () {},
           color: Theme.of(context).accentColor,
           child: Text('Retry',
               style: GoogleFonts.poppins(
