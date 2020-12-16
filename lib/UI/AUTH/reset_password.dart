@@ -32,7 +32,7 @@ class ResetPassword extends StatelessWidget {
         if (state is PasswordResetInitial) {
           return Form(
             key: _key,
-            autovalidateMode: AutovalidateMode.always,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -60,6 +60,13 @@ class ResetPassword extends StatelessWidget {
                                 color: Colors.grey,
                                 fontWeight: FontWeight.bold),
                           ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please provide an email';
+                            } else {
+                              return null;
+                            }
+                          },
                         ),
                       ),
                       Container(
@@ -74,7 +81,7 @@ class ResetPassword extends StatelessWidget {
                                 : _resetPasswordPressed,
                             color: Theme.of(context).accentColor,
                             child: Text(
-                              'Log in',
+                              'Reset',
                               style: GoogleFonts.poppins(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),

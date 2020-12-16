@@ -113,7 +113,7 @@ class _SignUpFormState extends State<_SignUpForm> {
             body: Center(
               child: Form(
                 key: _key,
-                autovalidateMode: AutovalidateMode.always,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: SingleChildScrollView(
                   physics: ScrollPhysics(),
                   child: Column(
@@ -153,8 +153,8 @@ class _SignUpFormState extends State<_SignUpForm> {
                                 fontWeight: FontWeight.bold),
                           ),
                           validator: (value) {
-                            if (value == null) {
-                              return 'Email is required';
+                            if (value.isEmpty) {
+                              return 'Username is required';
                             } else {
                               return null;
                             }
@@ -176,7 +176,7 @@ class _SignUpFormState extends State<_SignUpForm> {
                                 fontWeight: FontWeight.bold),
                           ),
                           validator: (value) {
-                            if (value == null) {
+                            if (value.isEmpty) {
                               return 'Email is required';
                             } else {
                               return null;
@@ -200,8 +200,8 @@ class _SignUpFormState extends State<_SignUpForm> {
                                 fontWeight: FontWeight.bold),
                           ),
                           validator: (value) {
-                            if (value == null) {
-                              return 'Email is required';
+                            if (value.length < 6) {
+                              return 'Password must be greater than 6 characters';
                             } else {
                               return null;
                             }
