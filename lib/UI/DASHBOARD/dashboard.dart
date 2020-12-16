@@ -20,6 +20,7 @@ class DashboardProvider extends StatelessWidget {
         //final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
         if (state is AuthenticationUnauthenticated) {
           print(state.toString());
+          Navigator.pop(context);
           return AuthenticationStart();
         }
         if (state is AuthenticationFailure) {}

@@ -22,8 +22,9 @@ class SignIn extends StatelessWidget {
       }
       if (state is AuthenticationAuthenticated) {
         print(state.toString());
-
-        return Home();
+        Navigator.popUntil(
+            context, ModalRoute.withName(Navigator.defaultRouteName));
+        //return Home();
       }
       print('Sign in state: ${state.toString()}');
       return _progressIndicator();

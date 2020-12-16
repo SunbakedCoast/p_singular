@@ -11,10 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'BLOCS/BLOCS_SIGNIN/signin.dart';
 
-///when I wrote this Me and God know how all these works
-///but now it's only God
 
-///[CHECKED FOR SIMPLIFICATION]
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -25,9 +22,6 @@ void main() async {
         RepositoryProvider<PlayerRepository>(
             create: (context) => FireStorePlayerRepository()),
         RepositoryProvider<GamesRepository>(create: (context) => GameAPI()),
-
-        ///REMOVED PLACED TO THE NAVIGATION RETURN [MYCART]
-        //RepositoryProvider<CartRepository>(create: (context) => CartRepo())
       ],
       child: MultiBlocProvider(
         providers: [
@@ -38,33 +32,6 @@ void main() async {
               return AuthenticationBloc(_authService)..add(AppLoaded());
             },
           ),
-          /*BlocProvider<DashboardBloc>(create: (context) {
-            final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
-            final _playerRepository =
-                RepositoryProvider.of<PlayerRepository>(context);
-            return DashboardBloc(_authBloc, _playerRepository)
-              ..add(LoadUserData());
-          }), */ ///TRANSFERED TO DASHBOARD [DASHBOARD.DART]
-          /*BlocProvider<SearchBloc>(create: (context) {
-            final _gamesrepository =
-                RepositoryProvider.of<GamesRepository>(context);
-            return SearchBloc(_gamesrepository);
-          }), */
-          /* BlocProvider<HomeBloc>(create: (context) {
-            final _gamesRepository =
-                RepositoryProvider.of<GamesRepository>(context);
-            return HomeBloc(_gamesRepository)..add(LoadAllData());
-          }), */ ///TRANSFERED TO THE NAVIGATION [TABS_HOME.DART]
-          /*BlocProvider<CartBloc>(create: (context) {
-            final _cartRepository =
-                RepositoryProvider.of<CartRepository>(context);
-            return CartBloc(_cartRepository)..add(LoadCartData());
-          }), */ ///REMOVED PLACED TO THE NAVIGATION RETURN [MYCART]
-          /*BlocProvider<CategoriesBloc>(create: (context) {
-            final gamesRepository =
-                RepositoryProvider.of<GamesRepository>(context);
-            return CategoriesBloc(gamesRepository)..add(LoadCategories());
-          }), */
           BlocProvider<SignInBloc>(create: (context) {
             final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
             final _authService =
@@ -103,7 +70,8 @@ class Singular extends StatelessWidget {
 
             if (state is AuthenticationAuthenticated) return Home();
 
-            if (state is AuthenticationFailure) return ExceptionWidget(exception: state.errorMessage);
+            if (state is AuthenticationFailure)
+              return ExceptionWidget(exception: state.errorMessage);
 
             if (state is AuthenticationUnauthenticated)
               return AuthenticationStart();
