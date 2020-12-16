@@ -18,11 +18,13 @@ class SignUp extends StatelessWidget {
       }
       if (state is AuthenticationFailure) {
         print(state.toString());
+        return _SignUpForm();
       }
       if (state is AuthenticationAuthenticated) {
         print(state.toString());
         return Home();
       }
+      print('Auth State ${state.toString()}');
       return _progressIndicator();
     });
   }
@@ -89,6 +91,11 @@ class _SignUpFormState extends State<_SignUpForm> {
           _validate = true;
         });
       } */
+    }
+
+    void dispose() {
+      _signupBloc.close();
+      super.dispose();
     }
 
     return BlocListener<SignUpBloc, SignUpState>(listener: (context, state) {
