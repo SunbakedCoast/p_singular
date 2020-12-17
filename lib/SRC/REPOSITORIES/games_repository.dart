@@ -18,13 +18,16 @@ class GameAPI extends GamesRepository {
     final response = await http.get(
         'https://my-json-server.typicode.com/SunbakedCoast/PlayStationDemo/games');
 
-    //if (response.statusCode != 200) throw Exception('Request Failed: ${response.statusCode}');
-
-    Iterable list = jsonDecode(response.body);
-    return games = list
-        .map((game) => Games.fromEntity(GamesEntity.fromJson(game)))
-        .toList();
-    //return Games.fromEntity(GamesEntity.fromJson(jsonDecode(response.body)))
+    if (response.statusCode != 200)
+      throw Exception('Request Failed: ${response.statusCode}');
+    try {
+      Iterable list = jsonDecode(response.body);
+      return games = list
+          .map((game) => Games.fromEntity(GamesEntity.fromJson(game)))
+          .toList();
+    } catch (_) {
+      throw Exception('ERROR PARSING RESPONSE BODY');
+    }
   }
 
   @override
