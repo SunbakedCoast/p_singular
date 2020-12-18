@@ -23,15 +23,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
+  ///TODO [TEST]
   Stream<HomeState> _mapLoadAllDatatoState() async* {
     yield HomeLoading();
-    _streamSubscription?.cancel();
-
-    _streamSubscription =
-        _gamesRepository.loadData().asStream().listen((games) {
-      print('Games list: $games');
-      add(DataUpdated(games));
-    });
+    try {
+      _streamSubscription?.cancel();
+      _streamSubscription =
+          _gamesRepository.loadData().asStream().listen((games) {
+        print('Games list: $games');
+        add(DataUpdated(games));
+      });
+    } catch (error) {
+      yield FetchError(
+          error: error.message ?? 'Oh snap! Unknown error occured!');
+    }
   }
 
   Stream<HomeState> _mapDataUpdatedtoState(DataUpdated event) async* {
