@@ -22,7 +22,8 @@ class SignIn extends StatelessWidget {
       }
       if (state is AuthenticationAuthenticated) {
         print(state.toString());
-        Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
+        Navigator.popUntil(
+            context, ModalRoute.withName(Navigator.defaultRouteName));
         //return Home();
       }
       print('Sign in state: ${state.toString()}');
@@ -54,13 +55,10 @@ class SignIn extends StatelessWidget {
 
 class _Form extends StatelessWidget {
   Widget build(BuildContext context) {
-    var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Container(
-          height: _screenSize.height,
-          width: _screenSize.width,
           child: _SignInForm(),
         ),
       ),
@@ -104,229 +102,114 @@ class _SignInFormState extends State<_SignInForm> {
         _showProgressIndicator();
       }
       if (state is SignInFailure) {
-        print('initial state test');
-        return Form(
-          key: _key,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Center(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 20),
-                      child: Text('Welcome back!',
-                          style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 22)),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      child: TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        controller: _emailController,
-                        style: GoogleFonts.poppins(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                        decoration: InputDecoration(
-                          hintText: 'Email',
-                          hintStyle: GoogleFonts.poppins(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter your email';
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
-                    ),
-                    Container(
-                      //margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
-                      child: TextFormField(
-                          keyboardType: TextInputType.name,
-                          controller: _passwordController,
-                          obscureText: true,
-                          style: GoogleFonts.poppins(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            hintText: 'Password',
-                            hintStyle: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Password is required';
-                            } else {
-                              return null;
-                            }
-                          }),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 20, bottom: 10),
-                      child: SizedBox(
-                        width: _screenSize.width,
-                        child: RaisedButton(
-                          elevation: 4.0,
-                          splashColor: Colors.black,
-                          onPressed: state is SignInLoading
-                              ? () {}
-                              : _loginButtonPressed,
-                          color: Theme.of(context).accentColor,
-                          child: Text(
-                            'Log in',
-                            style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ResetPassword()));
-                          },
-                          child: Text(
-                            'Forgot your password?',
-                            style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
+        print(state.toString());
       }
       if (state is SignInInitial) {
-        print('initial state test');
-        return Form(
-          key: _key,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Center(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 20),
-                      child: Text('Welcome back!',
-                          style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 22)),
+        print(state.toString());
+      }
+      return Form(
+        key: _key,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 20),
+                    child: Text('Welcome back!',
+                        style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22)),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    child: TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _emailController,
+                      style: GoogleFonts.poppins(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                      decoration: InputDecoration(
+                        hintText: 'Email',
+                        hintStyle: GoogleFonts.poppins(
+                            color: Colors.grey, fontWeight: FontWeight.bold),
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter your email';
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      child: TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        controller: _emailController,
+                  ),
+                  Container(
+                    //margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
+                    child: TextFormField(
+                        keyboardType: TextInputType.name,
+                        controller: _passwordController,
+                        obscureText: true,
                         style: GoogleFonts.poppins(
                             color: Colors.white, fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
-                          hintText: 'Email',
+                          hintText: 'Password',
                           hintStyle: GoogleFonts.poppins(
                               color: Colors.grey, fontWeight: FontWeight.bold),
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
-                            return 'Please enter your email';
+                            return 'Password is required';
                           } else {
                             return null;
                           }
-                        },
+                        }),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 20, bottom: 10),
+                    child: SizedBox(
+                      width: _screenSize.width,
+                      child: RaisedButton(
+                        elevation: 4.0,
+                        splashColor: Colors.black,
+                        onPressed: _loginButtonPressed,
+                        color: Theme.of(context).accentColor,
+                        child: Text(
+                          'Log in',
+                          style: GoogleFonts.poppins(
+                              color: Colors.black, fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                    Container(
-                      //margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
-                      child: TextFormField(
-                          keyboardType: TextInputType.name,
-                          controller: _passwordController,
-                          obscureText: true,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ResetPassword()));
+                        },
+                        child: Text(
+                          'Forgot your password?',
                           style: GoogleFonts.poppins(
                               color: Colors.white, fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            hintText: 'Password',
-                            hintStyle: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Password is required';
-                            } else {
-                              return null;
-                            }
-                          }),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 20, bottom: 10),
-                      child: SizedBox(
-                        width: _screenSize.width,
-                        child: RaisedButton(
-                          elevation: 4.0,
-                          splashColor: Colors.black,
-                          onPressed: state is SignInLoading
-                              ? () {}
-                              : _loginButtonPressed,
-                          color: Theme.of(context).accentColor,
-                          child: Text(
-                            'Log in',
-                            style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
                         ),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ResetPassword()));
-                          },
-                          child: Text(
-                            'Forgot your password?',
-                            style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
-        );
-      }
-      print('Sign in state: ${state.toString()}');
-      return _showProgressIndicator();
+        ),
+      );
     }));
   }
 

@@ -71,7 +71,7 @@ class WelcomeBody extends StatelessWidget {
     return Consumer<PageOffsetNotifier>(
         builder: (context, notifier, child) {
           return Transform.translate(
-            offset: Offset(5 + 0.5 * notifier.offset, 0),
+            offset: Offset(5 + 0.5 * notifier.offset, -5),
             child: Opacity(
                 opacity: math.max(0, 1 - 4 * notifier.page), child: child),
           );
@@ -80,8 +80,8 @@ class WelcomeBody extends StatelessWidget {
           margin: const EdgeInsets.only(left: 15, top: 10),
           child: Text('Level up today!',
               style: GoogleFonts.poppins(
-                color: Colors.white,
-                fontWeight: FontWeight.w300,
+                color: Theme.of(context).accentColor,
+                fontWeight: FontWeight.w600,
                 fontSize: 14,
               )),
         ));

@@ -8,7 +8,8 @@ class ACKassandra extends StatelessWidget {
     return Consumer<PageOffsetNotifier>(
       builder: (context, notifier, child) {
         return Transform.translate(
-          offset: Offset(-40 - 0.8 * notifier.offset, topMargin(context) + 150),
+          offset: Offset(
+              -40 - 0.8 * notifier.offset, topMargin(context) + 150 + 32),
           child: Transform.scale(scale: 0.9, child: child),
         );
       },

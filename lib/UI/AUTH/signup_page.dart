@@ -14,11 +14,11 @@ class SignUp extends StatelessWidget {
       //final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
       if (state is AuthenticationUnauthenticated) {
         print(state.toString());
-        return _SignUpForm();
+        return _Form();
       }
       if (state is AuthenticationFailure) {
         print(state.toString());
-        return _SignUpForm();
+        return _Form();
       }
       if (state is AuthenticationAuthenticated) {
         print(state.toString());
@@ -32,6 +32,15 @@ class SignUp extends StatelessWidget {
   Widget _progressIndicator() {
     return Center(
       child: CircularProgressIndicator(),
+    );
+  }
+}
+
+class _Form extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: SafeArea(child: _SignUpForm()),
     );
   }
 }
@@ -106,138 +115,127 @@ class _SignUpFormState extends State<_SignUpForm> {
       if (state is SignUpLoading) {
         return _showProgressIndicator();
       }
+      if (state is SignUpFailure) {
+        print(state.toString());
+      }
       if (state is SignUpInitial) {
-        return SafeArea(
-          child: Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
-            body: Center(
-              child: Form(
-                key: _key,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: SingleChildScrollView(
-                  physics: ScrollPhysics(),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(left: 30),
-                        child: Text('Create account with Singular',
-                            style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22)),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 30),
-                        child: Text('Hello there!',
-                            style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12)),
-                      ),
-                      Container(
-                        margin:
-                            const EdgeInsets.only(left: 30, right: 30, top: 10),
-                        child: TextFormField(
-                          //autocorrect: false,
-                          keyboardType: TextInputType.name,
-                          controller: _userNameTextController,
-                          style: GoogleFonts.poppins(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            hintText: 'Username',
-                            hintStyle: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Username is required';
-                            } else {
-                              return null;
-                            }
-                          },
-                        ),
-                      ),
-                      Container(
-                        margin:
-                            const EdgeInsets.only(left: 30, right: 30, top: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: _emailTextController,
-                          style: GoogleFonts.poppins(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            hintText: 'Email',
-                            hintStyle: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Email is required';
-                            } else {
-                              return null;
-                            }
-                          },
-                        ),
-                      ),
-                      Container(
-                        margin:
-                            const EdgeInsets.only(left: 30, right: 30, top: 10),
-                        child: TextFormField(
-                          //autocorrect: false,
-                          obscureText: true,
-                          controller: _passwordTextController,
-                          style: GoogleFonts.poppins(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            hintText: 'Password 6+ characters',
-                            hintStyle: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          validator: (value) {
-                            if (value.length < 6) {
-                              return 'Password must be greater than 6 characters';
-                            } else {
-                              return null;
-                            }
-                          },
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.all(30),
-                        child: SizedBox(
-                          width: _screenSize.width,
-                          child: RaisedButton(
-                            elevation: 4.0,
-                            splashColor: Colors.white,
-                            onPressed: state is SignUpLoading
-                                ? () {}
-                                : _signupButtonPressed,
-                            color: Theme.of(context).accentColor,
-                            child: Text(
-                              'Count me in!',
-                              style: GoogleFonts.poppins(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+        print(state.toString());
+      }
+      return Center(
+        child: Form(
+          key: _key,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: SingleChildScrollView(
+            physics: ScrollPhysics(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 30),
+                  child: Text('Create account with Singular',
+                      style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22)),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 30),
+                  child: Text('Hello there!',
+                      style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12)),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 30, right: 30, top: 10),
+                  child: TextFormField(
+                    //autocorrect: false,
+                    keyboardType: TextInputType.name,
+                    controller: _userNameTextController,
+                    style: GoogleFonts.poppins(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                    decoration: InputDecoration(
+                      hintText: 'Username',
+                      hintStyle: GoogleFonts.poppins(
+                          color: Colors.grey, fontWeight: FontWeight.bold),
+                    ),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Username is required';
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                 ),
-              ),
+                Container(
+                  margin: const EdgeInsets.only(left: 30, right: 30, top: 10),
+                  child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    controller: _emailTextController,
+                    style: GoogleFonts.poppins(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                      hintStyle: GoogleFonts.poppins(
+                          color: Colors.grey, fontWeight: FontWeight.bold),
+                    ),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Email is required';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 30, right: 30, top: 10),
+                  child: TextFormField(
+                    //autocorrect: false,
+                    obscureText: true,
+                    controller: _passwordTextController,
+                    style: GoogleFonts.poppins(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                    decoration: InputDecoration(
+                      hintText: 'Password 6+ characters',
+                      hintStyle: GoogleFonts.poppins(
+                          color: Colors.grey, fontWeight: FontWeight.bold),
+                    ),
+                    validator: (value) {
+                      if (value.length < 6) {
+                        return 'Password must be greater than 6 characters';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(30),
+                  child: SizedBox(
+                    width: _screenSize.width,
+                    child: RaisedButton(
+                      elevation: 4.0,
+                      splashColor: Colors.white,
+                      onPressed:
+                          state is SignUpLoading ? () {} : _signupButtonPressed,
+                      color: Theme.of(context).accentColor,
+                      child: Text(
+                        'Count me in!',
+                        style: GoogleFonts.poppins(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
-        );
-      }
-      print('Sign up state: ${state.toString()}');
-      return _showProgressIndicator();
+        ),
+      );
     }));
   }
 

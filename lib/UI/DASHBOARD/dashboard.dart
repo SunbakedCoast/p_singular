@@ -99,7 +99,7 @@ class _Dashboard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 5),
                   child: Text(
-                      'Welcome to Singular! We are an online retail gaming store.',
+                      'Welcome to Singular! We are an online retail gaming store. Exclusively for Sony Playstation this app is a concept app.',
                       style: GoogleFonts.poppins(
                           color: Colors.white, fontWeight: FontWeight.normal)),
                 )
