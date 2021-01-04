@@ -5,6 +5,7 @@ import 'package:p_singular/BLOCS/BLOCS_CART/cart.dart';
 
 class MyCart extends StatelessWidget {
   Widget build(BuildContext context) {
+    // ignore: close_sinks
     final _cartBloc = BlocProvider.of<CartBloc>(context);
     var _screenSize = MediaQuery.of(context).size;
     //BLOCPROVIDER REMOVE

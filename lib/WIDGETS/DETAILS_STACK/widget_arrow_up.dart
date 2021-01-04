@@ -1,4 +1,4 @@
-import 'package:p_singular/UI/VALUES/values.dart';
+import 'package:p_singular/UI/VALUES/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;

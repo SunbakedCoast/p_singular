@@ -14,3 +14,6 @@ double mainSquareSize(BuildContext context) =>
 double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
 
 double screenWidth(BuildContext context) => MediaQuery.of(context).size.height;
+
+double kassandratopMargin(BuildContext context) =>
+    topMargin(context) + mainSquareSize(context) - 64 - 32 - 32 - 32;

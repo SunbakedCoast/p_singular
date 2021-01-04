@@ -10,6 +10,7 @@ class ResetPassword extends StatelessWidget {
 
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+    // ignore: close_sinks
     final _passwordResetBloc = BlocProvider.of<PasswordResetBloc>(context);
 
     _resetPasswordPressed() {

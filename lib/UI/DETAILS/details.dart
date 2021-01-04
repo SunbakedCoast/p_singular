@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'dart:math' as math;
 
-import 'package:p_singular/UI/VALUES/values.dart';
+import 'package:p_singular/UI/VALUES/size_config.dart';
 import 'package:p_singular/WIDGETS/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

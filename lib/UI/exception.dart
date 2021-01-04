@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-//TODO ADD BLOC
 class ExceptionWidget extends StatelessWidget {
   final String exception;
 

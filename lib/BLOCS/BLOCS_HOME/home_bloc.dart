@@ -23,7 +23,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  ///TODO [TEST]
   Stream<HomeState> _mapLoadAllDatatoState() async* {
     yield HomeLoading();
     try {

@@ -45,7 +45,6 @@ class SignIn extends StatelessWidget {
     );
   }
 
-  //TODO ADD EXCEPTION WIDGET
   Widget _progressIndicator() {
     return Center(
       child: CircularProgressIndicator(),
@@ -78,6 +77,7 @@ class _SignInFormState extends State<_SignInForm> {
 
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+    // ignore: close_sinks
     final _signinBloc = BlocProvider.of<SignInBloc>(context);
 
     _loginButtonPressed() {
@@ -88,10 +88,7 @@ class _SignInFormState extends State<_SignInForm> {
       }
     }
 
-    void dispose() {
-      _signinBloc.close();
-      super.dispose();
-    }
+  
 
     return BlocListener<SignInBloc, SignInState>(listener: (context, state) {
       if (state is SignInFailure) {

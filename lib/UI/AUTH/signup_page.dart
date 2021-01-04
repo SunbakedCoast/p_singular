@@ -82,6 +82,7 @@ class _SignUpFormState extends State<_SignUpForm> {
 
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+    // ignore: close_sinks
     final _signupBloc = BlocProvider.of<SignUpBloc>(context);
 
     _signupButtonPressed() {
@@ -102,10 +103,6 @@ class _SignUpFormState extends State<_SignUpForm> {
       } */
     }
 
-    void dispose() {
-      _signupBloc.close();
-      super.dispose();
-    }
 
     return BlocListener<SignUpBloc, SignUpState>(listener: (context, state) {
       if (state is SignUpFailure) {

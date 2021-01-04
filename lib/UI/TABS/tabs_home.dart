@@ -32,7 +32,6 @@ class HomeTab extends StatelessWidget {
           );
         }
 
-        ///TODO [TEST]
         if (state is FetchError) {
           final _error = state.error;
           return Center(

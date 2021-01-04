@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:p_singular/UI/VALUES/page_offset.dart';
-import 'package:p_singular/UI/VALUES/values.dart';
+import 'package:p_singular/UI/VALUES/size_config.dart';
 import 'package:provider/provider.dart';
 
 class PageIndicator extends StatelessWidget {
@@ -14,7 +14,7 @@ class PageIndicator extends StatelessWidget {
             children: [
               AnimatedContainer(
                 duration: Duration(milliseconds: 100),
-                width: notifier.page.round() == 0 ? 30 : 10,
+                width: notifier.page.round() == 0 ? 25 : 10,
                 margin: const EdgeInsets.all(5),
                 height: 8,
                 decoration: BoxDecoration(
@@ -26,7 +26,7 @@ class PageIndicator extends StatelessWidget {
               AnimatedContainer(
                 duration: Duration(milliseconds: 100),
                 margin: const EdgeInsets.all(5),
-                width: notifier.page.round() == 1 ? 30 : 10,
+                width: notifier.page.round() == 1 ? 25 : 10,
                 height: 8,
                 decoration: BoxDecoration(
                     color: notifier.page.round() == 1

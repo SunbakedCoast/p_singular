@@ -14,5 +14,3 @@ export 'package:p_singular/WIDGETS/AUTH_START_STACK/widget_page_indicator.dart';
 export 'package:p_singular/WIDGETS/AUTH_START_STACK/widget_buttons.dart';
 export 'package:p_singular/WIDGETS/AUTH_START_STACK/widget_page_one.dart';
 export 'package:p_singular/WIDGETS/AUTH_START_STACK/widget_page_two.dart';
-export 'package:p_singular/WIDGETS/AUTH_START_STACK/widget_kassandra.dart';
-export 'package:p_singular/WIDGETS/AUTH_START_STACK/widget_alexios.dart';

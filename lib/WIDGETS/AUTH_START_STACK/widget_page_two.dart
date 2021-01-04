@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:p_singular/UI/VALUES/page_offset.dart';
-import 'package:p_singular/UI/VALUES/values.dart';
-import 'package:p_singular/WIDGETS/widgets.dart';
+import 'package:p_singular/UI/VALUES/size_config.dart';
 import 'package:provider/provider.dart';
 
 import 'dart:math' as math;
@@ -16,9 +15,8 @@ class PageTwo extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: topMargin(context) + 200),
+            SizedBox(height: topMargin(context) + 190),
             Heading1(),
-            //Heading2(),
             Body1()
           ],
         )
@@ -37,7 +35,7 @@ class Heading1 extends StatelessWidget {
         );
       },
       child: Container(
-        margin: const EdgeInsets.only(left: 130),
+        padding: const EdgeInsets.only(left: 130),
         child: Text('Greatness \nAwaits',
             style: GoogleFonts.poppins(
               color: Theme.of(context).accentColor,
@@ -59,7 +57,7 @@ class Body1 extends StatelessWidget {
           );
         },
         child: Container(
-          margin: const EdgeInsets.only(left: 130, top: 10),
+          padding: const EdgeInsets.only(left: 130, top: 10),
           child: Text(
               'Here at Singular we make sure all players are geared up. We have everything you need, one tap away',
               style: GoogleFonts.poppins(
@@ -96,6 +94,29 @@ class CircleContainer extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class ACAlexios extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Consumer<PageOffsetNotifier>(
+      builder: (context, notifier, child) {
+        return Align(
+          alignment: Alignment.topRight,
+          child: Transform.translate(
+            offset:
+                Offset(310 - 0.8 * notifier.offset, topMargin(context) - 100),
+            child: Transform.scale(
+              scale: 0.9,
+              child: child,
+            ),
+          ),
+        );
+      },
+      child: IgnorePointer(
+        child: Image.asset('assets/ACalexiosResized.png'),
+      ),
     );
   }
 }

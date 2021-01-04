@@ -1,10 +1,11 @@
 import 'package:animations/animations.dart';
 import 'package:p_singular/BLOCS/BLOCS_HOME/home.dart';
 import 'package:p_singular/SRC/MODELS/models.dart';
-import 'package:p_singular/UI/VALUES/values.dart';
+import 'package:p_singular/UI/VALUES/size_config.dart';
 import 'package:p_singular/pages.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class GridViewVertical extends StatelessWidget {
   final String section;
   final DataLoaded state;

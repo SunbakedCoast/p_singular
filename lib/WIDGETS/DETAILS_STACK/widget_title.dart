@@ -1,4 +1,4 @@
-import 'package:p_singular/UI/VALUES/values.dart';
+import 'package:p_singular/UI/VALUES/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';

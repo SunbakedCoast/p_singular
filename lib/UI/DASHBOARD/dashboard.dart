@@ -10,6 +10,7 @@ class DashboardProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<DashboardBloc>(
       create: (context) {
+        // ignore: close_sinks
         final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
         final _playerRepository =
             RepositoryProvider.of<PlayerRepository>(context);
@@ -45,6 +46,7 @@ class DashboardProvider extends StatelessWidget {
 
 class _Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
+    // ignore: close_sinks
     final _dashboardBloc = BlocProvider.of<DashboardBloc>(context);
 
     _logoutButtonPressed() {

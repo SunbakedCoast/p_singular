@@ -11,7 +11,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'BLOCS/BLOCS_SIGNIN/signin.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -33,12 +32,14 @@ void main() async {
             },
           ),
           BlocProvider<SignInBloc>(create: (context) {
+            // ignore: close_sinks
             final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
             final _authService =
                 RepositoryProvider.of<AuthenticationService>(context);
             return SignInBloc(_authBloc, _authService);
           }),
           BlocProvider<SignUpBloc>(create: (context) {
+            // ignore: close_sinks
             final _authBloc = BlocProvider.of<AuthenticationBloc>(context);
             final _authService =
                 RepositoryProvider.of<AuthenticationService>(context);

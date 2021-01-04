@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:p_singular/UI/VALUES/values.dart';
+import 'package:p_singular/UI/VALUES/size_config.dart';
 import 'package:p_singular/pages.dart';
 
 class AuthButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Positioned(
-        top: topMargin(context) - 10 + (mainSquareSize(context) + 150),
+        top: topMargin(context) - 10 + (mainSquareSize(context) + 140),
         right: 25,
         left: 25,
         child: Column(
@@ -30,7 +30,8 @@ class AuthButtons extends StatelessWidget {
               ),
             ),
             Container(
-              //margin: const EdgeInsets.only(right: 10),
+              width: _screenSize.width ,
+              //padding: const EdgeInsets.symmetric(horizontal: 50),
               child: TextButton(
                 onPressed: () {
                   Navigator.push(context,
