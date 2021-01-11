@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:p_singular/BLOCS/BLOCS_AUTH/authentication.dart';
 import 'package:p_singular/BLOCS/BLOCS_SIGNUP/signup.dart';
 import 'package:p_singular/SRC/MODELS/models.dart';
-import 'package:p_singular/pages.dart';
 
 class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
